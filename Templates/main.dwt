@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>Tate Harrison Media</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="meta" -->
+<meta name="description" content="Tate Harrison Media — stories, interviews, and behind-the-scenes video from Boulder, Colorado.">
+<!-- TemplateEndEditable -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+<nav>
+    <a class="brand" href="/index.html">Tate Harrison Media</a>
+    <div class="nav-links">
+        <a href="/episodes.html">Episodes</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+    </div>
+</nav>
+
+<!-- TemplateBeginEditable name="content" -->
+<div class="section">
+    <p>Editable page content goes here.</p>
+</div>
+<!-- TemplateEndEditable -->
+
+<footer>
+    &copy; 2026 Tate Harrison Media. All rights reserved.
+</footer>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
