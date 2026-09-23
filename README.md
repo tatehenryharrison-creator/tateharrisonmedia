@@ -21,8 +21,24 @@ so every file opens and previews normally in Dreamweaver.
 /js/main.js            Tiny optional hero effect
 /images/               Photos, thumbnails, logos (currently placeholder-*.svg)
 /video/                Video files (currently empty)
+/services/             The OLD service-sales site, self-contained, standalone
+                        HTML/CSS/media — lives at tateharrisonmedia.com/services.
+                        Not part of the Dreamweaver Template system above and
+                        not linked from the main nav (see note below).
 CNAME                  Custom domain for GitHub Pages (tateharrisonmedia.com)
 ```
+
+### About /services
+
+This is the old videography-services site (formerly
+`tatehenryharrison-creator.github.io` / `www.harrisonmediallc.com`), copied in
+as plain files so it keeps working at **tateharrisonmedia.com/services** even
+after the new site goes live at the root domain. It's intentionally separate
+from the Dreamweaver Template used everywhere else — it has its own inline
+styles and nav, exactly as it did on the old domain. It's on purpose *not*
+linked from the new site's main nav, since the redesign centers on the
+episode series rather than service sales; it's still reachable by anyone with
+the direct URL or an old bookmark/backlink.
 
 ## Colors & fonts (carried over from the old site)
 
