@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta name="description" content="Harrison Media LLC provides documentary-style videography for interviews, speeches, and promotional content in Colorado.">
+<meta name="keywords" content="Boulder videographer, Colorado videography, interview video production, documentary style video">
+<meta name="author" content="Tate Harrison">
+<link rel="canonical" href="https://tateharrisonmedia.com/services/">
+
+<meta property="og:title" content="Tate Harrison | Harrison Media LLC">
+<meta property="og:description" content="Documentary-style videography for interviews, speeches, and promotional storytelling.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tateharrisonmedia.com/services/">
+<meta property="og:site_name" content="Harrison Media LLC">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tateharrisonmedia.com/services/HeroBackground.jpg">
+<meta property="og:image:width" content="2560">
+<meta property="og:image:height" content="1097">
+<meta property="og:image:alt" content="Tate Harrison | Harrison Media LLC">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tate Harrison | Harrison Media LLC">
+<meta name="twitter:description" content="Documentary-style videography for interviews, speeches, and promotional storytelling.">
+<meta name="twitter:image" content="https://tateharrisonmedia.com/services/HeroBackground.jpg">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tate Harrison | Videography</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+        html {
+    scroll-behavior: smooth;
+}
+    nav a:hover {
+    opacity: 0.7;
+}
+    .video-grid iframe {
+    transition: transform 0.3s ease;
+}
+.video-grid iframe:hover {
+    transform: scale(1.02);
+}
+    .contact-link {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.contact-link:hover {
+    opacity: 0.7;
+}
+
+.contact-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 1px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.contact-link:hover::after {
+    width: 100%;
+}
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #0f0f0f;
+    color: white;
+}
+nav {
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+.section {
+    padding: 80px 10%;
+}
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+p {
+    opacity: 0.7;
+}
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+iframe {
+    width: 100%;
+    border: none;
+}
+.cta {
+    text-align: center;
+}
+.form-wrapper {
+    max-width: 800px;
+    margin: auto;
+}
+footer {
+    text-align: center;
+    padding: 40px 0;
+    opacity: 0.5;
+}
+    .subtext {
+    padding-left: 12px;
+}
+
+.subtext p {
+    margin: 6px 0;
+    opacity: 0.7;
+}
+
+    .hero {
+    display: flex;
+    align-items: center;
+    min-height: 85vh;
+    position: relative;
+    padding: 0 10%;
+    overflow: hidden;
+}
+
+/* Text panel (premium glass feel) */
+.hero-text-panel {
+    position: relative;
+    max-width: 420px;
+    padding: 40px 45px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    z-index: 3;
+
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+/* Subtext */
+.subtext p {
+    margin: 6px 0;
+    opacity: 0.7;
+}
+/* Video side */
+.hero-video {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Cinematic video zoom */
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    animation: videoZoom 20s linear infinite;
+}
+
+/* Cinematic fade mask */
+.hero-video::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0f0f0f 0%,
+        rgba(15,15,15,0.85) 35%,
+        rgba(15,15,15,0) 100%
+    );
+}
+
+/* Animations */
+@keyframes heroFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes videoZoom {
+    0% { transform: scale(1.1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1.1); }
+}    
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 90vh;
+    padding: 0 10%;
+    overflow: hidden;
+}
+
+/* Text Panel */
+.hero-text-panel {
+    position: relative;
+    width: 45%;
+    padding: 50px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    z-index: 3;
+
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.hero-title {
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+}
+
+.subtext p {
+    margin: 6px 0;
+    opacity: 0.75;
+}
+
+/* Video */
+.hero-video {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 65%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.15);
+    animation: slowZoom 25s ease-in-out infinite;
+}
+
+/* Cinematic Fade */
+.hero-video::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 75%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0a0a0a 0%,
+        rgba(10,10,10,0.9) 35%,
+        rgba(10,10,10,0) 100%
+    );
+}
+
+/* Subtle film grain overlay */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+    opacity: 0.05;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes slowZoom {
+    0% { transform: scale(1.15); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1.15); }
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================== */
+/* Services Section      */
+/* ===================== */
+
+.services-section {
+    background: linear-gradient(to bottom, #0f0f0f 0%, #ffffff 30%);
+    padding: 100px 10%;
+}
+
+.services-inner {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Photo */
+.services-photo {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+    max-height: 540px;
+}
+
+.services-photo img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 16px;
+}
+
+.photo-gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(15, 15, 15, 0.45) 0%,
+        rgba(80, 80, 120, 0.2) 50%,
+        rgba(15, 15, 15, 0.1) 100%
+    );
+    border-radius: 16px;
+}
+
+/* Content */
+.services-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.services-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 12px;
+    opacity: 1;
+}
+
+.services-heading {
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 36px;
+    color: #1a1a1a;
+}
+
+.services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.services-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.bullet-icon {
+    color: #555;
+    font-size: 1rem;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.services-list strong {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.services-list p {
+    font-size: 0.88rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 1;
+}
+
+.services-photo video {
+    animation: videoFade 30s ease-in-out infinite;
+}
+
+@keyframes videoFade {
+    0%   { opacity: 1; }
+    30%  { opacity: 0; }
+    80%  { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .services-photo {
+        display: none;
+    }
+
+    .services-inner {
+        flex-direction: column;
+        gap: 36px;
+    }
+
+    .services-photo {
+        max-height: 540px;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .services-photo video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+
+    .services-heading {
+        font-size: 1.9rem;
+    }
+}
+
+/* ========================= */
+/* Cinematic Mobile Version  */
+/* ========================= */
+
+@media (max-width: 768px) {
+    .services-photo video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+            object-position: left center;
+            transform: scale(2);
+            transform-origin: left center;
+    }
+
+    nav {
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav div:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .hero {
+        position: relative;
+        /* Reduced from 100vh to 70vh to show more width/less crop */
+        min-height: 70vh; 
+        max-height: 80vh;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    /* Fullscreen Background Video */
+    .hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .hero-video video {
+        width: 100%;
+        height: 100%;
+        /* 'cover' ensures no gaps, but 'center' positioning helps */
+        object-fit: cover;
+        object-position: center;
+        /* Removed scale(1.1) to stop the extra zoom/crop */
+        transform: scale(1.0);
+        animation: none;
+    }
+
+    /* Cinematic fade - slightly adjusted for shorter height */
+    .hero-video::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.6) 0%,
+            rgba(0,0,0,0.3) 50%,
+            rgba(0,0,0,0.8) 100%
+        );
+    }
+
+    /* Centered floating text */
+    .hero-text-panel {
+        position: relative;
+        width: 90%;
+        padding: 30px 20px;
+        border-radius: 15px;
+        background: rgba(0,0,0,0.3);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+        line-height: 1.1;
+    }
+
+    .subtext p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        line-height: 1.4;
+    }
+
+    .section {
+        padding: 50px 6%;
+    }
+
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    iframe {
+        height: 210px;
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+</style>
+ 
+</head>
+
+<body>
+
+<nav>
+    <div><strong>Tate Harrison</strong></div>
+    <div>
+        <a href="#contact">Contact</a>
+        <a href="contact.html">Client Waiver</a>
+        <a href="schedule.html">Book Now</a>
+    </div>
+</nav>
+
+<section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-text-panel">
+        <h1 class="hero-title">Videography</h1>
+
+        <div class="subtext">
+            <p>Speeches • Narratives • Interviews</p>
+            <p class="spacer"></p>
+            <p>Hi, I'm Tate Harrison — a videographer who loves a good story.</p>
+            <p>Trained in audio production, narrative film, and human psychology.</p>
+            <p class="spacer"></p>
+            <p>Based in Boulder, Colorado</p>
+        </div>
+    </div>
+
+    <div class="hero-video">
+        <video autoplay muted loop playsinline>
+            <source src="herodemoted.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services-section">
+
+    <div class="services-inner">
+
+        <!-- Left: Gradient Photo -->
+        <div class="services-photo">
+            <video autoplay muted loop playsinline>
+        <source src="hero3.mp4" type="video/mp4">
+             </video>
+        <div class="photo-gradient-overlay"></div>
+        </div>
+
+        <!-- Right: Bullet Points -->
+        <div class="services-content">
+            <p class="services-eyebrow">What I Offer</p>
+            <h2 class="services-heading">Built for Stories<br>That Stick</h2>
+
+            <ul class="services-list">
+                <li>
+                    <span class="bullet-icon">▸</span>
+                    <div>
+                        <strong>Interview & Documentary</strong>
+                        <p>Cinematic single and multi-camera setups that make your subject feel at ease and look exceptional.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="bullet-icon">▸</span>
+                    <div>
+                        <strong>Speeches & Live Events</strong>
+                        <p>Clean, broadcast-quality coverage of keynotes, panels, and ceremonies.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="bullet-icon">▸</span>
+                    <div>
+                        <strong>Brand & Marketing Video</strong>
+                        <p>Promotional content that communicates your value with clarity and style.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="bullet-icon">▸</span>
+                    <div>
+                        <strong>Audio Production</strong>
+                        <p>Studio-grade sound design and mixing — because great video starts with great audio.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+<section id="contact" class="section cta">
+    <h2>Work With Me</h2>
+
+    <p style="margin-bottom: 30px; font-weight: 400; letter-spacing: 0.5px;">
+    <a class="contact-link" href="tel:303-968-8078">303-968-8078</a>
+
+    <span style="margin: 0 15px; opacity: 0.4;">&bull;</span>
+
+    <a class="contact-link" href="mailto:Tate@HarrisonMediaLLC.com">Tate@HarrisonMediaLLC.com</a>
+</p>
+
+    <p>Tell me about your project below.</p>
+
+<div class="form-wrapper">
+    <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLScs_qOGhoRX7AXtPyCmCZQyX8UOv5xdeI1uKHaRGzhmnOFAcg/viewform?embedded=true"
+        width="100%"
+        height="1200"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0">
+        Loading…
+    </iframe>
+</div>
+</section>
+
+<footer>
+    © 2026 Tate Harrison. All rights reserved.
+</footer>
+
+<script>
+const heroText = document.querySelector('.hero-text-panel');
+
+document.addEventListener('mousemove', (e) => {
+    const x = (window.innerWidth / 2 - e.clientX) / 50;
+    const y = (window.innerHeight / 2 - e.clientY) / 50;
+
+    heroText.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>
