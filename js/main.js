@@ -1,13 +1,10 @@
-/* Small hero parallax effect — purely optional.
-   If it ever causes trouble in Dreamweaver's Live view, you can
-   safely delete this file and remove its <script> tag from a page. */
+/* Hero parallax — matches the mechanic on the live tatehenryharrison-creator
+   site: the background layer drifts slightly as you scroll past the hero. */
 document.addEventListener('DOMContentLoaded', function () {
-    var heroText = document.querySelector('.hero-text-panel');
-    if (!heroText) return;
+    var heroParallax = document.querySelector('.hero-parallax');
+    if (!heroParallax) return;
 
-    document.addEventListener('mousemove', function (e) {
-        var x = (window.innerWidth / 2 - e.clientX) / 50;
-        var y = (window.innerHeight / 2 - e.clientY) / 50;
-        heroText.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-    });
+    window.addEventListener('scroll', function () {
+        heroParallax.style.transform = 'translateY(' + (window.scrollY * 0.35) + 'px)';
+    }, { passive: true });
 });

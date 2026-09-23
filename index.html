@@ -11,6 +11,7 @@
 <meta name="description" content="Tate Harrison Media — a documentary-style video and podcast series: stories, interviews, and behind-the-scenes from Boulder, Colorado.">
 <!-- InstanceEndEditable -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -28,19 +29,26 @@
 <!-- InstanceBeginEditable name="content" -->
 
 <section class="hero">
-    <div class="hero-text-panel">
-        <p class="hero-eyebrow">A Video &amp; Podcast Series</p>
-        <h1 class="hero-title">Stories Worth Telling</h1>
-        <p>Documentary-style interviews and conversations, filmed and recorded from Boulder, Colorado. New episodes on video and audio.</p>
-        <a class="btn" href="/episodes.html">Watch the Latest Episode</a>
-    </div>
-    <div class="hero-media">
-        <img src="/images/hero-background.jpg" alt="Hero image">
+    <div class="hero-parallax">
+        <div class="hero-bg"></div>
     </div>
 
-    <a class="hero-scroll-cue" href="#discover">
-        <span class="hero-scroll-arrow">&#8595;</span>
-        <span>Discover Human Motivation</span>
+    <div class="hero-text-panel">
+        <h1 class="hero-title">Stories Worth Telling</h1>
+        <div class="subtext">
+            <p>A Video &amp; Podcast Series</p>
+            <p class="spacer"></p>
+            <p>Documentary-style interviews and conversations, filmed and recorded from Boulder, Colorado.</p>
+        </div>
+        <a class="btn" href="/episodes.html">Watch the Latest Episode</a>
+    </div>
+
+    <a href="#discover" class="scroll-arrow" aria-label="Scroll to next section">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="6 5 12 11 18 5"></polyline>
+            <polyline points="6 12 12 18 18 12"></polyline>
+        </svg>
+        <span class="scroll-arrow-label">Discover Human Motivation</span>
     </a>
 
     <a class="hero-side-link" href="/services/">
