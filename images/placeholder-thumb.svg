@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
-  <rect width="800" height="450" fill="#1a1a1a"/>
-  <rect x="1" y="1" width="798" height="448" fill="none" stroke="#444" stroke-dasharray="8,8"/>
-  <text x="400" y="230" font-family="Arial, sans-serif" font-size="22" fill="#777" text-anchor="middle" letter-spacing="1">EPISODE THUMBNAIL</text>
-  <text x="400" y="260" font-family="Arial, sans-serif" font-size="15" fill="#555" text-anchor="middle">16:9 — swap in Dreamweaver's Property Inspector</text>
+  <rect width="800" height="450" fill="#ece8e0"/>
+  <rect x="1" y="1" width="798" height="448" fill="none" stroke="#c7c2b4" stroke-dasharray="8,8"/>
+  <text x="400" y="230" font-family="Georgia, serif" font-size="22" fill="#8a8575" text-anchor="middle" letter-spacing="1">EPISODE THUMBNAIL</text>
+  <text x="400" y="260" font-family="Georgia, serif" font-size="15" fill="#a8a49c" text-anchor="middle">16:9 — swap in Dreamweaver's Property Inspector</text>
 </svg>

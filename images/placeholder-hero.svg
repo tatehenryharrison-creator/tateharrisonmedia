@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
-  <rect width="1600" height="1000" fill="#1a1a1a"/>
-  <rect x="1" y="1" width="1598" height="998" fill="none" stroke="#444" stroke-dasharray="10,10"/>
-  <text x="800" y="480" font-family="Arial, sans-serif" font-size="34" fill="#777" text-anchor="middle" letter-spacing="2">HERO IMAGE / VIDEO PLACEHOLDER</text>
-  <text x="800" y="530" font-family="Arial, sans-serif" font-size="20" fill="#555" text-anchor="middle">Replace with a photo or clip from your media folder (recommended 1600x1000+)</text>
-</svg>

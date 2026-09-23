@@ -1,19 +1,22 @@
 /* =========================================================
    TATE HARRISON MEDIA — GLOBAL STYLESHEET
    =========================================================
-   Brand palette (carried over from the old site — do not
-   need to touch these unless you want a new look):
+   Brand palette (matches the real, current live site at
+   tatehenryharrison-creator.github.io — pulled from its
+   origin/main on 2026-09-23, NOT the old Inter/dark look this
+   file used to describe):
 
-     Dark background ..... #0f0f0f  (near-black, main bg)
-     Dark background alt . #0a0a0a  (used on hero fade)
-     Body text on dark ... #ffffff  (white, often at 70-90% opacity)
-     Light section bg .... #ffffff
-     Heading on light .... #1a1a1a
-     Body text on light .. #555555
-     Eyebrow / label ..... #444444
+     Page background ....... #f5f4f0  (parchment/cream)
+     Body text ............. #1C1A14  (near-black)
+     Muted body text ....... #635f51  (subtext, paragraphs)
+     Faint muted text ...... #a8a49c  (hero subtext, secondary)
+     Gold accent ........... #C9A84C
+     Blue-gray accent ...... #5C6E82
 
-   Font: "Inter" (300 / 400 / 600), loaded from Google Fonts
-   in the <head> of every page.
+   Fonts, self-hosted via css/fonts.css (see that file):
+     "Cinzel"          — h1 / h2 titles
+     "EB Garamond"     — nav, labels, UI, subtext
+     "IM Fell English" — body copy (default on <body>)
 
    HOW THIS FILE IS ORGANIZED (top to bottom):
    1. Reset & base
@@ -40,16 +43,17 @@ html { scroll-behavior: smooth; }
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #0f0f0f;
-    color: #ffffff;
+    font-family: 'IM Fell English', serif;
+    background: #f5f4f0;
+    color: #1C1A14;
 }
 
 img { max-width: 100%; display: block; }
 
-h1, h2, h3 { margin: 0 0 10px 0; font-weight: 600; }
+h1, h2 { margin: 0 0 10px 0; font-family: 'Cinzel', serif; font-weight: 400; }
+h3 { margin: 0 0 10px 0; font-family: 'EB Garamond', serif; font-weight: 600; }
 
-p { margin: 0 0 16px 0; opacity: 0.7; line-height: 1.6; }
+p { margin: 0 0 16px 0; color: #635f51; line-height: 1.6; }
 
 a { color: inherit; }
 
@@ -60,9 +64,9 @@ a { color: inherit; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #1a1a1a;
-    border: 1px dashed #444;
-    color: #777;
+    background: #ece8e0;
+    border: 1px dashed #c7c2b4;
+    color: #8a8575;
     font-size: 0.85rem;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -76,20 +80,26 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: #f5f4f0;
+    border-bottom: 1px solid rgba(28,26,20,0.12);
+    position: sticky;
+    top: 0;
+    z-index: 300;
 }
 
 nav .brand {
-    color: #ffffff;
+    color: #1C1A14;
     text-decoration: none;
-    font-weight: 600;
+    font-family: 'Cinzel', serif;
     letter-spacing: 0.5px;
 }
 
 nav .nav-links a {
-    color: #ffffff;
+    color: #1C1A14;
     text-decoration: none;
+    font-family: 'EB Garamond', serif;
     margin-left: 24px;
-    opacity: 0.85;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
 }
 
@@ -99,9 +109,10 @@ nav .nav-links a:hover { opacity: 1; }
 .btn {
     display: inline-block;
     padding: 12px 28px;
-    border: 1px solid #ffffff;
+    border: 1px solid #1C1A14;
     border-radius: 30px;
-    color: #ffffff;
+    color: #1C1A14;
+    font-family: 'EB Garamond', serif;
     text-decoration: none;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
@@ -109,12 +120,12 @@ nav .nav-links a:hover { opacity: 1; }
 }
 
 .btn:hover {
-    background: #ffffff;
-    color: #0f0f0f;
+    background: #1C1A14;
+    color: #f5f4f0;
 }
 
 .contact-link {
-    color: #ffffff;
+    color: #1C1A14;
     text-decoration: none;
     position: relative;
     transition: opacity 0.3s ease;
@@ -129,7 +140,7 @@ nav .nav-links a:hover { opacity: 1; }
     bottom: -4px;
     width: 0%;
     height: 1px;
-    background: #ffffff;
+    background: #1C1A14;
     transition: width 0.3s ease;
 }
 
@@ -138,9 +149,7 @@ nav .nav-links a:hover { opacity: 1; }
 /* 4. HERO ---------------------------------------------------- */
 /* Recreated to match the current live hero on
    tatehenryharrison-creator.github.io: a full-bleed Ken Burns
-   background photo behind a centered glass/parchment text panel.
-   (Rest of the site still uses the Inter/dark scheme for now —
-   this is scoped to the hero on purpose, see chat.) */
+   background photo behind a centered glass/parchment text panel. */
 .hero {
     position: relative;
     display: flex;
@@ -296,16 +305,17 @@ nav .nav-links a:hover { opacity: 1; }
 
 .section-light {
     background: #ffffff;
-    color: #1a1a1a;
+    color: #1C1A14;
 }
 
-.section-light p { color: #555555; opacity: 1; }
+.section-light p { color: #635f51; }
 
 .section-eyebrow {
     font-size: 0.75rem;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #444444;
+    font-family: 'EB Garamond', serif;
+    color: #8a8575;
     margin-bottom: 12px;
 }
 
@@ -350,7 +360,8 @@ nav .nav-links a:hover { opacity: 1; }
     font-size: 0.75rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    opacity: 0.5;
+    font-family: 'EB Garamond', serif;
+    color: #a8a49c;
     margin-bottom: 8px;
 }
 
@@ -433,7 +444,8 @@ nav .nav-links a:hover { opacity: 1; }
 footer {
     text-align: center;
     padding: 40px 0;
-    opacity: 0.5;
+    font-family: 'EB Garamond', serif;
+    color: #a8a49c;
     font-size: 0.85rem;
 }
 

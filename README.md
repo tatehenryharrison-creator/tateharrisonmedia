@@ -40,16 +40,30 @@ linked from the new site's main nav, since the redesign centers on the
 episode series rather than service sales; it's still reachable by anyone with
 the direct URL or an old bookmark/backlink.
 
-## Colors & fonts (carried over from the old site)
+## Colors & fonts
 
-- Font: **Inter** (weights 300/400/600), loaded from Google Fonts
-- Dark sections: background `#0f0f0f`, text white
-- Light sections: background white, headings `#1a1a1a`, body text `#555`
-- No bright accent color — kept deliberately monochrome/editorial
+These match the real, current live design on
+`tatehenryharrison-creator.github.io` (pulled from its GitHub repo directly —
+an earlier pass at this framework used a months-stale local copy of that repo
+and got the palette wrong; this has since been corrected sitewide):
+
+- Fonts, self-hosted in `/fonts/` and loaded via `css/fonts.css`:
+  **Cinzel** (h1/h2 titles), **EB Garamond** (nav, labels, subtext),
+  **IM Fell English** (body copy)
+- Page background: `#f5f4f0` (parchment/cream)
+- Body text: `#1C1A14` (near-black); muted text `#635f51`; faint/secondary
+  text `#a8a49c`
+- Accent colors available but not yet used much: gold `#C9A84C`,
+  blue-gray `#5C6E82`
 
 All of this lives in `css/style.css`, organized into numbered sections
 (nav, hero, episode cards, etc.) with plain hex values so Dreamweaver's
 CSS Designer color-swatch picker works directly on every rule.
+
+Note: `/services/` (see above) is **not** part of this palette — it's a
+snapshot of the old site's *previous* dark/Inter look, copied before this
+correction. It should eventually be redone from the live repo's current
+`origin/main` if you want it to match the real current services site.
 
 ## How the Dreamweaver Template works
 
