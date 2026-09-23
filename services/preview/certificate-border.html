@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate Border — Preview</title>
+  <link rel="stylesheet" href="../fonts.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0e0c09;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      padding: 60px 5%;
+      font-family: 'EB Garamond', serif;
+    }
+
+    /* ── Label ── */
+    .preview-label {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.4);
+    }
+
+    /* ── Border frame container ── */
+    .border-frame {
+      width: 100%;
+      max-width: 860px;
+      aspect-ratio: 16 / 7;
+      position: relative;
+    }
+
+    .border-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+
+    /* ── Compact variant ── */
+    .border-frame--compact {
+      aspect-ratio: 16 / 5;
+    }
+  </style>
+</head>
+<body>
+
+  <p class="preview-label">Certificate Border — Full</p>
+
+  <!-- Full variant -->
+  <div class="border-frame">
+    <svg viewBox="0 0 860 376" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <!-- Dot pattern along edges -->
+        <pattern id="dot-h" x="0" y="0" width="18" height="1" patternUnits="userSpaceOnUse">
+          <circle cx="9" cy="0.5" r="1.2" fill="rgba(201,168,76,0.35)"/>
+        </pattern>
+        <pattern id="dot-v" x="0" y="0" width="1" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="0.5" cy="9" r="1.2" fill="rgba(201,168,76,0.35)"/>
+        </pattern>
+
+        <!-- Gold glow filter -->
+        <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ── Outer border ── -->
+      <rect x="10" y="10" width="840" height="356"
+            stroke="rgba(201,168,76,0.55)" stroke-width="0.8" fill="none"/>
+
+      <!-- ── Dot band: horizontal top / bottom ── -->
+      <rect x="26" y="18" width="808" height="1"
+            fill="url(#dot-h)"/>
+      <rect x="26" y="357" width="808" height="1"
+            fill="url(#dot-h)"/>
+
+      <!-- ── Dot band: vertical left / right ── -->
+      <rect x="18" y="26" width="1" height="324"
+            fill="url(#dot-v)"/>
+      <rect x="841" y="26" width="1" height="324"
+            fill="url(#dot-v)"/>
+
+      <!-- ── Inner border ── -->
+      <rect x="26" y="26" width="808" height="324"
+            stroke="rgba(201,168,76,0.38)" stroke-width="0.8" fill="none"/>
+
+      <!-- ══ CORNER ORNAMENTS ══ -->
+
+      <!-- Top-left corner -->
+      <g filter="url(#gold-glow)">
+        <!-- L bracket -->
+        <path d="M10 46 L10 10 L46 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <!-- Corner diamond -->
+        <path d="M10 5 L15 10 L10 15 L5 10 Z" fill="#C9A84C" opacity="0.85"/>
+        <!-- Inner corner tick -->
+        <path d="M26 36 L26 26 L36 26" stroke="rgba(201,168,76,0.5)" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- Top-right corner -->
+      <g filter="url(#gold-glow)">
+        <path d="M850 46 L850 10 L814 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M850 5 L855 10 L850 15 L845 10 Z" fill="#C9A84C" opacity="0.85"/>
+        <path d="M834 36 L834 26 L824 26" stroke="rgba(201,168,76,0.5)" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- Bottom-left corner -->
+      <g filter="url(#gold-glow)">
+        <path d="M10 330 L10 366 L46 366" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M10 361 L15 366 L10 371 L5 366 Z" fill="#C9A84C" opacity="0.85"/>
+        <path d="M26 340 L26 350 L36 350" stroke="rgba(201,168,76,0.5)" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- Bottom-right corner -->
+      <g filter="url(#gold-glow)">
+        <path d="M850 330 L850 366 L814 366" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M850 361 L855 366 L850 371 L845 366 Z" fill="#C9A84C" opacity="0.85"/>
+        <path d="M834 340 L834 350 L824 350" stroke="rgba(201,168,76,0.5)" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- ══ MIDPOINT ORNAMENTS ══ -->
+
+      <!-- Top center -->
+      <g filter="url(#gold-glow)">
+        <path d="M430 10 L416 10" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M444 10 L430 10" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M430 5 L436 10 L430 15 L424 10 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="430" cy="10" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+
+      <!-- Bottom center -->
+      <g filter="url(#gold-glow)">
+        <path d="M430 361 L416 361" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M444 361 L430 361" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M430 356 L436 361 L430 366 L424 361 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="430" cy="366" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+
+      <!-- Left center -->
+      <g filter="url(#gold-glow)">
+        <path d="M10 178 L10 164" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M10 192 L10 178" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M5 178 L10 172 L15 178 L10 184 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="10" cy="178" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+
+      <!-- Right center -->
+      <g filter="url(#gold-glow)">
+        <path d="M850 178 L850 164" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M850 192 L850 178" stroke="rgba(201,168,76,0.5)" stroke-width="0.8"/>
+        <path d="M845 178 L850 172 L855 178 L850 184 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="850" cy="178" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+
+      <!-- ══ QUARTER-POINT accents (small ticks on outer border) ══ -->
+      <!-- Top: quarter and three-quarter -->
+      <line x1="215" y1="7" x2="215" y2="13" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="645" y1="7" x2="645" y2="13" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <!-- Bottom -->
+      <line x1="215" y1="363" x2="215" y2="369" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="645" y1="363" x2="645" y2="369" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <!-- Left -->
+      <line x1="7" y1="94" x2="13" y2="94" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="7" y1="282" x2="13" y2="282" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <!-- Right -->
+      <line x1="847" y1="94" x2="853" y2="94" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="847" y1="282" x2="853" y2="282" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+
+    </svg>
+  </div>
+
+
+  <p class="preview-label">Certificate Border — Compact</p>
+
+  <!-- Compact variant for the Features tile pattern zone -->
+  <div class="border-frame border-frame--compact">
+    <svg viewBox="0 0 860 240" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <pattern id="dot-h2" x="0" y="0" width="18" height="1" patternUnits="userSpaceOnUse">
+          <circle cx="9" cy="0.5" r="1.2" fill="rgba(201,168,76,0.35)"/>
+        </pattern>
+        <pattern id="dot-v2" x="0" y="0" width="1" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="0.5" cy="9" r="1.2" fill="rgba(201,168,76,0.35)"/>
+        </pattern>
+        <filter id="gold-glow2" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <rect x="10" y="10" width="840" height="220" stroke="rgba(201,168,76,0.55)" stroke-width="0.8" fill="none"/>
+      <rect x="10" y="18" width="840" height="1" fill="url(#dot-h2)"/>
+      <rect x="10" y="221" width="840" height="1" fill="url(#dot-h2)"/>
+      <rect x="18" y="10" width="1" height="220" fill="url(#dot-v2)"/>
+      <rect x="841" y="10" width="1" height="220" fill="url(#dot-v2)"/>
+      <rect x="26" y="26" width="808" height="188" stroke="rgba(201,168,76,0.38)" stroke-width="0.8" fill="none"/>
+
+      <!-- Corners -->
+      <g filter="url(#gold-glow2)">
+        <path d="M10 36 L10 10 L36 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M10 5 L15 10 L10 15 L5 10 Z" fill="#C9A84C" opacity="0.85"/>
+        <path d="M26 26 L26 26 L36 26" stroke="rgba(201,168,76,0.5)" stroke-width="0.8" fill="none"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M850 36 L850 10 L824 10" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M850 5 L855 10 L850 15 L845 10 Z" fill="#C9A84C" opacity="0.85"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M10 194 L10 220 L36 220" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M10 215 L15 220 L10 225 L5 220 Z" fill="#C9A84C" opacity="0.85"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M850 194 L850 220 L824 220" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="square" fill="none" opacity="0.9"/>
+        <path d="M850 215 L855 220 L850 225 L845 220 Z" fill="#C9A84C" opacity="0.85"/>
+      </g>
+
+      <!-- Mid ornaments -->
+      <g filter="url(#gold-glow2)">
+        <path d="M430 5 L436 10 L430 15 L424 10 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="430" cy="10" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M430 215 L436 220 L430 225 L424 220 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="430" cy="220" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M5 110 L10 104 L15 110 L10 116 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="10" cy="110" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+      <g filter="url(#gold-glow2)">
+        <path d="M845 110 L850 104 L855 110 L850 116 Z" fill="none" stroke="#C9A84C" stroke-width="0.9" opacity="0.8"/>
+        <circle cx="850" cy="110" r="2" fill="#C9A84C" opacity="0.7"/>
+      </g>
+
+      <!-- Quarter ticks -->
+      <line x1="215" y1="7" x2="215" y2="13" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="645" y1="7" x2="645" y2="13" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="215" y1="217" x2="215" y2="223" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+      <line x1="645" y1="217" x2="645" y2="223" stroke="rgba(201,168,76,0.38)" stroke-width="0.8"/>
+    </svg>
+  </div>
+
+</body>
+</html>

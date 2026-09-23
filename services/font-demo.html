@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Font & Style Demo | Tate Harrison</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Bebas+Neue&family=Montserrat:wght@300;400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #21242C; color: #f5f4f0; font-family: 'Inter', sans-serif; }
+
+    .page-label {
+      text-align: center;
+      padding: 48px 10% 16px;
+      font-size: 0.72rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #5c5c58;
+    }
+    .page-title {
+      text-align: center;
+      padding: 0 10% 12px;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #f5f4f0;
+      font-family: 'Inter', sans-serif;
+    }
+    .page-sub {
+      text-align: center;
+      padding: 0 10% 60px;
+      font-size: 0.9rem;
+      color: #5c5c58;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(92,92,88,0.2);
+      margin: 0 10%;
+    }
+
+    /* ===== DEMO CARD ===== */
+    .demo {
+      padding: 72px 10%;
+      border-bottom: 1px solid rgba(92,92,88,0.15);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 60px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .demo-meta {
+      padding-top: 6px;
+      position: sticky;
+      top: 24px;
+    }
+    .demo-num {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #5c5c58;
+      margin-bottom: 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .demo-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #e2ddd5;
+      margin-bottom: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+    .demo-desc {
+      font-size: 0.78rem;
+      color: #5c5c58;
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+    }
+    .demo-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border: 1px solid rgba(92,92,88,0.4);
+      border-radius: 20px;
+      padding: 3px 10px;
+      color: #5c5c58;
+      margin-top: 10px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ===== PREVIEW CARD ===== */
+    .preview {
+      background: #2d3140;
+      border: 1px solid rgba(92,92,88,0.2);
+      border-radius: 20px;
+      padding: 52px 56px;
+    }
+    .preview-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #5c5c58;
+      margin-bottom: 14px;
+    }
+    .preview-h1 {
+      font-size: 3.4rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: #f5f4f0;
+    }
+    .preview-body {
+      font-size: 0.92rem;
+      color: #a8a49c;
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+    .preview-h2 {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: #e2ddd5;
+    }
+    .preview-sub {
+      font-size: 0.85rem;
+      color: #a8a49c;
+      line-height: 1.6;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+    .preview-divider {
+      height: 1px;
+      background: rgba(92,92,88,0.25);
+      margin: 28px 0;
+    }
+    .preview-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 9px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(226,221,213,0.08);
+      border: 1px solid rgba(226,221,213,0.2);
+      color: #e2ddd5;
+    }
+    .preview-nav {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(92,92,88,0.2);
+      font-size: 0.88rem;
+      color: #a8a49c;
+    }
+    .preview-nav strong { color: #f5f4f0; }
+
+    /* ========================================= */
+    /* 01 — CURRENT: Inter only                  */
+    /* ========================================= */
+    .f1 .preview-nav,
+    .f1 .preview-eyebrow,
+    .f1 .preview-body,
+    .f1 .preview-sub,
+    .f1 .preview-btn { font-family: 'Inter', sans-serif; }
+    .f1 .preview-h1 { font-family: 'Inter', sans-serif; font-weight: 600; }
+    .f1 .preview-h2 { font-family: 'Inter', sans-serif; font-weight: 600; }
+
+    /* ========================================= */
+    /* 02 — Playfair Display + Inter             */
+    /* ========================================= */
+    .f2 .preview-h1 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .f2 .preview-h2 { font-family: 'Playfair Display', serif; font-weight: 600; }
+    .f2 .preview-nav,
+    .f2 .preview-eyebrow,
+    .f2 .preview-body,
+    .f2 .preview-sub,
+    .f2 .preview-btn { font-family: 'Inter', sans-serif; }
+
+    /* ========================================= */
+    /* 03 — DM Serif Display + DM Sans           */
+    /* ========================================= */
+    .f3 .preview-h1 { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -0.5px; }
+    .f3 .preview-h2 { font-family: 'DM Serif Display', serif; font-weight: 400; }
+    .f3 .preview-nav,
+    .f3 .preview-eyebrow,
+    .f3 .preview-body,
+    .f3 .preview-sub,
+    .f3 .preview-btn { font-family: 'DM Sans', sans-serif; }
+
+    /* ========================================= */
+    /* 04 — Cormorant Garamond + Inter           */
+    /* ========================================= */
+    .f4 .preview-h1 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 4rem; letter-spacing: 0.5px; }
+    .f4 .preview-h2 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 2.2rem; }
+    .f4 .preview-nav,
+    .f4 .preview-eyebrow,
+    .f4 .preview-body,
+    .f4 .preview-sub,
+    .f4 .preview-btn { font-family: 'Inter', sans-serif; }
+
+    /* ========================================= */
+    /* 05 — Bebas Neue + Inter                   */
+    /* ========================================= */
+    .f5 .preview-h1 { font-family: 'Bebas Neue', sans-serif; font-size: 4.8rem; letter-spacing: 2px; font-weight: 400; }
+    .f5 .preview-h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; letter-spacing: 2px; font-weight: 400; }
+    .f5 .preview-nav,
+    .f5 .preview-eyebrow,
+    .f5 .preview-body,
+    .f5 .preview-sub,
+    .f5 .preview-btn { font-family: 'Inter', sans-serif; }
+
+    /* ========================================= */
+    /* 06 — Montserrat only                      */
+    /* ========================================= */
+    .f6 .preview-h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; letter-spacing: -1px; }
+    .f6 .preview-h2 { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+    .f6 .preview-nav,
+    .f6 .preview-eyebrow,
+    .f6 .preview-body,
+    .f6 .preview-sub,
+    .f6 .preview-btn { font-family: 'Montserrat', sans-serif; font-weight: 300; }
+
+    /* ========================================= */
+    /* 07 — Libre Baskerville + Space Grotesk    */
+    /* ========================================= */
+    .f7 .preview-h1 { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 3rem; }
+    .f7 .preview-h2 { font-family: 'Libre Baskerville', serif; font-weight: 700; font-size: 1.6rem; }
+    .f7 .preview-nav,
+    .f7 .preview-eyebrow,
+    .f7 .preview-body,
+    .f7 .preview-sub,
+    .f7 .preview-btn { font-family: 'Space Grotesk', sans-serif; }
+
+    /* ========================================= */
+    /* 08 — Space Grotesk only                   */
+    /* ========================================= */
+    .f8 .preview-h1 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -1.5px; }
+    .f8 .preview-h2 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.5px; }
+    .f8 .preview-nav,
+    .f8 .preview-eyebrow,
+    .f8 .preview-body,
+    .f8 .preview-sub,
+    .f8 .preview-btn { font-family: 'Space Grotesk', sans-serif; font-weight: 300; }
+
+    @media (max-width: 900px) {
+      .demo { grid-template-columns: 1fr; gap: 28px; }
+      .demo-meta { position: static; }
+      .preview { padding: 36px 28px; }
+      .preview-h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<p class="page-label">Typography Demo</p>
+<h1 class="page-title">Font & Style Options</h1>
+<p class="page-sub">Each card shows your actual site copy in a different typeface. Pick your favourite.</p>
+
+<!-- ===== 01 ===== -->
+<div class="demo f1">
+  <div class="demo-meta">
+    <p class="demo-num">Option 01</p>
+    <p class="demo-name">Inter</p>
+    <p class="demo-desc">Your current font. Clean, modern, Swiss-influenced sans-serif. Highly legible.</p>
+    <span class="demo-tag">Current</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 02 ===== -->
+<div class="demo f2">
+  <div class="demo-meta">
+    <p class="demo-num">Option 02</p>
+    <p class="demo-name">Playfair Display<br>+ Inter</p>
+    <p class="demo-desc">Editorial serif headings with clean sans-serif body. Premium, editorial feel — used by luxury brands and high-end portfolios.</p>
+    <span class="demo-tag">Editorial</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 03 ===== -->
+<div class="demo f3">
+  <div class="demo-meta">
+    <p class="demo-num">Option 03</p>
+    <p class="demo-name">DM Serif Display<br>+ DM Sans</p>
+    <p class="demo-desc">Cinematic and warm. Designed for modern editorial contexts. Feels like a documentary title card.</p>
+    <span class="demo-tag">Cinematic</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 04 ===== -->
+<div class="demo f4">
+  <div class="demo-meta">
+    <p class="demo-num">Option 04</p>
+    <p class="demo-name">Cormorant Garamond<br>+ Inter</p>
+    <p class="demo-desc">Ultra-elegant, luxury serif. Used by high-fashion and fine-art brands. Refined and distinctive — makes a strong statement.</p>
+    <span class="demo-tag">Luxury</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 05 ===== -->
+<div class="demo f5">
+  <div class="demo-meta">
+    <p class="demo-num">Option 05</p>
+    <p class="demo-name">Bebas Neue<br>+ Inter</p>
+    <p class="demo-desc">Bold, all-caps display font. Used in film posters, sports brands, and documentary titles. High-energy and cinematic.</p>
+    <span class="demo-tag">Bold / Film</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 06 ===== -->
+<div class="demo f6">
+  <div class="demo-meta">
+    <p class="demo-num">Option 06</p>
+    <p class="demo-name">Montserrat</p>
+    <p class="demo-desc">Geometric, confident sans-serif. More structured than Inter — feels architectural and professional.</p>
+    <span class="demo-tag">Geometric</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 07 ===== -->
+<div class="demo f7">
+  <div class="demo-meta">
+    <p class="demo-num">Option 07</p>
+    <p class="demo-name">Libre Baskerville<br>+ Space Grotesk</p>
+    <p class="demo-desc">Classic book serif meets modern grotesk. Journalistic and authoritative — great for interview and documentary brands.</p>
+    <span class="demo-tag">Journalistic</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<!-- ===== 08 ===== -->
+<div class="demo f8">
+  <div class="demo-meta">
+    <p class="demo-num">Option 08</p>
+    <p class="demo-name">Space Grotesk</p>
+    <p class="demo-desc">Quirky, techy, distinctive sans-serif. Slightly unconventional — stands out from standard clean fonts. Very modern.</p>
+    <span class="demo-tag">Modern / Techy</span>
+  </div>
+  <div class="preview">
+    <div class="preview-nav">
+      <strong>Tate Harrison</strong>
+      <span>Packages</span><span>Contact</span><span>Book Now</span>
+    </div>
+    <p class="preview-eyebrow">Videography</p>
+    <h1 class="preview-h1">Built for Stories<br>That Stick</h1>
+    <p class="preview-body">Hi, I'm Tate Harrison — a videographer who loves a good story. Trained in audio production, narrative film, and human psychology.</p>
+    <div class="preview-divider"></div>
+    <p class="preview-eyebrow">Investment</p>
+    <h2 class="preview-h2">Choose Your Package</h2>
+    <p class="preview-sub">From single-day photography to full brand campaigns — find the right fit for your project.</p>
+    <a class="preview-btn">Select Package</a>
+  </div>
+</div>
+
+<div style="text-align:center; padding: 60px 10%; font-size: 0.8rem; color: #5c5c58; font-family: 'Inter', sans-serif;">
+  Tell me which number you prefer and I'll apply it across the entire site.
+</div>
+
+</body>
+</html>

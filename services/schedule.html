@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Redirecting...</title>
-
-  <!-- Instant Redirect -->
-  <meta http-equiv="refresh" content="0; url=https://outlook.office.com/book/Consultations@HarrisonMediaLLC.com/?ismsaljsauthenabled">
-
-  <script>
-    // Backup redirect for reliability
-    window.location.href = "https://outlook.office.com/book/ConsultationSchedule@HarrisonMediaLLC.com/?ismsaljsauthenabled";
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Free Consultation — Tate Harrison Media</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta http-equiv="refresh" content="1; url=https://outlook.office.com/book/ConsultationSchedule@HarrisonMediaLLC.com/?ismsaljsauthenabled">
+    <link rel="stylesheet" href="fonts.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; height: 100%; }
+        body {
+            font-family: 'EB Garamond', serif;
+            background: #f5f4f0; color: #1C1A14;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 100vh; text-align: center;
+        }
+        .redirect-wrap { max-width: 480px; padding: 40px 24px; }
+        .logo { height: 80px; width: auto; margin-bottom: 36px; opacity: 0.9; }
+        h1 {
+            font-family: 'Cinzel', serif; font-weight: 400;
+            font-size: 1.5rem; color: #1C1A14; margin: 0 0 14px;
+        }
+        p { font-size: 1rem; color: #635f51; line-height: 1.65; margin: 0 0 28px; }
+        .spinner {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 2px solid rgba(92,110,130,0.2);
+            border-top-color: #5C6E82;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 24px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .manual-link {
+            font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase;
+            color: #5C6E82; text-decoration: none;
+            border-bottom: 1px solid rgba(92,110,130,0.35);
+            padding-bottom: 2px; transition: color 0.2s;
+        }
+        .manual-link:hover { color: #4a5c6e; }
+    </style>
 </head>
 <body>
+    <div class="redirect-wrap">
+        <img src="logo_transparent.png" alt="Harrison Media LLC" class="logo" style="height:120px;">
+        <h1>Free Consultation</h1>
+        <p>You're being redirected to the scheduling page.<br>It'll just take a moment.</p>
+        <div class="spinner"></div>
+        <a class="manual-link"
+           href="https://outlook.office.com/book/ConsultationSchedule@HarrisonMediaLLC.com/?ismsaljsauthenabled">
+            Click here if you aren't redirected →
+        </a>
+    </div>
+    <script>
+        setTimeout(function() {
+            window.location.href = "https://outlook.office.com/book/ConsultationSchedule@HarrisonMediaLLC.com/?ismsaljsauthenabled";
+        }, 1000);
+    </script>
 </body>
-</html>
 </html>

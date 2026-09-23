@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get a Quote | Harrison Media LLC</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="fonts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23/build/css/intlTelInput.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    @keyframes gold-pulse {
+      0%, 100% { opacity: 0.18; }
+      50%       { opacity: 0.55; }
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9999;
+      border: 1.5px solid #c9a052;
+      animation: gold-pulse 3s ease-in-out infinite;
+    }
+
+    body { margin: 0; font-family: 'IM Fell English', serif; background: #f5f4f0; color: #1C1A14; }
+    h1, h2 { font-family: 'Cinzel', serif; font-weight: 400; }
+    p { color: #635f51; margin: 0; }
+    nav, nav a, footer { font-family: 'EB Garamond', serif; }
+
+    /* NAV */
+    nav {
+      padding: 0 10% 0 0;
+      display: flex; align-items: stretch; justify-content: space-between;
+      background: #f5f4f0;
+      border-bottom: 1px solid rgba(99,95,81,0.12);
+      position: sticky; top: 0; z-index: 100;
+      transition: transform 0.35s ease;
+    }
+    nav.hidden { transform: translateY(-100%); }
+    .nav-logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; line-height: 0; }
+    .nav-logo { height: 100px; width: auto; display: block; transition: opacity 0.25s ease; }
+    .nav-logo:hover { opacity: 0.8; }
+    .nav-links { display: flex; align-items: center; gap: 20px; }
+    .nav-links > a { color: #2A2220; text-decoration: none; font-size: 0.95rem; transition: opacity 0.3s ease; }
+    .nav-links > a:hover { opacity: 0.7; }
+
+    /* HEADER */
+    .page-header { text-align: center; padding: 80px 10% 60px; border-bottom: 1px solid rgba(99,95,81,0.1); }
+    .page-eyebrow { font-family: 'EB Garamond', serif; font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: #5C6E82; margin: 0 0 16px; }
+    .page-title { font-size: 2.8rem; color: #1C1A14; margin: 0 0 18px; line-height: 1.1; }
+    .page-subtitle { font-family: 'EB Garamond', serif; font-size: 1.1rem; color: #635f51; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    /* FORM */
+    .form-section { max-width: 680px; margin: 0 auto; padding: 64px 5% 100px; }
+
+    /* SELECTION SUMMARY CARD */
+    .sel-card {
+      display: none;
+      background: #fff;
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 36px;
+    }
+    .sel-card.visible { display: block; }
+    .sel-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .sel-card-title {
+      font-family: 'EB Garamond', serif; font-size: 0.72rem;
+      letter-spacing: 2.5px; text-transform: uppercase; color: #C9A84C;
+    }
+    .sel-pkg-row {
+      display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px;
+    }
+    .sel-pkg-label {
+      font-family: 'Cinzel', serif; font-size: 1.15rem; color: #1C1A14;
+    }
+    .sel-pkg-sub {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem; color: #a8a49c;
+      font-style: italic;
+    }
+    .sel-addons-row {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px;
+    }
+    .sel-addon-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'EB Garamond', serif; font-size: 0.82rem; color: #1C1A14;
+      background: rgba(201,168,76,0.10); border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 20px; padding: 4px 12px;
+      cursor: pointer; transition: background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+      user-select: none;
+    }
+    .sel-addon-chip:hover { background: rgba(201,168,76,0.18); }
+    .sel-addon-chip.removed {
+      opacity: 0.45;
+      background: rgba(99,95,81,0.04);
+      border-color: rgba(99,95,81,0.15);
+      color: #a8a49c;
+      /* no strikethrough — just grey out */
+    }
+    .sel-addon-chip-x {
+      font-size: 0.72rem; color: #C9A84C; line-height: 1; margin-left: 2px;
+    }
+    /* Removed chips show + in muted color; active chips show ✕ in gold */
+    .sel-addon-chip.removed .sel-addon-chip-x { color: rgba(99,95,81,0.4); }
+    /* Add-ons sub-section inside sel-card */
+    .sel-addons-section { margin-top: 16px; }
+    .sel-addons-divider { height: 1px; background: rgba(99,95,81,0.1); margin-bottom: 14px; }
+    .sel-addons-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .sel-addons-label {
+      font-family: 'EB Garamond', serif; font-size: 0.68rem;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: #a8a49c;
+    }
+    .sel-addons-all-btn {
+      font-family: 'EB Garamond', serif; font-size: 0.62rem;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: #5C6E82; background: none; border: 1px solid rgba(92,110,130,0.3);
+      border-radius: 20px; padding: 2px 8px; cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .sel-addons-all-btn:hover { background: rgba(92,110,130,0.08); border-color: rgba(92,110,130,0.5); }
+
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    .field-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+
+    label { font-family: 'EB Garamond', serif; font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; color: #635f51; }
+    label .req { color: #5C6E82; margin-left: 2px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      background: #fff;
+      border: 1px solid rgba(99,95,81,0.22);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: 'IM Fell English', serif;
+      font-size: 1rem;
+      color: #1C1A14;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-appearance: none; appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #5C6E82;
+      box-shadow: 0 0 0 3px rgba(92,110,130,0.12);
+    }
+    input::placeholder, textarea::placeholder { color: #b5b0a6; }
+    input[type="date"]:not(:valid):not(:focus) { color: #b5b0a6; }
+
+    .select-wrap { position: relative; }
+    .select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #635f51; pointer-events: none; font-size: 0.9rem; }
+    select { padding-right: 36px; cursor: pointer; }
+
+    textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+
+    /* Date mode toggle — floating pill segmented control */
+    .date-toggle {
+      display: inline-flex;
+      background: rgba(99,95,81,0.09);
+      border-radius: 50px;
+      padding: 3px;
+      margin-bottom: 12px;
+    }
+    .date-toggle-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'EB Garamond', serif; font-size: 0.88rem;
+      color: #635f51; padding: 8px 22px;
+      border-radius: 50px;
+      transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+      letter-spacing: 0.2px;
+    }
+    .date-toggle-btn.active {
+      background: #fff;
+      color: #1C1A14;
+      box-shadow: 0 1px 5px rgba(28,26,20,0.11);
+    }
+    .date-range-row { display: flex; gap: 14px; }
+    .date-range-field { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .date-range-label {
+      font-family: 'EB Garamond', serif; font-size: 0.72rem;
+      letter-spacing: 1.5px; text-transform: uppercase; color: #a8a49c;
+    }
+
+    /* intl-tel-input overrides */
+    .iti { width: 100%; }
+    .iti__tel-input {
+      border-radius: 10px !important;
+      border: 1px solid rgba(99,95,81,0.22) !important;
+      padding: 14px 16px 14px 56px !important;
+      font-family: 'IM Fell English', serif !important;
+      font-size: 1rem !important;
+      background: #fff !important;
+      width: 100% !important;
+      outline: none !important;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    }
+    .iti__tel-input:focus {
+      border-color: #5C6E82 !important;
+      box-shadow: 0 0 0 3px rgba(92,110,130,0.12) !important;
+    }
+
+    .form-divider { border: none; border-top: 1px solid rgba(99,95,81,0.12); margin: 12px 0 36px; }
+
+    /* SUBMIT */
+    .submit-wrap { margin-top: 40px; text-align: center; }
+    .submit-btn {
+      background: #1C1A14; color: #e8e1d4;
+      font-family: 'EB Garamond', serif; font-size: 1rem;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      border: none; border-radius: 50px; padding: 16px 52px;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+    .submit-btn:hover { background: #2e2a22; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(28,26,20,0.18); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .form-error {
+      display: none; margin-top: 16px;
+      background: #fdf2f0; border: 1px solid rgba(180,80,60,0.2);
+      border-radius: 10px; padding: 14px 18px;
+      font-family: 'EB Garamond', serif; font-size: 0.95rem; color: #8b3a2a; text-align: center;
+    }
+    .form-error.visible { display: block; }
+    .form-error a { color: #8b3a2a; }
+
+    /* SUCCESS */
+    .success-panel { display: none; text-align: center; padding: 100px 10%; }
+    .success-panel.visible { display: block; }
+    .success-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: #f0f4ee; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .success-title { font-size: 2.2rem; margin: 0 0 16px; color: #1C1A14; }
+    .success-body { font-family: 'EB Garamond', serif; font-size: 1.1rem; color: #635f51; line-height: 1.7; max-width: 400px; margin: 0 auto 36px; }
+    .success-actions { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 36px; padding-top: 36px; border-top: 1px solid rgba(99,95,81,0.12); }
+    .success-next-label { font-family: 'EB Garamond', serif; font-size: 0.9rem; color: #a8a49c; margin: 0 0 4px; letter-spacing: 0.02em; }
+    .success-consult-btn { display: inline-block; font-family: 'EB Garamond', serif; font-size: 0.95rem; letter-spacing: 0.04em; color: #f5f4f0; background: #5C6E82; text-decoration: none; padding: 13px 32px; border-radius: 50px; transition: opacity 0.2s ease; }
+    .success-consult-btn:hover { opacity: 0.85; }
+    .success-back { display: inline-block; font-family: 'EB Garamond', serif; font-size: 0.9rem; letter-spacing: 0.04em; color: #a8a49c; text-decoration: none; padding: 11px 32px; border: 1px solid rgba(99,95,81,0.28); border-radius: 50px; transition: border-color 0.2s ease, color 0.2s ease; margin-top: 4px; }
+    .success-back:hover { border-color: rgba(99,95,81,0.5); color: #635f51; }
+
+    /* FOOTER */
+    footer { background: #1C1A14; color: #e8e1d4; text-align: center; padding: 32px 10%; font-size: 0.88rem; line-height: 1.8; }
+    footer a { color: #e8e1d4; text-decoration: none; opacity: 0.7; }
+    footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      .field-row { grid-template-columns: 1fr; gap: 0; }
+      .page-title { font-size: 2rem; }
+      nav { padding: 0 5% 0 0; }
+      .nav-logo { height: 72px; }
+      .sel-card { padding: 18px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="main-nav">
+    <a href="index.html" class="nav-logo-link">
+      <img src="logo_transparent.png" alt="Harrison Media LLC" class="nav-logo">
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#portfolio">Portfolio</a>
+      <a href="index.html#pricing">Packages</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <p class="page-eyebrow">Harrison Media LLC</p>
+    <h1 class="page-title" id="page-title">Where can we send your quote?</h1>
+    <p class="page-subtitle" id="page-subtitle">Fill in your details and I'll be in touch within 24 hours with a personalised quote for your project.</p>
+  </div>
+
+  <div class="form-section" id="form-section">
+
+    <!-- Selection summary card — shown when arriving from a pricing page -->
+    <div class="sel-card" id="sel-card">
+      <div class="sel-card-header">
+        <span class="sel-card-title">Your Selection</span>
+      </div>
+      <div class="sel-pkg-row">
+        <span class="sel-pkg-label" id="sel-pkg-label"></span>
+        <span class="sel-pkg-sub" id="sel-pkg-sub"></span>
+      </div>
+      <div class="sel-addons-section">
+        <div class="sel-addons-divider"></div>
+        <div class="sel-addons-header">
+          <span class="sel-addons-label">Add-ons</span>
+          <button class="sel-addons-all-btn" id="sel-addons-all-btn" type="button">select all</button>
+        </div>
+        <div class="sel-addons-row" id="sel-addons-row"></div>
+      </div>
+    </div>
+
+    <form id="quote-form" novalidate>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="first_name">First name <span class="req">*</span></label>
+          <input type="text" id="first_name" name="first_name" placeholder="First" required>
+        </div>
+        <div class="field-group">
+          <label for="last_name">Last name <span class="req">*</span></label>
+          <input type="text" id="last_name" name="last_name" placeholder="Last" required>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required>
+      </div>
+
+      <div class="field-group">
+        <label for="phone">Mobile number <span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" required>
+      </div>
+
+      <hr class="form-divider">
+
+      <div class="field-group">
+        <label for="service">Service <span class="req">*</span></label>
+        <div class="select-wrap">
+          <select id="service" name="service" required>
+            <option value="" disabled selected>Select a service…</option>
+            <option value="Videography — Chapter (Half Day)">Chapter — Half Day</option>
+            <option value="Videography — Novel (Full Day)">Novel — Full Day</option>
+            <option value="Videography — Epic (2+ Days)">Epic — 2+ Days</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Shoot date</label>
+        <div class="date-toggle">
+          <button type="button" class="date-toggle-btn active" id="dateModeSingle" onclick="setDateMode('single')">Single Day</button>
+          <button type="button" class="date-toggle-btn" id="dateModeRange" onclick="setDateMode('range')">Date Range</button>
+        </div>
+        <div class="date-inputs" id="dateSingleWrap">
+          <input type="date" id="event_date" name="event_date">
+        </div>
+        <div class="date-inputs date-range-row" id="dateRangeWrap" style="display:none;">
+          <div class="date-range-field">
+            <span class="date-range-label">From</span>
+            <input type="date" id="event_date_start" name="event_date_start">
+          </div>
+          <div class="date-range-field">
+            <span class="date-range-label">To</span>
+            <input type="date" id="event_date_end" name="event_date_end">
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Boulder, CO">
+      </div>
+
+      <div class="field-group">
+        <label for="notes">Additional notes</label>
+        <textarea id="notes" name="notes" placeholder="Tell me a bit about your project, vision, or anything else that's helpful."></textarea>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submit-btn">Send my request →</button>
+        <div class="form-error" id="form-error">Something went wrong — please try again or email <a href="mailto:info@tateharrisonmedia.com">info@tateharrisonmedia.com</a> directly.</div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="success-panel" id="success-panel">
+    <div class="success-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4a7c59" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2 class="success-title">You're all set.</h2>
+    <p class="success-body">Your quote request is on its way to Tate. Expect a reply within 24 hours.</p>
+    <div class="success-actions">
+      <p class="success-next-label">Next Step</p>
+      <a href="schedule.html" class="success-consult-btn">Schedule a Free Consultation →</a>
+      <a href="index.html" class="success-back">← Back to Home</a>
+    </div>
+  </div>
+
+  <footer>
+    Harrison Media LLC &nbsp;·&nbsp; Boulder, CO &nbsp;·&nbsp;
+    <a href="tel:+17206002697">(720) 600-2697</a> &nbsp;·&nbsp;
+    <a href="mailto:info@tateharrisonmedia.com">info@tateharrisonmedia.com</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23/build/js/intlTelInput.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('dqCe2PDLYoRL9_9Tb');
+
+    // ── Data maps ─────────────────────────────────────────────────────────────
+    const PACKAGE_LABELS = {
+      chapter:         'Chapter',
+      novel:           'Novel',
+      epic:            'Epic',
+      portraiture:     'Portraiture',
+      'product-brand': 'Product / Brand',
+      hybrid:          'Hybrid',
+      multiday:        'Multi-Day',
+      campaign:        'Campaign'
+    };
+
+    const PACKAGE_SUBS = {
+      chapter:         'Half Day · Videography',
+      novel:           'Full Day · Videography',
+      epic:            'Two Days · Videography',
+      portraiture:     'Photography',
+      'product-brand': 'Photography',
+      hybrid:          'Custom',
+      multiday:        'Custom',
+      campaign:        'Custom'
+    };
+
+    const PACKAGE_TO_SERVICE = {
+      chapter:         'Videography — Chapter (Half Day)',
+      novel:           'Videography — Novel (Full Day)',
+      epic:            'Videography — Epic (Two Days)',
+      portraiture:     'Photography — Portraiture',
+      'product-brand': 'Photography — Product / Brand',
+      hybrid:          'Custom — Hybrid',
+      multiday:        'Custom — Multi-Day',
+      campaign:        'Custom — Campaign'
+    };
+
+
+    const ADDON_LABELS = {
+      'vintage-glass':    'Vintage Glass',
+      'film-35mm':        '35mm Film',
+      'macro':            'Macro',
+      'drone':            'Drone',
+      'audio':            'Audio Package',
+      'lighting':         'Lighting',
+      'longform':         'Long-Form Video',
+      'broll':            'B-Roll',
+      'extra-revision':   'Extra Revision',
+      'plus-3min':        '+3 Min Edit',
+      'extra-retouching': 'Extra Retouching',
+      'plus-5selects':    '+5 Selects'
+    };
+
+    // All add-ons available per package type
+    const PACKAGE_ADDONS = {
+      chapter:         ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min'],
+      novel:           ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min'],
+      epic:            ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min'],
+      portraiture:     ['vintage-glass','film-35mm','macro','drone','extra-retouching','plus-5selects'],
+      'product-brand': ['vintage-glass','film-35mm','macro','drone','extra-retouching','plus-5selects'],
+      hybrid:          ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min','extra-retouching','plus-5selects'],
+      multiday:        ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min','extra-retouching','plus-5selects'],
+      campaign:        ['vintage-glass','film-35mm','macro','drone','audio','lighting','longform','broll','extra-revision','plus-3min','extra-retouching','plus-5selects'],
+    };
+
+    // ── Parse URL params ──────────────────────────────────────────────────────
+    const urlParams   = new URLSearchParams(window.location.search);
+    const pkgKey      = urlParams.get('package') || '';
+    const addonsParam = urlParams.get('addons')  || '';
+
+    function parseAddons(str) {
+      const out = {};
+      if (!str) return out;
+      str.split(',').filter(Boolean).forEach(part => {
+        const [key, qty] = part.split(':');
+        out[key] = parseInt(qty || '1', 10);
+      });
+      return out;
+    }
+
+    const selectedAddons = parseAddons(addonsParam); // came from cart URL
+    const activeAddons   = Object.assign({}, selectedAddons); // working copy
+
+    // ── Pre-fill UI ───────────────────────────────────────────────────────────
+    (function prefill() {
+      if (!pkgKey && !addonsParam) return;
+
+      document.getElementById('page-title').textContent    = 'Almost there — just a few details.';
+      document.getElementById('page-subtitle').textContent = 'Your selections are locked in below. Fill in your info and I\'ll send a personalised quote within 24 hours.';
+
+      document.getElementById('sel-card').classList.add('visible');
+
+      if (pkgKey) {
+        document.getElementById('sel-pkg-label').textContent = PACKAGE_LABELS[pkgKey] || pkgKey;
+        document.getElementById('sel-pkg-sub').textContent   = PACKAGE_SUBS[pkgKey]   || '';
+      }
+
+      // If package selected: show all package add-ons (selected highlighted, rest greyed).
+      // If add-ons only: show only the selected add-ons as active chips.
+      const addonRow  = document.getElementById('sel-addons-row');
+      const addonKeys = pkgKey
+        ? (PACKAGE_ADDONS[pkgKey] || [])
+        : Object.keys(selectedAddons).filter(k => (selectedAddons[k] || 0) > 0);
+
+      addonKeys.forEach(key => {
+        const isActive = (selectedAddons[key] || 0) > 0;
+        const qty      = selectedAddons[key] || 1;
+        const label    = (ADDON_LABELS[key] || key) + (isActive && qty > 1 ? ' ×' + qty : '');
+
+        const chip = document.createElement('span');
+        chip.className   = 'sel-addon-chip' + (isActive ? '' : ' removed');
+        chip.dataset.key = key;
+        chip.innerHTML   = label + '<span class="sel-addon-chip-x">' + (isActive ? '✕' : '+') + '</span>';
+
+        chip.addEventListener('click', function () {
+          const removing = !chip.classList.contains('removed');
+          chip.classList.toggle('removed', removing);
+          chip.querySelector('.sel-addon-chip-x').textContent = removing ? '+' : '✕';
+          activeAddons[key] = removing ? 0 : 1;
+        });
+
+        addonRow.appendChild(chip);
+      });
+
+      // ── Select all add-ons button ──
+      const allBtn = document.getElementById('sel-addons-all-btn');
+      if (allBtn) {
+        allBtn.addEventListener('click', function () {
+          addonRow.querySelectorAll('.sel-addon-chip').forEach(chip => {
+            chip.classList.remove('removed');
+            chip.querySelector('.sel-addon-chip-x').textContent = '✕';
+            activeAddons[chip.dataset.key] = 1;
+          });
+        });
+      }
+
+      // Auto-select service dropdown when a package is known
+      if (pkgKey) {
+        const svc = PACKAGE_TO_SERVICE[pkgKey];
+        if (svc) {
+          const sel = document.getElementById('service');
+          for (let i = 0; i < sel.options.length; i++) {
+            if (sel.options[i].value === svc) { sel.selectedIndex = i; break; }
+          }
+        }
+      }
+    })();
+
+    // ── Date mode toggle ──────────────────────────────────────────────────────
+    let dateMode = 'single';
+    function setDateMode(mode) {
+      dateMode = mode;
+      document.getElementById('dateSingleWrap').style.display = mode === 'single' ? '' : 'none';
+      document.getElementById('dateRangeWrap').style.display  = mode === 'range'  ? '' : 'none';
+      document.getElementById('dateModeSingle').classList.toggle('active', mode === 'single');
+      document.getElementById('dateModeRange').classList.toggle('active', mode === 'range');
+    }
+
+    // ── Nav hide on scroll ────────────────────────────────────────────────────
+    (function() {
+      const nav = document.getElementById('main-nav');
+      let lastY = 0;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        nav.classList.toggle('hidden', y > lastY && y > 80);
+        lastY = y;
+      }, { passive: true });
+    })();
+
+    // ── Phone flag picker ─────────────────────────────────────────────────────
+    const phoneInput = document.getElementById('phone');
+    const iti = phoneInput ? window.intlTelInput(phoneInput, {
+      initialCountry: 'us',
+      preferredCountries: ['us', 'ca', 'gb'],
+      utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@23/build/js/utils.js'
+    }) : null;
+
+    // ── Submit ────────────────────────────────────────────────────────────────
+    document.getElementById('quote-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn   = document.getElementById('submit-btn');
+      const error = document.getElementById('form-error');
+      error.classList.remove('visible');
+
+      // Validate required fields
+      const required = ['first_name', 'last_name', 'email', 'phone', 'service'];
+      let valid = true;
+      required.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (!el.value.trim()) {
+          el.style.borderColor = 'rgba(180,80,60,0.5)';
+          valid = false;
+        } else {
+          el.style.borderColor = '';
+        }
+      });
+      if (!valid) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      // Build add-ons string from active selections
+      const activeAddonsList = Object.entries(activeAddons)
+        .filter(([, qty]) => qty > 0)
+        .map(([key, qty]) => (ADDON_LABELS[key] || key) + (qty > 1 ? ' ×' + qty : ''));
+
+      const packageLabel  = pkgKey ? (PACKAGE_LABELS[pkgKey] + ' — ' + PACKAGE_SUBS[pkgKey]) : '';
+      const addonsLabel   = activeAddonsList.length ? activeAddonsList.join(', ') : 'None';
+
+      const userNotes = document.getElementById('notes').value.trim();
+      const selectionPrefix = pkgKey
+        ? '[Package: ' + packageLabel + ']\n[Add-ons: ' + addonsLabel + ']\n\n'
+        : '';
+
+      const params = {
+        to_email         : 'info@tateharrisonmedia.com',
+        reply_to         : document.getElementById('email').value.trim(),
+        first_name       : document.getElementById('first_name').value.trim(),
+        last_name        : document.getElementById('last_name').value.trim(),
+        email            : document.getElementById('email').value.trim(),
+        phone            : iti ? iti.getNumber() : document.getElementById('phone').value.trim(),
+        service          : document.getElementById('service').value,
+        package_selected : packageLabel  || 'Not specified',
+        addons_selected  : addonsLabel,
+        event_date       : (function() {
+          if (dateMode === 'range') {
+            const s = document.getElementById('event_date_start').value;
+            const e = document.getElementById('event_date_end').value;
+            if (s && e) return s + ' → ' + e;
+            if (s)      return s + ' → (end TBD)';
+            return 'Not specified';
+          }
+          return document.getElementById('event_date').value || 'Not specified';
+        })(),
+        location         : document.getElementById('location').value.trim() || 'Not specified',
+        notes            : selectionPrefix + (userNotes || 'None'),
+      };
+
+      try {
+        await emailjs.send('service_6nvvc4a', 'template_feu4kef', params);
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('success-panel').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        error.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Send my request →';
+      }
+    });
+  </script>
+
+<!-- Analytics — replace YOUR_GOATCOUNTER_CODE with your code from goatcounter.com -->
+<script data-goatcounter="https://YOUR_GOATCOUNTER_CODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>

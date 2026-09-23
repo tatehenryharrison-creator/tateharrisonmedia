@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Distribution Guide | Tate Harrison</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="fonts.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    body { margin: 0; font-family: 'IM Fell English', serif; background: #f5f4f0; color: #1C1A14; }
+    p { color: #a8a49c; }
+    h1, h2, h3 { font-family: 'Cinzel', serif; font-weight: 400; }
+    nav, nav a, footer { font-family: 'EB Garamond', serif; }
+
+    /* ── NAV ── */
+    nav { padding: 0; display: flex; justify-content: space-between; align-items: stretch;
+          background: #f5f4f0; border-bottom: 1px solid rgba(99,95,81,0.12);
+          position: sticky; top: 0; z-index: 200; transition: transform 0.35s ease; }
+    .nav-left { display: flex; align-items: center; flex-shrink: 0; }
+    .nav-logo-link { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; padding: 0; margin: 0; line-height: 0; }
+    .nav-logo { height: 160px; width: auto; display: block; transition: opacity 0.25s ease; }
+    .nav-logo:hover { opacity: 0.8; }
+    .nav-home { font-family: 'EB Garamond', serif; font-size: 0.95rem; color: #2A2220;
+                text-decoration: none; padding: 0 22px; transition: opacity 0.3s ease;
+                border-left: 1px solid rgba(99,95,81,0.12); height: 100%;
+                display: flex; align-items: center; }
+    .nav-home:hover { opacity: 0.6; }
+    .nav-right { display: flex; align-items: center; gap: 22px; padding: 0 6% 0 0; position: relative; }
+    .nav-exposed { font-family: 'EB Garamond', serif; font-size: 0.95rem; color: #2A2220; text-decoration: none; transition: opacity 0.25s ease; white-space: nowrap; }
+    .nav-exposed:hover { opacity: 0.6; }
+    .nav-exposed--cta { background: #5C6E82; color: #f5f4f0 !important; padding: 8px 20px; border-radius: 50px; font-size: 0.88rem; letter-spacing: 0.05em; transition: opacity 0.2s ease !important; }
+    .nav-exposed--cta:hover { opacity: 0.85 !important; }
+    .nav-toc-btn { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 8px 4px; position: relative; }
+    .nav-bar { display: block; width: 22px; height: 1.8px; background: #2A2220; border-radius: 2px; transition: background 0.2s ease, transform 0.3s ease, opacity 0.3s ease; }
+    .nav-toc-btn:hover .nav-bar { background: #C9A84C; }
+    .nav-toc-btn.open .nav-bar { background: #C9A84C; }
+    .nav-toc-btn.open .nav-bar:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+    .nav-toc-btn.open .nav-bar:nth-child(2) { opacity: 0; }
+    .nav-toc-btn.open .nav-bar:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+    @media (max-width: 600px) { .nav-exposed { display: none; } }
+    .nav-toc-panel {
+      position: absolute; top: calc(100% + 6px); right: 0;
+      background: #f5f4f0; border: 1px solid rgba(99,95,81,0.14);
+      border-radius: 10px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      min-width: 230px; padding: 8px 0;
+      opacity: 0; pointer-events: none; transform: translateY(-6px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .nav-toc-panel.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .nav-toc-panel a {
+      display: block; font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      color: #2A2220; text-decoration: none; padding: 9px 20px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .nav-toc-panel a:hover { background: rgba(201,168,76,0.06); color: #C9A84C; }
+    .nav-toc-panel a.active { color: #C9A84C; }
+    .nav-toc-divider { height: 1px; background: rgba(99,95,81,0.1); margin: 6px 0; }
+    .nav-toc-section-label {
+      font-family: 'EB Garamond', serif; font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase; color: #a8a49c; padding: 8px 20px 4px;
+    }
+
+    /* ── HERO ── */
+    .guide-hero {
+      background: #1C1A14;
+      padding: 100px 10% 90px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .guide-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .guide-eyebrow {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+      color: #C9A84C; margin: 0 0 20px; opacity: 0.9;
+    }
+    .guide-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 600; color: #e8e1d4;
+      margin: 0 0 28px; line-height: 1.1; letter-spacing: -0.3px;
+    }
+    .guide-tagline {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.08rem; color: rgba(232,225,212,0.55);
+      max-width: 580px; margin: 0 auto 40px; line-height: 1.7;
+    }
+    .guide-hero-cta {
+      display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    }
+    .guide-hero-cta a {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem; letter-spacing: 0.04em;
+      text-decoration: none; padding: 12px 28px; border-radius: 50px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .guide-hero-cta a:hover { opacity: 0.8; transform: translateY(-1px); }
+    .guide-hero-cta .btn-primary { background: #C9A84C; color: #1C1A14; }
+    .guide-hero-cta .btn-ghost { border: 1px solid rgba(201,168,76,0.4); color: #C9A84C; }
+
+    /* ── SECTION WRAPPER ── */
+    .guide-section {
+      padding: 80px 10%;
+    }
+    .guide-section--alt { background: #eeecea; }
+    .guide-section--dark { background: #18160f; }
+
+    .section-eyebrow {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+      color: #5C6E82; margin: 0 0 14px; text-align: center;
+    }
+    .section-heading {
+      font-family: 'Cinzel', serif; font-size: 1.9rem; font-weight: 400;
+      color: #1C1A14; margin: 0 0 12px; text-align: center;
+    }
+    .section-heading--light { color: #e8e1d4; }
+    .section-sub {
+      font-family: 'EB Garamond', serif; font-size: 0.97rem;
+      color: rgba(99,95,81,0.75); max-width: 520px;
+      margin: 0 auto 52px; line-height: 1.65; text-align: center;
+    }
+    .section-sub--light { color: rgba(232,225,212,0.45); }
+
+    /* ── PLATFORM CARDS ── */
+    .platform-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .platform-card {
+      background: #fff;
+      border: 1px solid rgba(99,95,81,0.1);
+      border-radius: 14px; padding: 28px 24px 22px;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+      position: relative; overflow: hidden;
+    }
+    .platform-card:hover {
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      border-color: rgba(201,168,76,0.3);
+      transform: translateY(-2px);
+    }
+    .platform-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--card-accent, #C9A84C);
+      opacity: 0.6;
+    }
+    .platform-icon {
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px;
+      background: var(--card-icon-bg, rgba(201,168,76,0.1));
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+    .platform-icon svg { width: 20px; height: 20px; }
+    .platform-name {
+      font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 400;
+      color: #1C1A14; margin: 0 0 8px;
+    }
+    .platform-best {
+      font-family: 'EB Garamond', serif; font-size: 0.78rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--card-accent, #C9A84C);
+      margin: 0 0 10px; opacity: 0.85;
+    }
+    .platform-desc {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      color: rgba(60,55,45,0.7); line-height: 1.6; margin: 0 0 16px;
+    }
+    .platform-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .platform-tag {
+      font-family: 'EB Garamond', serif; font-size: 0.7rem; letter-spacing: 0.4px;
+      color: var(--card-accent, #C9A84C);
+      background: var(--card-tag-bg, rgba(201,168,76,0.08));
+      border: 1px solid var(--card-tag-border, rgba(201,168,76,0.2));
+      border-radius: 3px; padding: 3px 7px;
+    }
+
+    /* ── OWNED CHANNELS ── */
+    .owned-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .owned-card {
+      background: rgba(106,173,203,0.04);
+      border: 1px solid rgba(106,173,203,0.18);
+      border-radius: 14px; padding: 30px 24px 24px;
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .owned-card:hover { box-shadow: 0 6px 24px rgba(106,173,203,0.1); transform: translateY(-2px); }
+    .owned-icon {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: rgba(106,173,203,0.12);
+      margin-bottom: 18px;
+    }
+    .owned-icon svg { width: 20px; height: 20px; stroke: #6AADCB; }
+    .owned-name {
+      font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 400;
+      color: #1C1A14; margin: 0 0 8px;
+    }
+    .owned-tag-label {
+      font-family: 'EB Garamond', serif; font-size: 0.72rem; letter-spacing: 2px;
+      text-transform: uppercase; color: #6AADCB; margin: 0 0 10px; opacity: 0.9;
+    }
+    .owned-desc {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      color: rgba(60,55,45,0.7); line-height: 1.65; margin: 0 0 16px;
+    }
+    .owned-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .owned-tag {
+      font-family: 'EB Garamond', serif; font-size: 0.7rem; letter-spacing: 0.4px;
+      color: #6AADCB; background: rgba(106,173,203,0.08);
+      border: 1px solid rgba(106,173,203,0.2); border-radius: 3px; padding: 3px 7px;
+    }
+
+    /* ── ADS SECTION ── */
+    .ads-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .ads-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(232,225,212,0.12);
+      border-radius: 14px; padding: 28px 22px 22px;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .ads-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
+    .ads-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(201,168,76,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .ads-icon svg { width: 20px; height: 20px; stroke: #C9A84C; }
+    .ads-name {
+      font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 400;
+      color: #e8e1d4; margin: 0 0 8px;
+    }
+    .ads-reach {
+      font-family: 'EB Garamond', serif; font-size: 0.72rem; letter-spacing: 2px;
+      text-transform: uppercase; color: #C9A84C; margin: 0 0 10px; opacity: 0.85;
+    }
+    .ads-desc {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      color: rgba(232,225,212,0.45); line-height: 1.6; margin: 0 0 16px;
+    }
+    .ads-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ads-tag {
+      font-family: 'EB Garamond', serif; font-size: 0.7rem;
+      color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.18); border-radius: 3px; padding: 3px 7px;
+    }
+
+    /* ── TIPS ── */
+    .tips-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+    }
+    .tip-item {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .tip-num {
+      font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 600;
+      color: rgba(201,168,76,0.25); line-height: 1; flex-shrink: 0; width: 32px;
+    }
+    .tip-body {}
+    .tip-title {
+      font-family: 'Cinzel', serif; font-size: 0.88rem; font-weight: 400;
+      color: #e8e1d4; margin: 0 0 6px; letter-spacing: 0.3px;
+    }
+    .tip-desc {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      color: rgba(232,225,212,0.45); line-height: 1.6; margin: 0;
+    }
+
+    /* ── FORMAT TABLE ── */
+    .format-table-wrap { overflow-x: auto; margin-top: 0; }
+    .format-table {
+      width: 100%; border-collapse: collapse;
+      font-family: 'EB Garamond', serif; font-size: 0.88rem;
+    }
+    .format-table th {
+      font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 2px;
+      text-transform: uppercase; color: #C9A84C; font-weight: 400;
+      padding: 12px 16px; border-bottom: 1px solid rgba(201,168,76,0.2);
+      text-align: left; white-space: nowrap;
+    }
+    .format-table td {
+      padding: 12px 16px; color: rgba(60,55,45,0.75); line-height: 1.4;
+      border-bottom: 1px solid rgba(99,95,81,0.08); vertical-align: top;
+    }
+    .format-table tr:last-child td { border-bottom: none; }
+    .format-table tr:hover td { background: rgba(201,168,76,0.03); }
+    .fmt-platform { font-family: 'Cinzel', serif; font-size: 0.82rem; font-weight: 400; color: #1C1A14; }
+    .fmt-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 3px;
+      font-size: 0.7rem; letter-spacing: 0.3px;
+    }
+    .fmt-badge--gold { background: rgba(201,168,76,0.1); color: #C9A84C; border: 1px solid rgba(201,168,76,0.2); }
+    .fmt-badge--blue { background: rgba(106,173,203,0.1); color: #6AADCB; border: 1px solid rgba(106,173,203,0.2); }
+
+    /* ── STORYTELLING WRAP-UP ── */
+    .story-section {
+      padding: 100px 10%;
+      background: #f5f4f0;
+      text-align: center;
+    }
+    .story-intro {
+      max-width: 660px; margin: 0 auto 70px;
+    }
+    .story-intro .section-eyebrow { margin-bottom: 18px; }
+    .story-intro .section-heading { font-size: clamp(1.9rem, 3.5vw, 2.6rem); margin-bottom: 22px; }
+    .story-intro-body {
+      font-family: 'EB Garamond', serif; font-size: 1.05rem;
+      color: rgba(60,55,45,0.72); line-height: 1.75; margin: 0;
+    }
+
+    .story-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin: 0 auto 80px; max-width: 980px;
+      border: 1px solid rgba(99,95,81,0.1); border-radius: 14px; overflow: hidden;
+    }
+    .story-pillar {
+      padding: 44px 36px 40px;
+      background: #fff;
+      position: relative;
+      text-align: left;
+      transition: background 0.25s ease;
+    }
+    .story-pillar:hover { background: #faf9f6; }
+    .story-pillar::before {
+      content: '';
+      position: absolute; top: 0; left: 36px; right: 36px; height: 2px;
+      background: linear-gradient(90deg, #C9A84C, rgba(201,168,76,0));
+    }
+    .story-pillar-num {
+      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 3px;
+      color: rgba(201,168,76,0.5); margin: 0 0 20px; text-transform: uppercase;
+    }
+    .story-pillar-title {
+      font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 400;
+      color: #1C1A14; margin: 0 0 14px; line-height: 1.3; letter-spacing: 0.2px;
+    }
+    .story-pillar-desc {
+      font-family: 'EB Garamond', serif; font-size: 0.95rem;
+      color: rgba(60,55,45,0.65); line-height: 1.7; margin: 0;
+    }
+
+    .story-pullquote {
+      max-width: 720px; margin: 0 auto;
+      padding: 52px 10% 0;
+      border-top: 1px solid rgba(99,95,81,0.1);
+      position: relative;
+    }
+    .story-pullquote::before {
+      content: '\201C';
+      font-family: 'EB Garamond', serif; font-size: 7rem; line-height: 0;
+      color: rgba(201,168,76,0.15);
+      position: absolute; top: 72px; left: calc(10% - 18px);
+    }
+    .story-quote-text {
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+      color: #1C1A14; line-height: 1.55; margin: 0 0 24px;
+      letter-spacing: 0.1px;
+    }
+    .story-quote-attr {
+      font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 2.5px;
+      text-transform: uppercase; color: #C9A84C; opacity: 0.8;
+    }
+
+    @media (max-width: 900px) {
+      .story-pillars { grid-template-columns: 1fr; }
+      .story-pillar { padding: 34px 28px 30px; }
+      .story-pullquote { padding: 40px 0 0; }
+      .story-pullquote::before { display: none; }
+    }
+    @media (max-width: 600px) {
+      .story-section { padding: 70px 6%; }
+    }
+
+    /* ── CTA BANNER ── */
+    .guide-cta {
+      background: #1C1A14; padding: 90px 10%;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .guide-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .guide-cta-eyebrow {
+      font-family: 'EB Garamond', serif; font-size: 0.72rem;
+      letter-spacing: 3px; text-transform: uppercase; color: #C9A84C;
+      margin: 0 0 18px; opacity: 0.9;
+    }
+    .guide-cta-heading {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400;
+      color: #e8e1d4; margin: 0 0 18px; letter-spacing: -0.2px;
+    }
+    .guide-cta-sub {
+      font-family: 'EB Garamond', serif; font-size: 1rem;
+      color: rgba(232,225,212,0.45); max-width: 480px;
+      margin: 0 auto 36px; line-height: 1.65;
+    }
+    .guide-cta-btns {
+      display: inline-flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    }
+    .guide-cta-btns a {
+      font-family: 'EB Garamond', serif; font-size: 0.9rem;
+      letter-spacing: 0.04em; text-decoration: none;
+      padding: 13px 30px; border-radius: 50px;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .guide-cta-btns a:hover { opacity: 0.82; transform: translateY(-1px); }
+    .guide-cta-btns .cta-primary { background: #C9A84C; color: #1C1A14; }
+    .guide-cta-btns .cta-ghost { border: 1px solid rgba(201,168,76,0.35); color: rgba(232,225,212,0.7); }
+
+    /* ── FOOTER ── */
+    footer { text-align: center; padding: 40px 0; font-size: 0.85rem; color: #a8a49c; border-top: 1px solid rgba(99,95,81,0.1); font-family: 'EB Garamond', serif; }
+    .social-links { display: flex; justify-content: center; gap: 14px; margin-bottom: 18px; }
+    .social-link { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(99,95,81,0.25); color: #635f51; transition: border-color 0.2s, color 0.2s, background 0.2s; text-decoration: none; }
+    .social-link:hover { border-color: #5C6E82; color: #5C6E82; background: rgba(92,110,130,0.08); }
+    .social-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .platform-grid, .ads-grid { grid-template-columns: repeat(2, 1fr); }
+      .tips-grid { grid-template-columns: repeat(2, 1fr); }
+      .guide-section { padding: 60px 6%; }
+    }
+    @media (max-width: 600px) {
+      .platform-grid, .owned-grid, .ads-grid, .tips-grid { grid-template-columns: 1fr; }
+      .guide-hero { padding: 70px 6% 60px; }
+      .guide-cta { padding: 70px 6%; }
+      .nav-right { padding-right: 4%; }
+      .nav-logo { height: 80px; }
+    }
+    html, body { overflow-x: hidden; }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-logo-link">
+      <img src="logo_transparent.png" alt="Harrison Media LLC" class="nav-logo">
+    </a>
+  </div>
+  <div class="nav-right">
+    <a href="index.html#about" class="nav-exposed">About Me</a>
+    <a href="index.html#pricing" class="nav-exposed">Services</a>
+    <a href="quote.html" class="nav-exposed nav-exposed--cta">Get a Quote</a>
+    <button class="nav-toc-btn" id="navTocBtn" aria-expanded="false" aria-controls="navTocPanel">
+      <span class="nav-bar"></span>
+      <span class="nav-bar"></span>
+      <span class="nav-bar"></span>
+    </button>
+    <div class="nav-toc-panel" id="navTocPanel" role="menu">
+      <a href="index.html">Home</a>
+      <p class="nav-toc-section-label">On This Page</p>
+      <a href="#social">Where to Post</a>
+      <a href="#owned">Your Own Channels</a>
+      <a href="#paid">Paid Distribution</a>
+      <a href="#formats">Format Cheat Sheet</a>
+      <a href="#tips">Best Practices</a>
+      <a href="#story">The Foundation</a>
+      <div class="nav-toc-divider"></div>
+      <p class="nav-toc-section-label">Site</p>
+      <a href="index.html#pricing">Packages</a>
+      <a href="index.html#work">Portfolio</a>
+      <a href="schedule.html">Free Consultation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="guide-hero">
+  <p class="guide-eyebrow">Client Resource</p>
+  <h1 class="guide-title">Your Video Is Done.<br>Now What?</h1>
+  <p class="guide-tagline">A practical guide to getting your video in front of the right people — across every platform and place that matters to your audience.</p>
+  <div class="guide-hero-cta">
+    <a href="quote.html" class="btn-primary">Start a Project</a>
+    <a href="schedule.html" class="btn-ghost">Free Consultation</a>
+  </div>
+</div>
+
+<!-- Social Platforms -->
+<section class="guide-section" id="social">
+  <p class="section-eyebrow">Where to Post</p>
+  <h2 class="section-heading">Social Media Platforms</h2>
+  <p class="section-sub">Each platform has its own culture, format, and audience. Post natively. What does this mean? Post the original media file I give you to each platform separately. Do not share video links across platforms.</p>
+
+  <div class="platform-grid">
+
+    <!-- YouTube -->
+    <div class="platform-card" style="--card-accent:#FF0000;--card-icon-bg:rgba(255,0,0,0.07);--card-tag-bg:rgba(255,0,0,0.06);--card-tag-border:rgba(255,0,0,0.18);">
+      <div class="platform-icon" style="--card-icon-bg:rgba(255,0,0,0.07);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="6" width="20" height="14" rx="3"/>
+          <polygon points="10,9.5 16,13 10,16.5" fill="#FF0000" stroke="none"/>
+        </svg>
+      </div>
+      <p class="platform-best">Long-Form Home</p>
+      <h3 class="platform-name">YouTube</h3>
+      <p class="platform-desc">The second largest search engine in the world. Upload your full video here first — it ages well, earns search traffic, and gives you a permanent home for your content.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">16:9 Horizontal</span>
+        <span class="platform-tag">SEO Value</span>
+        <span class="platform-tag">Monetizable</span>
+        <span class="platform-tag">Evergreen</span>
+      </div>
+    </div>
+
+    <!-- Instagram -->
+    <div class="platform-card" style="--card-accent:#C13584;--card-icon-bg:rgba(193,53,132,0.07);--card-tag-bg:rgba(193,53,132,0.06);--card-tag-border:rgba(193,53,132,0.18);">
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C13584" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.8" fill="#C13584"/>
+        </svg>
+      </div>
+      <p class="platform-best">Discovery & Portfolio</p>
+      <h3 class="platform-name">Instagram</h3>
+      <p class="platform-desc">Post a 30–60 second Reel for maximum reach. Add the full-length version to your profile grid as a permanent portfolio piece. Stories work for behind-the-scenes content.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">9:16 Reels</span>
+        <span class="platform-tag">4:5 Feed</span>
+        <span class="platform-tag">Discovery</span>
+        <span class="platform-tag">Portfolio grid</span>
+      </div>
+    </div>
+
+    <!-- TikTok -->
+    <div class="platform-card" style="--card-accent:#69C9D0;--card-icon-bg:rgba(105,201,208,0.07);--card-tag-bg:rgba(105,201,208,0.06);--card-tag-border:rgba(105,201,208,0.2);">
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#69C9D0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+        </svg>
+      </div>
+      <p class="platform-best">Viral Reach</p>
+      <h3 class="platform-name">TikTok</h3>
+      <p class="platform-desc">Cut a punchy 15–60 second vertical clip. TikTok's algorithm serves new accounts to wide audiences — even a first post can reach thousands with no followers needed.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">9:16 Vertical</span>
+        <span class="platform-tag">Short-form</span>
+        <span class="platform-tag">Algorithm-driven</span>
+        <span class="platform-tag">Young audience</span>
+      </div>
+    </div>
+
+    <!-- Facebook -->
+    <div class="platform-card" style="--card-accent:#1877F2;--card-icon-bg:rgba(24,119,242,0.07);--card-tag-bg:rgba(24,119,242,0.06);--card-tag-border:rgba(24,119,242,0.18);">
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" fill="#1877F2" stroke="none">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      </div>
+      <p class="platform-best">Community & Ads</p>
+      <h3 class="platform-name">Facebook</h3>
+      <p class="platform-desc">Upload natively — Facebook's algorithm buries YouTube links. Strong for reaching an older demographic, sharing in Groups, and running affordable paid promotions.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">16:9 or 1:1</span>
+        <span class="platform-tag">Paid-boost ready</span>
+        <span class="platform-tag">Groups</span>
+        <span class="platform-tag">Event promotion</span>
+      </div>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="platform-card" style="--card-accent:#0A66C2;--card-icon-bg:rgba(10,102,194,0.07);--card-tag-bg:rgba(10,102,194,0.06);--card-tag-border:rgba(10,102,194,0.18);">
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" fill="#0A66C2" stroke="none">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </div>
+      <p class="platform-best">B2B & Professional</p>
+      <h3 class="platform-name">LinkedIn</h3>
+      <p class="platform-desc">Ideal for brand films, testimonials, and professional showcases. LinkedIn native video gets 3× more reach than link posts. Tag clients and collaborators to expand reach.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">16:9 or 1:1</span>
+        <span class="platform-tag">B2B audience</span>
+        <span class="platform-tag">Thought leadership</span>
+        <span class="platform-tag">Services</span>
+      </div>
+    </div>
+
+    <!-- Pinterest -->
+    <div class="platform-card" style="--card-accent:#E60023;--card-icon-bg:rgba(230,0,35,0.07);--card-tag-bg:rgba(230,0,35,0.06);--card-tag-border:rgba(230,0,35,0.18);">
+      <div class="platform-icon">
+        <svg viewBox="0 0 24 24" fill="#E60023" stroke="none">
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+        </svg>
+      </div>
+      <p class="platform-best">Evergreen Discovery</p>
+      <h3 class="platform-name">Pinterest</h3>
+      <p class="platform-desc">Pins live for years and continue driving clicks long after posting. Great for nature, product, lifestyle, and event content. Video pins appear in visual search results.</p>
+      <div class="platform-tags">
+        <span class="platform-tag">2:3 Vertical</span>
+        <span class="platform-tag">Visual search</span>
+        <span class="platform-tag">Long lifespan</span>
+        <span class="platform-tag">Niche audiences</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Owned Channels -->
+<section class="guide-section guide-section--alt" id="owned">
+  <p class="section-eyebrow">Own Your Audience</p>
+  <h2 class="section-heading">Your Own Channels</h2>
+  <p class="section-sub">Social platforms can change their algorithms or disappear overnight. These channels are assets you own.</p>
+
+  <div class="owned-grid">
+
+    <div class="owned-card">
+      <div class="owned-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M9 21V9"/>
+        </svg>
+      </div>
+      <p class="owned-tag-label">Always-On</p>
+      <h3 class="owned-name">Your Website</h3>
+      <p class="owned-desc">Embed your video above the fold on your homepage or portfolio page. A video on your site increases average session time and signals credibility to first-time visitors.</p>
+      <div class="owned-tags">
+        <span class="owned-tag">SEO boost</span>
+        <span class="owned-tag">Embed via YouTube</span>
+        <span class="owned-tag">Portfolio anchor</span>
+        <span class="owned-tag">Always visible</span>
+      </div>
+    </div>
+
+    <div class="owned-card">
+      <div class="owned-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <p class="owned-tag-label">Direct Access</p>
+      <h3 class="owned-name">Email Newsletter</h3>
+      <p class="owned-desc">Your email list is the most direct line to your audience — no algorithm, no feed competition. Send a launch email with a thumbnail that links to YouTube for the best click rate.</p>
+      <div class="owned-tags">
+        <span class="owned-tag">High open rate</span>
+        <span class="owned-tag">No algorithm</span>
+        <span class="owned-tag">Announce launches</span>
+        <span class="owned-tag">Thumbnail + link</span>
+      </div>
+    </div>
+
+    <div class="owned-card">
+      <div class="owned-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <p class="owned-tag-label">Searchable Forever</p>
+      <h3 class="owned-name">Blog Post</h3>
+      <p class="owned-desc">Write a 300–500 word post around your video — describe the project, the process, or the story behind it. Embed the video inside. Google indexes both the text and the video together.</p>
+      <div class="owned-tags">
+        <span class="owned-tag">Google indexing</span>
+        <span class="owned-tag">Evergreen SEO</span>
+        <span class="owned-tag">Context + story</span>
+        <span class="owned-tag">Shareable URL</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Paid Distribution -->
+<section class="guide-section guide-section--dark" id="paid">
+  <p class="section-eyebrow" style="color:rgba(201,168,76,0.7);">Amplify with Budget</p>
+  <h2 class="section-heading section-heading--light">Paid Distribution</h2>
+  <p class="section-sub section-sub--light">Even a small budget can put your video in front of a highly targeted audience. These platforms offer the best ROI for video ads.</p>
+
+  <div class="ads-grid">
+
+    <div class="ads-card">
+      <div class="ads-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="6" width="20" height="14" rx="3"/>
+          <polygon points="10,9.5 16,13 10,16.5" fill="#C9A84C" stroke="none"/>
+        </svg>
+      </div>
+      <p class="ads-reach">Massive Reach</p>
+      <h3 class="ads-name">YouTube Ads</h3>
+      <p class="ads-desc">Run your video as a skippable pre-roll or in-feed ad. You only pay when someone watches 30+ seconds — meaning you're reaching genuinely interested viewers. Great for brand films and product launches.</p>
+      <div class="ads-tags">
+        <span class="ads-tag">CPV model</span>
+        <span class="ads-tag">Skip-based billing</span>
+        <span class="ads-tag">Interest targeting</span>
+        <span class="ads-tag">Keyword targeting</span>
+      </div>
+    </div>
+
+    <div class="ads-card">
+      <div class="ads-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="#C9A84C"/>
+        </svg>
+      </div>
+      <p class="ads-reach">Precise Targeting</p>
+      <h3 class="ads-name">Meta Ads (FB &amp; IG)</h3>
+      <p class="ads-desc">Facebook and Instagram ads let you target by location, age, interest, and behavior — or build lookalike audiences from your existing customers. Strong for local service businesses and product brands.</p>
+      <div class="ads-tags">
+        <span class="ads-tag">Lookalike audiences</span>
+        <span class="ads-tag">Retargeting</span>
+        <span class="ads-tag">Local radius</span>
+        <span class="ads-tag">Conversion tracking</span>
+      </div>
+    </div>
+
+    <div class="ads-card">
+      <div class="ads-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </div>
+      <p class="ads-reach">Search Intent</p>
+      <h3 class="ads-name">Google Display &amp; Search</h3>
+      <p class="ads-desc">Pair video content with Google Display Network placements or use video in Performance Max campaigns. Catches people who are already searching for what you offer at exactly the right moment.</p>
+      <div class="ads-tags">
+        <span class="ads-tag">Keyword intent</span>
+        <span class="ads-tag">Wide web reach</span>
+        <span class="ads-tag">Perf. Max</span>
+        <span class="ads-tag">Remarketing</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Format Reference Table -->
+<section class="guide-section guide-section--alt" id="formats">
+  <p class="section-eyebrow">Quick Reference</p>
+  <h2 class="section-heading">Format Cheat Sheet</h2>
+  <p class="section-sub">Native format matters. Uploading the wrong ratio gets cropped or penalized by the algorithm.</p>
+
+  <div class="format-table-wrap">
+    <table class="format-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Best Format</th>
+          <th>Ideal Length</th>
+          <th>Captions</th>
+          <th>Post Frequency</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="fmt-platform">YouTube</span></td>
+          <td>16:9 horizontal</td>
+          <td>3 – 20 min</td>
+          <td><span class="fmt-badge fmt-badge--gold">Auto + edit</span></td>
+          <td>1 – 2× / week</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">Instagram Reels</span></td>
+          <td>9:16 vertical</td>
+          <td>15 – 90 sec</td>
+          <td><span class="fmt-badge fmt-badge--gold">Essential</span></td>
+          <td>3 – 5× / week</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">Instagram Feed</span></td>
+          <td>4:5 portrait or 1:1</td>
+          <td>30 – 60 sec</td>
+          <td><span class="fmt-badge fmt-badge--gold">Recommended</span></td>
+          <td>1 – 2× / week</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">TikTok</span></td>
+          <td>9:16 vertical</td>
+          <td>15 – 60 sec</td>
+          <td><span class="fmt-badge fmt-badge--gold">Essential</span></td>
+          <td>Daily if possible</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">Facebook</span></td>
+          <td>16:9 or 1:1</td>
+          <td>1 – 5 min</td>
+          <td><span class="fmt-badge fmt-badge--blue">Recommended</span></td>
+          <td>3 – 4× / week</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">LinkedIn</span></td>
+          <td>16:9 or 1:1</td>
+          <td>30 sec – 5 min</td>
+          <td><span class="fmt-badge fmt-badge--blue">Recommended</span></td>
+          <td>2 – 3× / week</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">Pinterest</span></td>
+          <td>2:3 vertical</td>
+          <td>6 – 15 sec</td>
+          <td><span class="fmt-badge fmt-badge--blue">Optional</span></td>
+          <td>5 – 10 Pins / day</td>
+        </tr>
+        <tr>
+          <td><span class="fmt-platform">Email Newsletter</span></td>
+          <td>Thumbnail + link</td>
+          <td>Any</td>
+          <td>N/A</td>
+          <td>Per campaign</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Tips -->
+<section class="guide-section guide-section--dark" id="tips">
+  <p class="section-eyebrow" style="color:rgba(201,168,76,0.7);">Best Practices</p>
+  <h2 class="section-heading section-heading--light">6 Rules for Maximum Reach</h2>
+  <p class="section-sub section-sub--light">The difference between a video that disappears and one that compounds over time.</p>
+
+  <div class="tips-grid">
+
+    <div class="tip-item">
+      <span class="tip-num">01</span>
+      <div class="tip-body">
+        <p class="tip-title">Hook in the First 3 Seconds</p>
+        <p class="tip-desc">Viewers decide instantly whether to keep watching. Open with your strongest image or a question — never a logo or title card.</p>
+      </div>
+    </div>
+
+    <div class="tip-item">
+      <span class="tip-num">02</span>
+      <div class="tip-body">
+        <p class="tip-title">Always Add Captions</p>
+        <p class="tip-desc">85% of social video is watched on mute. If your message requires audio to understand, you're losing most of your audience before it starts.</p>
+      </div>
+    </div>
+
+    <div class="tip-item">
+      <span class="tip-num">03</span>
+      <div class="tip-body">
+        <p class="tip-title">Post Native, Not Cross-Posted</p>
+        <p class="tip-desc">Platforms penalize content uploaded elsewhere first. Upload the original file directly to each platform — don't just share the YouTube link on Facebook.</p>
+      </div>
+    </div>
+
+    <div class="tip-item">
+      <span class="tip-num">04</span>
+      <div class="tip-body">
+        <p class="tip-title">Repurpose Into Multiple Clips</p>
+        <p class="tip-desc">One 3-minute video can yield 6–10 short clips. Cut different moments for different platforms — you don't need new content, you need new cuts.</p>
+      </div>
+    </div>
+
+    <div class="tip-item">
+      <span class="tip-num">05</span>
+      <div class="tip-body">
+        <p class="tip-title">Don't Post Once and Move On</p>
+        <p class="tip-desc">Re-share the same video weeks or months later with new context. Most of your followers won't see it the first time — the algorithm rewards consistency.</p>
+      </div>
+    </div>
+
+    <div class="tip-item">
+      <span class="tip-num">06</span>
+      <div class="tip-body">
+        <p class="tip-title">Pin Your Best Video</p>
+        <p class="tip-desc">Pin your video to the top of your Instagram, Facebook, and LinkedIn profiles so every new visitor sees your best work first — not your most recent post.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Storytelling Wrap-Up -->
+<section class="story-section" id="story">
+
+  <div class="story-intro">
+    <p class="section-eyebrow">Where It All Starts</p>
+    <h2 class="section-heading">Distribution Is Only as Powerful as What You're Distributing</h2>
+    <p class="story-intro-body">Every platform in this guide is a delivery mechanism. They can amplify reach, target audiences, and extend shelf life — but none of them can manufacture meaning. The content itself has to do that work. That's where storytelling comes in, and it's the part of this equation that most people underestimate.</p>
+  </div>
+
+  <div class="story-pillars">
+
+    <div class="story-pillar">
+      <p class="story-pillar-num">I</p>
+      <h3 class="story-pillar-title">Content That Holds Attention</h3>
+      <p class="story-pillar-desc">Algorithms don't reward posts — they reward watch time. A video that pulls people in and keeps them watching gets pushed further than any boosted post ever could. That kind of retention isn't a production trick. It comes from a story with a reason to exist, told in a way that respects the viewer's time.</p>
+    </div>
+
+    <div class="story-pillar">
+      <p class="story-pillar-num">II</p>
+      <h3 class="story-pillar-title">Stories That Transfer Across Formats</h3>
+      <p class="story-pillar-desc">A well-structured narrative doesn't belong to one platform. The same throughline — the tension, the character, the resolution — translates from a three-minute brand film to a thirty-second Reel to a six-second bumper ad. When the foundation is strong, repurposing becomes effortless instead of a compromise.</p>
+    </div>
+
+    <div class="story-pillar">
+      <p class="story-pillar-num">III</p>
+      <h3 class="story-pillar-title">Work That Compounds Over Time</h3>
+      <p class="story-pillar-desc">A properly made film doesn't expire. It earns search traffic years after posting, lives on your website as a permanent first impression, and continues to build trust with every new viewer who finds it. Content made to fill a calendar disappears. Content made to say something stays.</p>
+    </div>
+
+  </div>
+
+  <div class="story-pullquote">
+    <p class="story-quote-text">I don't approach a shoot thinking about views or engagement. I think about whether the person watching it will feel something — and whether that feeling moves them closer to whoever hired me. If it does that, the distribution takes care of itself.</p>
+    <span class="story-quote-attr">— Tate Harrison, Harrison Media LLC</span>
+  </div>
+
+</section>
+
+<!-- CTA -->
+<div class="guide-cta">
+  <p class="guide-cta-eyebrow">Ready for Your Next Piece?</p>
+  <h2 class="guide-cta-heading">Let&rsquo;s Build Something Worth Sharing</h2>
+  <p class="guide-cta-sub">A great distribution strategy starts with great content. Let&rsquo;s talk about what your audience needs to see.</p>
+  <div class="guide-cta-btns">
+    <a href="quote.html" class="cta-primary">Get a Quote</a>
+    <a href="schedule.html" class="cta-ghost">Book a Free Call</a>
+  </div>
+</div>
+
+<footer>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@TateHarrisonMediaCompany" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 7a2 2 0 0 0-1.41-1.41C16.76 5 12 5 12 5s-4.76 0-6.18.59A2 2 0 0 0 4.41 7 20.06 20.06 0 0 0 4 12a20.06 20.06 0 0 0 .41 5 2 2 0 0 0 1.41 1.41C7.24 19 12 19 12 19s4.76 0 6.18-.59A2 2 0 0 0 19.59 17 20.06 20.06 0 0 0 20 12a20.06 20.06 0 0 0-.41-5zM10 15V9l5.2 3z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/TateHarrisonMediaCompany" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+    <a href="#" class="social-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+    </a>
+    <a href="https://www.pinterest.com/tateharrisonmediallc" target="_blank" rel="noopener" class="social-link" aria-label="Pinterest">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+    </a>
+    <a href="https://x.com/T_HarrisonMedia" target="_blank" rel="noopener" class="social-link" aria-label="X (Twitter)">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@tateharrisonmedia" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/tateharrison" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
+  &copy; 2026 Tate Harrison. All rights reserved.
+</footer>
+
+<script>
+  // TOC dropdown toggle
+  const tocBtn   = document.getElementById('navTocBtn');
+  const tocPanel = document.getElementById('navTocPanel');
+  tocBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const open = tocPanel.classList.toggle('open');
+    tocBtn.classList.toggle('open', open);
+    tocBtn.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function() {
+    tocPanel.classList.remove('open');
+    tocBtn.classList.remove('open');
+    tocBtn.setAttribute('aria-expanded', false);
+  });
+  tocPanel.addEventListener('click', function(e) { e.stopPropagation(); });
+  // Close panel on link click
+  tocPanel.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      tocPanel.classList.remove('open');
+      tocBtn.classList.remove('open');
+    });
+  });
+
+  // Hide nav on scroll down, show on scroll up
+  (function(){
+    var nav = document.getElementById('main-nav');
+    var lastY = 0;
+    window.addEventListener('scroll', function(){
+      var y = window.scrollY;
+      if(y > lastY && y > 80){ nav.style.transform = 'translateY(-100%)'; }
+      else { nav.style.transform = ''; }
+      lastY = y;
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmed | Tate Harrison</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="fonts.css">
+  <style>
+    *{box-sizing:border-box} @keyframes gold-pulse{0%,100%{opacity:.18}50%{opacity:.55}}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;border:1.5px solid #c9a052;animation:gold-pulse 3s ease-in-out infinite}
+    body{margin:0;font-family:'IM Fell English',serif;background:#f5f4f0;color:#1C1A14;min-height:100vh;display:flex;flex-direction:column}
+    h1,h2,h3{font-family:'Cinzel',serif;font-weight:400}
+    nav{display:flex;justify-content:space-between;align-items:stretch;background:#f5f4f0;border-bottom:1px solid rgba(99,95,81,0.12);position:sticky;top:0;z-index:300}
+    .nav-logo-link{display:flex;align-items:center;text-decoration:none;line-height:0} .nav-logo{height:100px;width:auto;display:block}
+    .nav-right{display:flex;align-items:center;padding:0 6%;gap:20px}
+    .nav-link{font-family:'EB Garamond',serif;font-size:0.92rem;color:#5C6E82;text-decoration:none;transition:opacity .2s}
+    main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 6%}
+    .icon-wrap{margin-bottom:32px}
+    .check-circle{width:72px;height:72px;border-radius:50%;background:rgba(201,168,76,0.12);border:1.5px solid #C9A84C;display:flex;align-items:center;justify-content:center;margin:0 auto}
+    .success-eyebrow{font-family:'EB Garamond',serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:#5C6E82;margin:0 0 14px;text-align:center}
+    .success-title{font-family:'Cinzel',serif;font-size:2.4rem;font-weight:400;color:#1C1A14;margin:0 0 16px;text-align:center}
+    .success-body{font-family:'EB Garamond',serif;font-size:1.05rem;color:#635f51;line-height:1.7;text-align:center;max-width:520px;margin:0 auto 40px}
+    .success-body a{color:#5C6E82;text-decoration:none}
+    .btn-home{display:inline-block;font-family:'EB Garamond',serif;font-size:0.92rem;color:#f5f4f0;background:#1C1A14;border-radius:50px;padding:11px 32px;text-decoration:none;transition:opacity .2s,transform .2s}
+    .btn-home:hover{opacity:.8;transform:translateY(-1px)}
+    footer{text-align:center;padding:32px 0;font-family:'EB Garamond',serif;font-size:0.85rem;color:#a8a49c;border-top:1px solid rgba(99,95,81,0.1)}
+    @media(max-width:600px){.success-title{font-size:1.8rem}.nav-logo{height:70px}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo-link"><img src="logo_transparent.png" alt="Harrison Media LLC" class="nav-logo"></a>
+  <div class="nav-right"><a href="index.html" class="nav-link">← Home</a></div>
+</nav>
+<main>
+  <div class="icon-wrap">
+    <div class="check-circle">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+  </div>
+  <p class="success-eyebrow">Payment Confirmed</p>
+  <h1 class="success-title">Thank You</h1>
+  <p class="success-body">Your payment was received. I'll be in touch shortly to confirm your booking and next steps.<br><br>Questions? Email <a href="mailto:info@tateharrisonmedia.com">info@tateharrisonmedia.com</a> or <a href="schedule.html">schedule a call</a>.</p>
+  <a href="index.html" class="btn-home">Back to Home</a>
+</main>
+<footer>© 2026 Tate Harrison · Harrison Media LLC</footer>
+</body>
+</html>

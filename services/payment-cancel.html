@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Cancelled | Tate Harrison</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="stylesheet" href="fonts.css">
+  <style>
+    *{box-sizing:border-box} @keyframes gold-pulse{0%,100%{opacity:.18}50%{opacity:.55}}
+    body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;border:1.5px solid #c9a052;animation:gold-pulse 3s ease-in-out infinite}
+    body{margin:0;font-family:'IM Fell English',serif;background:#f5f4f0;color:#1C1A14;min-height:100vh;display:flex;flex-direction:column}
+    h1,h2,h3{font-family:'Cinzel',serif;font-weight:400}
+    nav{display:flex;justify-content:space-between;align-items:stretch;background:#f5f4f0;border-bottom:1px solid rgba(99,95,81,0.12);position:sticky;top:0;z-index:300}
+    .nav-logo-link{display:flex;align-items:center;text-decoration:none;line-height:0} .nav-logo{height:100px;width:auto;display:block}
+    .nav-right{display:flex;align-items:center;padding:0 6%;gap:20px}
+    .nav-link{font-family:'EB Garamond',serif;font-size:0.92rem;color:#5C6E82;text-decoration:none;transition:opacity .2s}
+    main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 6%}
+    .cancel-eyebrow{font-family:'EB Garamond',serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:#a8a49c;margin:0 0 14px;text-align:center}
+    .cancel-title{font-family:'Cinzel',serif;font-size:2.4rem;font-weight:400;color:#1C1A14;margin:0 0 16px;text-align:center}
+    .cancel-body{font-family:'EB Garamond',serif;font-size:1.05rem;color:#635f51;line-height:1.7;text-align:center;max-width:520px;margin:0 auto 40px}
+    .cancel-body a{color:#5C6E82;text-decoration:none}
+    .btn-back{display:inline-block;font-family:'EB Garamond',serif;font-size:0.92rem;color:#f5f4f0;background:#1C1A14;border-radius:50px;padding:11px 32px;text-decoration:none;transition:opacity .2s,transform .2s;margin-right:12px}
+    .btn-back:hover{opacity:.8;transform:translateY(-1px)}
+    .btn-alt{display:inline-block;font-family:'EB Garamond',serif;font-size:0.92rem;color:#5C6E82;border:1px solid rgba(92,110,130,.4);border-radius:50px;padding:11px 32px;text-decoration:none;transition:opacity .2s}
+    .btn-alt:hover{opacity:.7}
+    .btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    footer{text-align:center;padding:32px 0;font-family:'EB Garamond',serif;font-size:0.85rem;color:#a8a49c;border-top:1px solid rgba(99,95,81,0.1)}
+    @media(max-width:600px){.cancel-title{font-size:1.8rem}.nav-logo{height:70px}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo-link"><img src="logo_transparent.png" alt="Harrison Media LLC" class="nav-logo"></a>
+  <div class="nav-right"><a href="index.html" class="nav-link">← Home</a></div>
+</nav>
+<main>
+  <p class="cancel-eyebrow">Payment Cancelled</p>
+  <h1 class="cancel-title">No Worries</h1>
+  <p class="cancel-body">Your payment was not processed and nothing was charged. If you have questions or prefer to pay another way, I'm happy to help.<br><br>Email <a href="mailto:info@tateharrisonmedia.com">info@tateharrisonmedia.com</a> or use Venmo, PayPal, or Zelle on the payment page.</p>
+  <div class="btn-row">
+    <a href="javascript:history.back()" class="btn-back">← Back to Payment</a>
+    <a href="schedule.html" class="btn-alt">Schedule a Call</a>
+  </div>
+</main>
+<footer>© 2026 Tate Harrison · Harrison Media LLC</footer>
+</body>
+</html>

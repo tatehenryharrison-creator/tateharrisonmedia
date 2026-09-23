@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Keep this page out of search engines -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Studio — Harrison Media</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #111009;
+      --card:   rgba(245,244,240,0.04);
+      --border: rgba(245,244,240,0.08);
+      --cream:  #e8e1d4;
+      --stone:  rgba(232,225,212,0.38);
+      --gold:   #C9A84C;
+      --slate:  #5C6E82;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─────────────────────────────────────────
+       LOCK / SETUP SCREEN
+    ───────────────────────────────────────── */
+    #lock {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: 100vh; padding: 40px 20px;
+    }
+    #lock.hidden { display: none; }
+
+    .lock-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 6px; text-transform: uppercase;
+      color: var(--gold); opacity: 0.7; margin-bottom: 52px;
+    }
+    .lock-icon {
+      width: 48px; height: 48px; margin-bottom: 24px; opacity: 0.22;
+    }
+    .lock-title {
+      font-family: 'Cinzel', serif; font-weight: 400; font-size: 1.6rem;
+      letter-spacing: 2px; color: var(--cream); margin-bottom: 8px; text-align: center;
+    }
+    .lock-sub {
+      font-style: italic; color: var(--stone); font-size: 0.95rem;
+      margin-bottom: 40px; text-align: center; line-height: 1.6; max-width: 300px;
+    }
+    .lock-form {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 12px; width: 100%; max-width: 300px;
+    }
+    .lock-input {
+      width: 100%; padding: 13px 18px;
+      background: rgba(245,244,240,0.05);
+      border: 1px solid rgba(245,244,240,0.12);
+      border-radius: 8px; color: var(--cream);
+      font-family: 'EB Garamond', serif; font-size: 1rem;
+      letter-spacing: 3px; text-align: center; outline: none;
+      transition: border-color 0.2s;
+    }
+    .lock-input:focus { border-color: rgba(201,168,76,0.45); }
+    .lock-input::placeholder { letter-spacing: 1px; color: rgba(232,225,212,0.18); }
+    .lock-btn {
+      width: 100%; padding: 13px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 8px; color: var(--gold);
+      font-family: 'Cinzel', serif; font-size: 0.65rem;
+      letter-spacing: 4px; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    }
+    .lock-btn:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+    .lock-err {
+      font-size: 0.82rem; font-style: italic;
+      color: rgba(220,80,80,0.75); min-height: 18px; text-align: center;
+    }
+    .lock-hint {
+      margin-top: 6px; font-size: 0.78rem; font-style: italic;
+      color: rgba(232,225,212,0.2); text-align: center; max-width: 280px;
+    }
+
+    /* ─────────────────────────────────────────
+       DASHBOARD
+    ───────────────────────────────────────── */
+    #dashboard { display: none; }
+    #dashboard.visible { display: block; }
+
+    .dash-bar {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(17,16,9,0.92); backdrop-filter: blur(12px);
+      padding: 18px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dash-wordmark {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 5px; text-transform: uppercase; color: var(--gold); opacity: 0.8;
+    }
+    .dash-actions { display: flex; gap: 16px; align-items: center; }
+    .dash-btn-ghost {
+      background: none; border: none;
+      font-family: 'EB Garamond', serif; font-size: 0.82rem;
+      color: var(--stone); cursor: pointer;
+      transition: color 0.2s; padding: 4px 0;
+    }
+    .dash-btn-ghost:hover { color: var(--cream); }
+
+    .dash-body { padding: 48px 5% 80px; max-width: 1060px; margin: 0 auto; }
+
+    .section { margin-bottom: 56px; }
+    .section-head {
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-head::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, rgba(201,168,76,0.22), transparent);
+    }
+
+    /* ── VISITOR INFO GRID ── */
+    .vi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .vi-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .vi-label {
+      font-family: 'Cinzel', serif; font-size: 0.56rem;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(201,168,76,0.45); margin-bottom: 7px;
+    }
+    .vi-val {
+      font-size: 0.95rem; color: rgba(232,225,212,0.82);
+      word-break: break-all; line-height: 1.4;
+    }
+    .vi-val.pending { color: rgba(232,225,212,0.18); font-style: italic; }
+
+    /* ── GOATCOUNTER SECTION ── */
+    .gc-embed-wrap {
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; height: 640px; background: #fff;
+    }
+    .gc-embed-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    .setup-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 36px 40px;
+    }
+    .setup-title {
+      font-family: 'Cinzel', serif; font-weight: 400; font-size: 1.05rem;
+      letter-spacing: 1px; color: var(--cream); margin-bottom: 8px;
+    }
+    .setup-desc {
+      font-style: italic; color: var(--stone); font-size: 0.92rem;
+      line-height: 1.75; margin-bottom: 28px; max-width: 560px;
+    }
+    .setup-steps { list-style: none; margin-bottom: 28px; }
+    .setup-steps li {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 11px 0; border-bottom: 1px solid rgba(245,244,240,0.05);
+      font-size: 0.92rem; line-height: 1.65; color: rgba(232,225,212,0.6);
+    }
+    .setup-steps li:last-child { border-bottom: none; }
+    .step-num {
+      flex-shrink: 0; width: 26px; height: 26px;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif; font-size: 0.58rem;
+      letter-spacing: 1px; color: var(--gold);
+      background: rgba(201,168,76,0.07);
+    }
+    .setup-steps a { color: var(--gold); text-decoration: none; }
+    .setup-steps a:hover { text-decoration: underline; }
+    .setup-steps code {
+      font-size: 0.85em; color: rgba(201,168,76,0.8);
+      background: rgba(201,168,76,0.08); border-radius: 4px; padding: 1px 5px;
+    }
+
+    .input-row { display: flex; gap: 10px; }
+    .setup-input {
+      flex: 1; padding: 11px 16px;
+      background: rgba(245,244,240,0.05);
+      border: 1px solid rgba(245,244,240,0.12);
+      border-radius: 8px; color: var(--cream);
+      font-family: 'EB Garamond', serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .setup-input:focus { border-color: rgba(201,168,76,0.45); }
+    .setup-input::placeholder { color: rgba(232,225,212,0.2); }
+    .setup-save {
+      padding: 11px 22px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.35);
+      border-radius: 8px; color: var(--gold);
+      font-family: 'Cinzel', serif; font-size: 0.62rem;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .setup-save:hover { background: rgba(201,168,76,0.2); }
+
+    .gc-meta {
+      margin-top: 10px; font-size: 0.8rem; font-style: italic;
+      color: rgba(232,225,212,0.25);
+    }
+    .gc-meta a { color: rgba(201,168,76,0.55); text-decoration: none; }
+    .gc-meta a:hover { color: var(--gold); }
+    .gc-code-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    }
+    .gc-code-label {
+      font-size: 0.82rem; color: var(--stone);
+    }
+    .gc-code-label strong { color: rgba(232,225,212,0.7); }
+    .gc-change {
+      background: none; border: none;
+      font-family: 'EB Garamond', serif; font-size: 0.78rem;
+      color: rgba(232,225,212,0.22); cursor: pointer; text-decoration: underline;
+    }
+    .gc-change:hover { color: var(--stone); }
+
+    /* ── NOTE BANNER ── */
+    .note-banner {
+      background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 8px; padding: 13px 18px;
+      font-size: 0.84rem; line-height: 1.65; color: rgba(232,225,212,0.5);
+      margin-top: 20px;
+    }
+    .note-banner strong { color: rgba(201,168,76,0.75); }
+
+    @media (max-width: 560px) {
+      .dash-body { padding: 32px 4% 60px; }
+      .setup-card { padding: 24px 20px; }
+      .input-row { flex-direction: column; }
+      .setup-save { width: 100%; text-align: center; }
+      .vi-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     LOCK / SETUP SCREEN
+══════════════════════════════════════════ -->
+<div id="lock">
+  <p class="lock-eyebrow">Harrison Media</p>
+
+  <!-- Lock icon -->
+  <svg class="lock-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="5" y="11" width="14" height="10" rx="2" stroke="#C9A84C" stroke-width="1.4"/>
+    <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round"/>
+    <circle cx="12" cy="16" r="1.5" fill="#C9A84C" opacity="0.6"/>
+  </svg>
+
+  <h1 class="lock-title" id="lock-title">Private Access</h1>
+  <p class="lock-sub" id="lock-sub">Analytics &amp; site intelligence — owner only.</p>
+
+  <div class="lock-form" id="lock-form">
+    <input class="lock-input" type="password" id="pw1" placeholder="Passphrase" autocomplete="off" spellcheck="false">
+    <input class="lock-input" type="password" id="pw2" placeholder="Confirm passphrase" autocomplete="off" spellcheck="false" style="display:none">
+    <button class="lock-btn" id="lock-btn">Unlock</button>
+    <span class="lock-err" id="lock-err"></span>
+    <p class="lock-hint" id="lock-hint"></p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DASHBOARD
+══════════════════════════════════════════ -->
+<div id="dashboard">
+
+  <header class="dash-bar">
+    <span class="dash-wordmark">Harrison Media · Studio</span>
+    <div class="dash-actions">
+      <button class="dash-btn-ghost" id="reset-pw-btn" title="Change passphrase">Change passphrase</button>
+      <button class="dash-btn-ghost" id="sign-out-btn">Sign out</button>
+    </div>
+  </header>
+
+  <div class="dash-body">
+
+    <!-- ── CURRENT VISITOR ── -->
+    <div class="section">
+      <h2 class="section-head">Current Visitor</h2>
+      <div class="vi-grid" id="vi-grid">
+        <div class="vi-card"><div class="vi-label">IP Address</div><div class="vi-val pending" id="vi-ip">—</div></div>
+        <div class="vi-card"><div class="vi-label">City</div><div class="vi-val pending" id="vi-city">—</div></div>
+        <div class="vi-card"><div class="vi-label">Region / State</div><div class="vi-val pending" id="vi-region">—</div></div>
+        <div class="vi-card"><div class="vi-label">Country</div><div class="vi-val pending" id="vi-country">—</div></div>
+        <div class="vi-card"><div class="vi-label">ISP / Org</div><div class="vi-val pending" id="vi-org">—</div></div>
+        <div class="vi-card"><div class="vi-label">Timezone</div><div class="vi-val pending" id="vi-tz">—</div></div>
+        <div class="vi-card"><div class="vi-label">Coordinates</div><div class="vi-val pending" id="vi-ll">—</div></div>
+        <div class="vi-card"><div class="vi-label">Local Time</div><div class="vi-val pending" id="vi-time">—</div></div>
+      </div>
+    </div>
+
+    <!-- ── SITE ANALYTICS ── -->
+    <div class="section">
+      <h2 class="section-head">Site Analytics</h2>
+      <div id="gc-area"><!-- filled by JS --></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     LOGIC
+══════════════════════════════════════════ -->
+<script>
+(function () {
+  'use strict';
+
+  const PW_HASH_KEY  = 'thm_studio_pw';   // localStorage — SHA-256 hash of passphrase
+  const SESSION_KEY  = 'thm_studio_auth'; // sessionStorage — "1" when authenticated
+  const GC_CODE_KEY  = 'thm_gc_code';     // localStorage — GoatCounter site code
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  function q(id) { return document.getElementById(id); }
+  function show(id) { const el = q(id); if (el) el.style.display = ''; }
+  function hide(id) { const el = q(id); if (el) el.style.display = 'none'; }
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  const storedHash  = localStorage.getItem(PW_HASH_KEY);
+  const isSetupMode = !storedHash;                           // first time ever
+  const authed      = sessionStorage.getItem(SESSION_KEY) === '1';
+
+  // ── Boot ───────────────────────────────────────────────────────────────────
+  if (authed) {
+    openDashboard();
+  } else if (isSetupMode) {
+    showSetup();
+  } else {
+    showLock();
+  }
+
+  // ── Setup mode (no passphrase set yet) ─────────────────────────────────────
+  function showSetup() {
+    q('lock-title').textContent = 'Set a Passphrase';
+    q('lock-sub').textContent   = 'Choose a private passphrase for this dashboard. You'll enter it each time you visit.';
+    q('pw2').style.display      = '';
+    q('lock-btn').textContent   = 'Set Passphrase';
+    q('lock-hint').textContent  = 'This is stored as a one-way hash — only you know the original.';
+    q('lock-btn').addEventListener('click', doSetup);
+    q('pw1').addEventListener('keydown', e => e.key === 'Enter' && q('pw2').focus());
+    q('pw2').addEventListener('keydown', e => e.key === 'Enter' && doSetup());
+  }
+
+  async function doSetup() {
+    const pw1 = q('pw1').value;
+    const pw2 = q('pw2').value;
+    const err = q('lock-err');
+    if (!pw1 || pw1.length < 4) { err.textContent = 'Please choose a passphrase (min 4 characters).'; return; }
+    if (pw1 !== pw2)             { err.textContent = 'Passphrases don\'t match.'; return; }
+    err.textContent = '';
+    const hash = await sha256(pw1);
+    localStorage.setItem(PW_HASH_KEY, hash);
+    sessionStorage.setItem(SESSION_KEY, '1');
+    openDashboard();
+  }
+
+  // ── Lock screen ─────────────────────────────────────────────────────────────
+  function showLock() {
+    q('lock-btn').addEventListener('click', doUnlock);
+    q('pw1').addEventListener('keydown', e => e.key === 'Enter' && doUnlock());
+    q('pw1').focus();
+  }
+
+  async function doUnlock() {
+    const val  = q('pw1').value;
+    const hash = await sha256(val);
+    if (hash === localStorage.getItem(PW_HASH_KEY)) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      openDashboard();
+    } else {
+      const err = q('lock-err');
+      err.textContent = 'Incorrect passphrase.';
+      q('pw1').value = '';
+      setTimeout(() => { err.textContent = ''; }, 3000);
+    }
+  }
+
+  // ── Dashboard ───────────────────────────────────────────────────────────────
+  function openDashboard() {
+    q('lock').classList.add('hidden');
+    q('dashboard').classList.add('visible');
+    loadVisitor();
+    loadGC();
+  }
+
+  // Sign out
+  q('sign-out-btn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+
+  // Change passphrase — wipe hash + session, reload to setup
+  q('reset-pw-btn').addEventListener('click', () => {
+    if (!confirm('Reset your passphrase? You\'ll set a new one on the next screen.')) return;
+    localStorage.removeItem(PW_HASH_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+
+  // ── Visitor info ─────────────────────────────────────────────────────────────
+  function loadVisitor() {
+    fetch('https://ipapi.co/json/')
+      .then(r => r.json())
+      .then(d => {
+        function fill(id, val) {
+          const el = q(id);
+          if (!el) return;
+          el.textContent = val || '—';
+          el.classList.remove('pending');
+        }
+
+        fill('vi-ip',     d.ip);
+        fill('vi-city',   d.city);
+        fill('vi-region', d.region);
+        fill('vi-country',d.country_name);
+        fill('vi-org',    d.org);
+        fill('vi-tz',     d.timezone);
+        fill('vi-ll',     d.latitude && d.longitude ? d.latitude + ', ' + d.longitude : null);
+
+        if (d.timezone) {
+          try {
+            fill('vi-time', new Date().toLocaleString('en-US', {
+              timeZone: d.timezone, weekday: 'short', month: 'short',
+              day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true
+            }));
+          } catch (_) { fill('vi-time', new Date().toLocaleString()); }
+        } else {
+          fill('vi-time', new Date().toLocaleString());
+        }
+      })
+      .catch(() => {
+        ['vi-ip','vi-city','vi-region','vi-country','vi-org','vi-tz','vi-ll','vi-time']
+          .forEach(id => { const el = q(id); if (el) { el.textContent = 'Unavailable'; el.classList.remove('pending'); } });
+      });
+  }
+
+  // ── GoatCounter ──────────────────────────────────────────────────────────────
+  function loadGC() {
+    const code = localStorage.getItem(GC_CODE_KEY);
+    const area = q('gc-area');
+
+    if (code) {
+      area.innerHTML =
+        '<div class="gc-code-row">' +
+          '<span class="gc-code-label">Tracking code: <strong>' + escHtml(code) + '</strong></span>' +
+          '<button class="gc-change" id="gc-change">change</button>' +
+        '</div>' +
+        '<div class="gc-embed-wrap">' +
+          '<iframe src="https://' + escHtml(code) + '.goatcounter.com" loading="lazy" title="GoatCounter Analytics"></iframe>' +
+        '</div>' +
+        '<p class="gc-meta">Can\'t see the iframe? <a href="https://' + escHtml(code) + '.goatcounter.com" target="_blank" rel="noopener">Open dashboard directly →</a></p>';
+
+      q('gc-change').addEventListener('click', () => { localStorage.removeItem(GC_CODE_KEY); loadGC(); });
+
+    } else {
+      area.innerHTML =
+        '<div class="setup-card">' +
+          '<h3 class="setup-title">Connect GoatCounter</h3>' +
+          '<p class="setup-desc">GoatCounter is free, privacy-friendly, and tracks page views, visitor locations, browsers, referrers, and more — no cookies required.</p>' +
+          '<ol class="setup-steps">' +
+            '<li><span class="step-num">1</span>' +
+              '<span>Sign up free at <a href="https://www.goatcounter.com" target="_blank" rel="noopener">goatcounter.com</a>.</span></li>' +
+            '<li><span class="step-num">2</span>' +
+              '<span>Create a site. Pick a code — e.g. <code>tateharrisonmedia</code>. Your stats will live at <code>yourcode.goatcounter.com</code>.</span></li>' +
+            '<li><span class="step-num">3</span>' +
+              '<span>The tracking snippet is already in your pages. Find <code>YOUR_GOATCOUNTER_CODE</code> in <code>index.html</code> and <code>pricing-videography.html</code> and replace it with your code.</span></li>' +
+            '<li><span class="step-num">4</span>' +
+              '<span>Enter your code below to embed the dashboard here.</span></li>' +
+          '</ol>' +
+          '<div class="input-row">' +
+            '<input class="setup-input" id="gc-inp" placeholder="yourcode  (e.g. tateharrisonmedia)" autocomplete="off">' +
+            '<button class="setup-save" id="gc-save">Save</button>' +
+          '</div>' +
+          '<div class="note-banner">Once set up, GoatCounter shows <strong>page views</strong>, <strong>unique visitors</strong>, <strong>countries &amp; cities</strong>, <strong>referrers</strong>, <strong>browsers</strong>, and <strong>device types</strong> — updated in real time.</div>' +
+        '</div>';
+
+      q('gc-save').addEventListener('click', () => {
+        const v = q('gc-inp').value.trim().toLowerCase();
+        if (v) { localStorage.setItem(GC_CODE_KEY, v); loadGC(); }
+      });
+      q('gc-inp').addEventListener('keydown', e => e.key === 'Enter' && q('gc-save').click());
+    }
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+})();
+</script>
+
+</body>
+</html>
