@@ -406,6 +406,8 @@ nav .nav-links a:hover { opacity: 1; }
 
 .center { text-align: center; }
 
+.cta { text-align: center; }
+
 /* 6. EPISODE GRID / CARDS (blog + video + podcast list) -------- */
 .episode-grid {
     display: grid;
