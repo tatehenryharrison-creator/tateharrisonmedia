@@ -16,10 +16,13 @@
 <body>
 
 <nav>
-    <a class="brand" href="/index.html">Tate Harrison Media</a>
+    <a class="brand" href="/index.html">
+        <img src="/images/logo.png" alt="Tate Harrison Media" class="nav-logo">
+    </a>
     <div class="nav-links">
         <a href="/episodes.html">Episodes</a>
         <a href="/about.html">About</a>
+        <a href="/services/">Services</a>
         <a href="/index.html#contact">Contact</a>
     </div>
 </nav>
@@ -34,7 +37,7 @@
     <div class="footer-divider"></div>
 
     <div class="social-links">
-        <a href="https://www.youtube.com/@TateHarrisonMediaCompany" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" data-tooltip="YouTube">
+        <a href="https://www.youtube.com/channel/UC3eTpfCdWSvxhF4Zc-3kJmw" target="_blank" rel="noopener" class="social-link" aria-label="YouTube" data-tooltip="YouTube">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 7a2 2 0 0 0-1.41-1.41C16.76 5 12 5 12 5s-4.76 0-6.18.59A2 2 0 0 0 4.41 7 20.06 20.06 0 0 0 4 12a20.06 20.06 0 0 0 .41 5 2 2 0 0 0 1.41 1.41C7.24 19 12 19 12 19s4.76 0 6.18-.59A2 2 0 0 0 19.59 17 20.06 20.06 0 0 0 20 12a20.06 20.06 0 0 0-.41-5zM10 15V9l5.2 3z"/></svg>
         </a>
         <a href="https://www.facebook.com/profile.php?id=61586229141495" target="_blank" rel="noopener" class="social-link" aria-label="Facebook" data-tooltip="Facebook">

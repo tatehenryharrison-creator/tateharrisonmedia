@@ -76,7 +76,7 @@ a { color: inherit; }
 
 /* 2. NAV --------------------------------------------------- */
 nav {
-    padding: 20px 10%;
+    padding: 8px 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,11 +88,24 @@ nav {
 }
 
 nav .brand {
+    display: flex;
+    align-items: center;
     color: #1C1A14;
     text-decoration: none;
     font-family: 'Cinzel', serif;
     letter-spacing: 0.5px;
 }
+
+/* Logo is a stacked mark + wordmark, so it needs real height to stay
+   legible — matches how the real site sizes this same image. */
+.nav-logo {
+    height: 88px;
+    width: auto;
+    display: block;
+    transition: opacity 0.25s ease;
+}
+
+nav .brand:hover .nav-logo { opacity: 0.8; }
 
 nav .nav-links a {
     color: #1C1A14;
@@ -341,37 +354,6 @@ nav .nav-links a:hover { opacity: 1; }
     50% { transform: translateX(-50%) translateY(8px); }
 }
 
-/* Corner link on the hero — sits on the photo, links out to /services/ */
-.hero-side-link {
-    position: absolute;
-    top: 32px;
-    right: 6%;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'EB Garamond', serif;
-    color: #f5f4f0;
-    text-decoration: none;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border: 1px solid rgba(245,244,240,0.6);
-    border-radius: 30px;
-    background: rgba(28,26,20,0.3);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.hero-side-link:hover {
-    background: rgba(245,244,240,0.2);
-    border-color: #f5f4f0;
-}
-
-.hero-side-arrow { font-size: 1rem; }
-
 /* 5. SECTION LAYOUT HELPERS ----------------------------------- */
 .section {
     padding: 90px 10%;
@@ -592,6 +574,8 @@ footer {
         gap: 12px;
     }
 
+    .nav-logo { height: 64px; }
+
     .podcast-hero { min-height: 70vh; padding: 90px 5% 60px; text-align: center; }
 
     /* Disable parallax drift on mobile — avoids JS-driven jitter */
@@ -615,13 +599,6 @@ footer {
 
     .scroll-arrow svg { width: 26px; height: 26px; }
     .scroll-arrow-label { font-size: 0.65rem; }
-
-    .hero-side-link {
-        top: 16px;
-        right: 16px;
-        padding: 8px 14px;
-        font-size: 0.7rem;
-    }
 
     .section { padding: 50px 6%; }
 
