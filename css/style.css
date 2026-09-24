@@ -146,23 +146,66 @@ nav .nav-links a:hover { opacity: 1; }
 
 .contact-link:hover::after { width: 100%; }
 
-/* 4. HERO (podcast-style, modeled after a reference podcast site) --- */
+/* 4. HERO (podcast-style layout, over the original hero photo) --- */
 .podcast-hero {
     position: relative;
-    background: #C9A84C;
-    padding: 70px 8% 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 70px 6% 50px;
+    overflow: hidden;
 }
 
+/* Ken Burns background photo (the original hero image) */
+.hero-parallax {
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: heroKenBurns 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroKenBurns {
+    0%   { transform: scale(1.00) translate(0%, 0%); }
+    33%  { transform: scale(1.08) translate(-1.2%, -0.6%); }
+    66%  { transform: scale(1.13) translate(1%, 0.5%); }
+    100% { transform: scale(1.06) translate(0.5%, -1%); }
+}
+
+/* Glass parchment card holding the podcast content, floating over the photo */
 .podcast-hero-inner {
+    position: relative;
+    z-index: 3;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 60px;
-    max-width: 1200px;
+    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
+    background: rgba(245,244,240,0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 24px;
+    padding: 50px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroFadeUp 1.2s ease forwards;
 }
 
-.podcast-hero-text { flex: 1.3; min-width: 0; padding-top: 10px; }
+@keyframes heroFadeUp { to { opacity: 1; transform: translateY(0); } }
+
+.podcast-hero-text { flex: 1.3; min-width: 0; }
 
 .hero-title {
     font-family: 'Cinzel', serif;
@@ -254,73 +297,77 @@ nav .nav-links a:hover { opacity: 1; }
 .social-icon:hover { background: #f5f4f0; }
 .social-icon svg { width: 17px; height: 17px; }
 
-/* Scroll arrow — sits below the hero content, scrolls to the next section */
+/* Scroll arrow — bottom of the photo, scrolls to the next section */
 .scroll-arrow {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
     cursor: pointer;
+    animation: podcastArrowBounce 2s ease-in-out infinite;
 }
 
 .scroll-arrow svg {
     width: 32px;
     height: 32px;
-    stroke: rgba(28,26,20,0.6);
+    stroke: rgba(245,244,240,0.9);
     fill: none;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
     transition: stroke 0.2s ease;
 }
 
-.scroll-arrow:hover svg { stroke: #1C1A14; }
+.scroll-arrow:hover svg { stroke: #ffffff; }
 
 .scroll-arrow-label {
     font-family: 'EB Garamond', serif;
     font-size: 0.72rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(28,26,20,0.6);
-}
-
-.podcast-scroll-arrow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    max-width: 1200px;
-    margin: 46px auto 0;
-    animation: podcastArrowBounce 2s ease-in-out infinite;
+    color: #f5f4f0;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 
 @keyframes podcastArrowBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
 }
 
-/* Corner link on the hero — links out to /services/ */
+/* Corner link on the hero — sits on the photo, links out to /services/ */
 .hero-side-link {
     position: absolute;
-    top: 24px;
-    right: 8%;
+    top: 32px;
+    right: 6%;
     z-index: 4;
     display: flex;
     align-items: center;
     gap: 10px;
     font-family: 'EB Garamond', serif;
-    color: #1C1A14;
+    color: #f5f4f0;
     text-decoration: none;
     font-size: 0.8rem;
     letter-spacing: 1px;
     text-transform: uppercase;
     padding: 8px 16px;
-    border: 1px solid rgba(28,26,20,0.4);
+    border: 1px solid rgba(245,244,240,0.6);
     border-radius: 30px;
-    background: rgba(245,244,240,0.35);
+    background: rgba(28,26,20,0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-side-link:hover {
-    background: rgba(245,244,240,0.75);
-    border-color: #1C1A14;
+    background: rgba(245,244,240,0.2);
+    border-color: #f5f4f0;
 }
 
 .hero-side-arrow { font-size: 1rem; }
@@ -491,11 +538,18 @@ footer {
         gap: 12px;
     }
 
-    .podcast-hero { padding: 90px 6% 40px; text-align: center; }
+    .podcast-hero { min-height: 70vh; padding: 90px 5% 60px; text-align: center; }
 
-    .podcast-hero-inner { flex-direction: column; align-items: center; gap: 32px; }
+    /* Disable parallax drift on mobile — avoids JS-driven jitter */
+    .hero-parallax { transform: none !important; }
 
-    .podcast-hero-text { padding-top: 0; }
+    .podcast-hero-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        padding: 28px 20px;
+        width: 90%;
+    }
 
     .podcast-hero-intro { margin-left: auto; margin-right: auto; }
 
@@ -507,7 +561,6 @@ footer {
 
     .scroll-arrow svg { width: 26px; height: 26px; }
     .scroll-arrow-label { font-size: 0.65rem; }
-    .podcast-scroll-arrow { margin-top: 30px; }
 
     .hero-side-link {
         top: 16px;
