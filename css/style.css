@@ -76,7 +76,7 @@ a { color: inherit; }
 
 /* 2. NAV --------------------------------------------------- */
 nav {
-    padding: 8px 6%;
+    padding: 6px 2%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -562,7 +562,7 @@ footer {
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
     nav {
-        padding: 15px 5%;
+        padding: 12px 3%;
         flex-direction: column;
         gap: 10px;
     }
