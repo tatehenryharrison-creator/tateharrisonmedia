@@ -146,154 +146,181 @@ nav .nav-links a:hover { opacity: 1; }
 
 .contact-link:hover::after { width: 100%; }
 
-/* 4. HERO ---------------------------------------------------- */
-/* Recreated to match the current live hero on
-   tatehenryharrison-creator.github.io: a full-bleed Ken Burns
-   background photo behind a centered glass/parchment text panel. */
-.hero {
+/* 4. HERO (podcast-style, modeled after a reference podcast site) --- */
+.podcast-hero {
     position: relative;
+    background: #C9A84C;
+    padding: 70px 8% 60px;
+}
+
+.podcast-hero-inner {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 90vh;
-    padding: 0 6%;
-    overflow: hidden;
-}
-
-.hero-parallax {
-    position: absolute;
-    inset: -25%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('/images/hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-    animation: heroKenBurns 24s ease-in-out infinite alternate;
-}
-
-@keyframes heroKenBurns {
-    0%   { transform: scale(1.00) translate(0%, 0%); }
-    33%  { transform: scale(1.08) translate(-1.2%, -0.6%); }
-    66%  { transform: scale(1.13) translate(1%, 0.5%); }
-    100% { transform: scale(1.06) translate(0.5%, -1%); }
-}
-
-.hero-text-panel {
-    position: relative;
-    width: auto;
-    max-width: 640px;
-    padding: 52px 56px;
-    border-radius: 20px;
-    background: rgba(245,244,240,0.78);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    z-index: 3;
-    text-align: center;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 60px;
+    max-width: 1200px;
     margin: 0 auto;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: heroFadeUp 1.2s ease forwards;
 }
+
+.podcast-hero-text { flex: 1.3; min-width: 0; padding-top: 10px; }
 
 .hero-title {
     font-family: 'Cinzel', serif;
     font-weight: 400;
-    font-size: clamp(1.8rem, 3.6vw, 3.4rem);
+    font-size: clamp(1.8rem, 3.6vw, 3.2rem);
     line-height: 1.15;
-    margin: 0 auto 20px;
+    margin: 0 0 10px;
     color: #1C1A14;
 }
 
-.hero-text-panel .subtext { font-family: 'EB Garamond', serif; padding: 0; }
-.hero-text-panel .subtext p { margin: 6px 0; color: #635f51; opacity: 1; }
-
-.hero-text-panel .btn {
-    margin-top: 24px;
-    border-color: #1C1A14;
-    color: #1C1A14;
+.podcast-hero-host {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(28,26,20,0.7);
+    margin: 0 0 22px;
 }
-.hero-text-panel .btn:hover { background: #1C1A14; color: #f5f4f0; }
 
-@keyframes heroFadeUp { to { opacity: 1; transform: translateY(0); } }
+.podcast-hero-intro {
+    font-family: 'IM Fell English', serif;
+    color: rgba(28,26,20,0.65);
+    max-width: 520px;
+    line-height: 1.7;
+    margin: 0 0 26px;
+}
 
-/* Scroll arrow — bottom-center, scrolls down to the next section */
-.scroll-arrow {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+.podcast-hero-text .btn { border-color: #1C1A14; color: #1C1A14; }
+.podcast-hero-text .btn:hover { background: #1C1A14; color: #f5f4f0; }
+
+/* Cover art + subscribe + social column */
+.podcast-hero-cover-col {
+    flex-shrink: 0;
+    width: 280px;
+}
+
+.podcast-cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 6px solid rgba(245,244,240,0.9);
+    box-shadow: 0 18px 40px rgba(28,26,20,0.25);
+}
+
+.podcast-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+.podcast-subscribe {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.subscribe-badge {
+    display: inline-flex;
     align-items: center;
     gap: 8px;
+    background: #1C1A14;
+    color: #f5f4f0;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    transition: opacity 0.2s ease;
+}
+
+.subscribe-badge:hover { opacity: 0.82; }
+.subscribe-badge svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.podcast-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.social-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(245,244,240,0.85);
+    color: #1C1A14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.social-icon:hover { background: #f5f4f0; }
+.social-icon svg { width: 17px; height: 17px; }
+
+/* Scroll arrow — sits below the hero content, scrolls to the next section */
+.scroll-arrow {
     text-decoration: none;
     cursor: pointer;
-    animation: heroArrowBounce 2s ease-in-out infinite;
 }
 
 .scroll-arrow svg {
-    width: 36px;
-    height: 36px;
-    stroke: rgba(245,244,240,0.85);
+    width: 32px;
+    height: 32px;
+    stroke: rgba(28,26,20,0.6);
     fill: none;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
     transition: stroke 0.2s ease;
 }
 
-.scroll-arrow:hover svg { stroke: #ffffff; }
+.scroll-arrow:hover svg { stroke: #1C1A14; }
 
 .scroll-arrow-label {
     font-family: 'EB Garamond', serif;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #f5f4f0;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+    color: rgba(28,26,20,0.6);
 }
 
-@keyframes heroArrowBounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(10px); }
+.podcast-scroll-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    max-width: 1200px;
+    margin: 46px auto 0;
+    animation: podcastArrowBounce 2s ease-in-out infinite;
 }
 
-/* Side link on the right of the hero — links out to /services/ */
+@keyframes podcastArrowBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+/* Corner link on the hero — links out to /services/ */
 .hero-side-link {
     position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 24px;
+    right: 8%;
     z-index: 4;
     display: flex;
     align-items: center;
     gap: 10px;
     font-family: 'EB Garamond', serif;
-    color: #f5f4f0;
+    color: #1C1A14;
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 10px 18px;
-    border: 1px solid rgba(245,244,240,0.6);
+    padding: 8px 16px;
+    border: 1px solid rgba(28,26,20,0.4);
     border-radius: 30px;
-    background: rgba(28,26,20,0.3);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(245,244,240,0.35);
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .hero-side-link:hover {
-    background: rgba(245,244,240,0.2);
-    border-color: #f5f4f0;
+    background: rgba(245,244,240,0.75);
+    border-color: #1C1A14;
 }
 
 .hero-side-arrow { font-size: 1rem; }
@@ -464,31 +491,27 @@ footer {
         gap: 12px;
     }
 
-    .hero {
-        min-height: 70vh;
-        padding: 0 5%;
-        justify-content: center;
-        text-align: center;
-    }
+    .podcast-hero { padding: 90px 6% 40px; text-align: center; }
 
-    /* Disable parallax drift on mobile — avoids JS-driven jitter */
-    .hero-parallax { transform: none !important; }
+    .podcast-hero-inner { flex-direction: column; align-items: center; gap: 32px; }
 
-    .hero-text-panel {
-        width: 90%;
-        padding: 28px 20px;
-    }
+    .podcast-hero-text { padding-top: 0; }
+
+    .podcast-hero-intro { margin-left: auto; margin-right: auto; }
+
+    .podcast-hero-cover-col { width: 220px; }
+
+    .podcast-subscribe, .podcast-social { justify-content: center; }
 
     .hero-title { font-size: 1.7rem; line-height: 1.15; }
 
-    .scroll-arrow { bottom: 16px; }
-    .scroll-arrow svg { width: 28px; height: 28px; }
+    .scroll-arrow svg { width: 26px; height: 26px; }
     .scroll-arrow-label { font-size: 0.65rem; }
+    .podcast-scroll-arrow { margin-top: 30px; }
 
     .hero-side-link {
         top: 16px;
         right: 16px;
-        transform: none;
         padding: 8px 14px;
         font-size: 0.7rem;
     }
