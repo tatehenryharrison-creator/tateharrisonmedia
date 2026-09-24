@@ -509,13 +509,6 @@ nav .nav-links a:hover { opacity: 1; }
 
 .form-wrapper iframe { width: 100%; border: none; }
 
-.social-links {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 24px;
-}
-
 /* 10. FOOTER -------------------------------------------------------- */
 footer {
     text-align: center;
@@ -524,6 +517,65 @@ footer {
     color: #a8a49c;
     font-size: 0.85rem;
 }
+
+.footer-divider {
+    height: 1px;
+    background: rgba(99,95,81,0.12);
+    margin: 0 auto 28px;
+    max-width: 440px;
+}
+
+/* Social icons with tooltips — reused in the footer and on contact.html */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.social-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(99,95,81,0.25);
+    color: #635f51;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    border-color: #5C6E82;
+    color: #5C6E82;
+    background: rgba(92,110,130,0.08);
+}
+
+.social-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+.social-link::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1C1A14;
+    color: #f5f4f0;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.66rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.social-link:hover::after { opacity: 1; }
 
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
