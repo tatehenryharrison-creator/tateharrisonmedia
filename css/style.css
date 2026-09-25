@@ -76,7 +76,7 @@ a { color: inherit; }
 
 /* 2. NAV --------------------------------------------------- */
 nav {
-    padding: 6px 2%;
+    padding: 4px 2%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -96,10 +96,10 @@ nav .brand {
     letter-spacing: 0.5px;
 }
 
-/* Logo is a stacked mark + wordmark, so it needs real height to stay
-   legible — matches how the real site sizes this same image. */
+/* Logo is a stacked mark + wordmark. Kept as short as possible while
+   the wordmark stays readable. */
 .nav-logo {
-    height: 88px;
+    height: 62px;
     width: auto;
     display: block;
     transition: opacity 0.25s ease;
@@ -562,9 +562,9 @@ footer {
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
     nav {
-        padding: 12px 3%;
+        padding: 8px 3%;
         flex-direction: column;
-        gap: 10px;
+        gap: 6px;
     }
 
     nav .nav-links {
@@ -574,7 +574,7 @@ footer {
         gap: 12px;
     }
 
-    .nav-logo { height: 64px; }
+    .nav-logo { height: 48px; }
 
     .podcast-hero { min-height: 70vh; padding: 90px 5% 60px; text-align: center; }
 
