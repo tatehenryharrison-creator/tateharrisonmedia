@@ -159,7 +159,7 @@ nav .nav-links a:hover { opacity: 1; }
 
 .contact-link:hover::after { width: 100%; }
 
-/* 4. HERO (podcast-style layout, over the original hero photo) --- */
+/* 4. HERO (podcast-style layout, solid brand colors — no photo) --- */
 .podcast-hero {
     position: relative;
     display: flex;
@@ -169,33 +169,10 @@ nav .nav-links a:hover { opacity: 1; }
     min-height: 90vh;
     padding: 70px 6% 50px;
     overflow: hidden;
+    background: #C9A84C;
 }
 
-/* Ken Burns background photo (the original hero image) */
-.hero-parallax {
-    position: absolute;
-    inset: -25%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('/images/hero-background.jpg');
-    background-size: cover;
-    background-position: center;
-    animation: heroKenBurns 24s ease-in-out infinite alternate;
-}
-
-@keyframes heroKenBurns {
-    0%   { transform: scale(1.00) translate(0%, 0%); }
-    33%  { transform: scale(1.08) translate(-1.2%, -0.6%); }
-    66%  { transform: scale(1.13) translate(1%, 0.5%); }
-    100% { transform: scale(1.06) translate(0.5%, -1%); }
-}
-
-/* Glass parchment card holding the podcast content, floating over the photo */
+/* Parchment card holding the podcast content, on the solid gold hero */
 .podcast-hero-inner {
     position: relative;
     z-index: 3;
@@ -206,9 +183,7 @@ nav .nav-links a:hover { opacity: 1; }
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
-    background: rgba(245,244,240,0.82);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: #f5f4f0;
     border-radius: 24px;
     padding: 50px;
     opacity: 0;
@@ -329,24 +304,22 @@ nav .nav-links a:hover { opacity: 1; }
 .scroll-arrow svg {
     width: 32px;
     height: 32px;
-    stroke: rgba(245,244,240,0.9);
+    stroke: rgba(28,26,20,0.6);
     fill: none;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
     transition: stroke 0.2s ease;
 }
 
-.scroll-arrow:hover svg { stroke: #ffffff; }
+.scroll-arrow:hover svg { stroke: #1C1A14; }
 
 .scroll-arrow-label {
     font-family: 'EB Garamond', serif;
     font-size: 0.72rem;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #f5f4f0;
-    text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+    color: rgba(28,26,20,0.6);
 }
 
 @keyframes podcastArrowBounce {
@@ -391,6 +364,49 @@ nav .nav-links a:hover { opacity: 1; }
 .cta { text-align: center; }
 
 /* 6. EPISODE GRID / CARDS (blog + video + podcast list) -------- */
+/* Ken Burns background photo (the original hero image), now sitting
+   behind the episode list instead of the hero. */
+.episodes-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-parallax {
+    position: absolute;
+    inset: -25%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/hero-background.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: heroKenBurns 24s ease-in-out infinite alternate;
+}
+
+@keyframes heroKenBurns {
+    0%   { transform: scale(1.00) translate(0%, 0%); }
+    33%  { transform: scale(1.08) translate(-1.2%, -0.6%); }
+    66%  { transform: scale(1.13) translate(1%, 0.5%); }
+    100% { transform: scale(1.06) translate(0.5%, -1%); }
+}
+
+/* Parchment scrim so episode text stays readable over the photo */
+.episodes-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(245,244,240,0.88);
+}
+
+.episodes-content {
+    position: relative;
+    z-index: 2;
+}
+
 .episode-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
