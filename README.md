@@ -9,18 +9,20 @@ so every file opens and previews normally in Dreamweaver.
 
 ```
 /index.html          Home page
-/episodes.html        Grid of all episodes
+/episodes.html        List of all episodes, newest first
 /about.html            About / bio page
 /contact.html          Contact / subscribe page
 /episodes/
     episode-001.html    Example filled-in episode
     episode-template.html  Blank starter — duplicate this for each new episode
 /Templates/
-    main.dwt            The Dreamweaver Template — nav, footer, <head> boilerplate
+    main.dwt            The Dreamweaver Template — nav, footer, mini-player, <head>
 /css/style.css         One global stylesheet (all colors, fonts, layout)
-/js/main.js            Tiny optional hero effect
+/js/main.js            Reserved for future site-wide JS (currently empty)
+/js/player.js           The site-wide audio player (see below)
 /images/               Photos, thumbnails, logos (currently placeholder-*.svg)
 /video/                Video files (currently empty)
+/audio/                 Episode mp3 files (currently placeholder silent files)
 /services/             The OLD service-sales site, self-contained, standalone
                         HTML/CSS/media — lives at tateharrisonmedia.com/services.
                         Not part of the Dreamweaver Template system above and
@@ -81,15 +83,59 @@ page**: the nav bar, the footer, the `<head>` boilerplate. Every page
   name="content"` / `InstanceEndEditable` comments). Everything outside
   that region is locked, so you can't accidentally break the nav/footer.
 
+## The site-wide audio player
+
+Every page shares one audio player, defined once in `Templates/main.dwt`
+(the dark bar with a thumbnail, title, progress bar, and play/pause —
+hidden until something plays) and driven by `js/player.js`. Any button
+with class `episode-play-btn` starts it:
+
+```html
+<button class="episode-play-btn"
+        data-episode-id="episode-001"
+        data-audio-src="/audio/episode-001.mp3"
+        data-title="Episode Title"
+        data-thumb="/images/episode-001-thumb.jpg"
+        aria-label="Play episode">
+    <svg class="icon-play">...</svg>
+    <svg class="icon-pause">...</svg>
+</button>
+```
+
+`data-episode-id` must be unique per episode — it's how the player knows
+whether a click should start a new episode or just toggle play/pause on
+the one already loaded.
+
+**"Keeps playing across pages"** works by saving the playing episode and
+its current position to the browser's local storage, then picking it back
+up on the next page's load. A full page navigation briefly stops the
+audio no matter what — that's just how plain multi-page sites work, there's
+no way around it without turning this into a single-page app — but the
+player resumes at the same spot automatically. Browsers sometimes block
+that automatic resume (their "autoplay" rules only allow it once a visitor
+has already interacted with the site); when that happens the mini-player
+still shows up paused at the exact right spot, ready for one click to
+continue, rather than losing the visitor's place.
+
+**Real audio files:** `/audio/` currently has short silent placeholder
+mp3s so the play buttons work end-to-end. Drop your real episode mp3s in
+there (e.g. `episode-002.mp3`) and update each episode's
+`data-audio-src` to match.
+
 ## Adding a new episode
 
 1. In Dreamweaver's Files panel, duplicate `episodes/episode-template.html`
-   and rename it (e.g. `episode-002.html`).
-2. Open it, fill in the title, thumbnail, video/audio, and show notes
-   inside the editable region.
-3. Open `episodes.html` (and optionally `index.html`), copy one
-   `<a class="episode-card">...</a>` block, and update its thumbnail,
-   title, teaser text, and link to point at your new page.
+   and rename it (e.g. `episode-002.html`). Fill in its title, thumbnail,
+   `data-*` attributes on the play button, YouTube link, and show notes.
+2. Drop the episode's real mp3 in `/audio/` and point the page's play
+   button `data-audio-src` at it.
+3. Open `episodes.html` (and optionally `index.html`'s "Latest Episodes"),
+   copy one `<article class="episode-row">...</article>` block, and paste
+   it at the **top** of `.episode-list` (newest episode goes first).
+   Update its thumbnail, play button `data-*` attributes, title link,
+   description, and YouTube link. The description can be any length —
+   `js/player.js` automatically shortens it to ~100 characters (finishing
+   the word in progress) with a "more" link to the full episode page.
 
 ## Adding real media
 

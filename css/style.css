@@ -407,42 +407,25 @@ nav .nav-links a:hover { opacity: 1; }
     z-index: 2;
 }
 
-.episode-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 32px;
+/* List of episode rows, newest at the top. Each row: thumbnail (with
+   a play button that starts the site-wide audio player), title,
+   auto-truncated description, "more" link, and a Watch on YouTube
+   button. */
+.episode-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     margin-top: 40px;
 }
 
-.episode-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.25s ease;
+.episode-row {
+    display: flex;
+    gap: 28px;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(28,26,20,0.1);
 }
 
-.episode-card:hover { transform: translateY(-4px); }
-
-.episode-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 16px;
-    box-shadow: 0 0 0 rgba(28,26,20,0);
-    transition: box-shadow 0.25s ease;
-}
-
-.episode-card:hover .episode-thumb { box-shadow: 0 14px 30px rgba(28,26,20,0.15); }
-
-.episode-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.episode-card:hover .episode-thumb img { transform: scale(1.04); }
+.episode-row:first-child { padding-top: 0; }
 
 .episode-meta {
     font-size: 0.75rem;
@@ -453,41 +436,115 @@ nav .nav-links a:hover { opacity: 1; }
     margin-bottom: 8px;
 }
 
-.episode-card h3 {
-    font-size: 1.25rem;
+.episode-row-thumb-wrap {
+    position: relative;
+    flex-shrink: 0;
+    width: 240px;
+}
+
+.episode-row-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.episode-row-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Play button — reused at list-row size here and at a larger size
+   (.episode-play-btn--large) on a single episode's own page. */
+.episode-play-btn {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(28,26,20,0.78);
+    color: #f5f4f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.episode-play-btn:hover { background: #1C1A14; transform: scale(1.06); }
+.episode-play-btn svg { width: 18px; height: 18px; }
+.episode-play-btn .icon-pause { display: none; }
+.episode-play-btn.is-playing .icon-play { display: none; }
+.episode-play-btn.is-playing .icon-pause { display: block; }
+
+.episode-row-body { flex: 1; min-width: 0; }
+
+.episode-row-body h3 {
+    font-size: 1.3rem;
     margin-bottom: 8px;
+}
+
+.episode-row-body h3 a {
+    text-decoration: none;
+    color: inherit;
     transition: color 0.2s ease;
 }
 
-.episode-card:hover h3 { color: #5C6E82; }
+.episode-row-body h3 a:hover { color: #5C6E82; }
 
-.episode-card p { font-size: 0.92rem; }
+.episode-desc { font-size: 0.95rem; margin-bottom: 16px; }
+
+.more-link {
+    color: #5C6E82;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.more-link:hover { text-decoration: underline; }
+
+.episode-row-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: #1C1A14;
+    color: #f5f4f0;
+    text-decoration: none;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    transition: opacity 0.2s ease;
+}
+
+.btn-youtube:hover { opacity: 0.85; }
+.btn-youtube svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* 7. SINGLE-EPISODE PAGE ---------------------------------------- */
-.player-wrapper {
-    max-width: 900px;
-    margin: 0 auto 40px auto;
+/* Big thumbnail + play button for this one episode, matching the
+   list rows' play button but larger. */
+.episode-hero-thumb-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto 30px;
 }
 
-.player-wrapper .placeholder-media {
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-}
-
-.player-wrapper iframe,
-.player-wrapper video {
+.episode-hero-thumb {
     width: 100%;
     aspect-ratio: 16 / 9;
-    border: none;
-    border-radius: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(28,26,20,0.15);
 }
 
-.audio-wrapper {
-    max-width: 700px;
-    margin: 0 auto 40px auto;
-}
+.episode-hero-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-.audio-wrapper audio { width: 100%; }
+.episode-play-btn--large { width: 76px; height: 76px; }
+.episode-play-btn--large svg { width: 28px; height: 28px; }
+
+.episode-hero-actions { margin-bottom: 40px; }
 
 .show-notes {
     max-width: 700px;
@@ -592,6 +649,89 @@ footer {
 
 .social-link:hover::after { opacity: 1; }
 
+/* 10b. SITE-WIDE MINI PLAYER ------------------------------------------ */
+/* Fixed bar at the bottom of every page (see js/player.js). Hidden
+   until an episode is played, then stays visible across pages. */
+body.player-active { padding-bottom: 76px; }
+
+.mini-player {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #1C1A14;
+    padding: 12px 6%;
+    transform: translateY(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mini-player.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mini-player-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #2a2620;
+}
+
+.mini-player-body { flex: 1; min-width: 0; }
+
+.mini-player-title {
+    margin: 0 0 6px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    color: #f5f4f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-player-progress {
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(245,244,240,0.2);
+    cursor: pointer;
+}
+
+.mini-player-progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    background: #C9A84C;
+}
+
+.mini-player-playpause,
+.mini-player-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #f5f4f0;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.mini-player-playpause svg { width: 22px; height: 22px; }
+.mini-player-playpause .icon-pause { display: none; }
+.mini-player.is-playing .icon-play { display: none; }
+.mini-player.is-playing .icon-pause { display: block; }
+
+.mini-player-close { font-size: 1.4rem; line-height: 1; }
+
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
     nav {
@@ -638,4 +778,15 @@ footer {
     .about-inner { flex-direction: column; }
 
     .section-heading { font-size: 1.8rem; }
+
+    .episode-row { flex-direction: column; gap: 16px; }
+    .episode-row-thumb-wrap { width: 100%; }
+
+    .episode-hero-thumb-wrap { max-width: 100%; }
+    .episode-play-btn--large { width: 60px; height: 60px; }
+    .episode-play-btn--large svg { width: 22px; height: 22px; }
+
+    body.player-active { padding-bottom: 92px; }
+    .mini-player { padding: 10px 4%; gap: 10px; }
+    .mini-player-title { font-size: 0.8rem; }
 }

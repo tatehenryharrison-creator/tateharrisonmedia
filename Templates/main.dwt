@@ -63,7 +63,27 @@
     &copy; 2026 Tate Harrison Media. All rights reserved.
 </footer>
 
+<!-- Site-wide persistent audio player — keeps playing across pages.
+     See js/player.js. Don't remove this from any page or the player
+     will stop working when a visitor navigates there. -->
+<div class="mini-player" id="miniPlayer" aria-hidden="true">
+    <img class="mini-player-thumb" id="miniPlayerThumb" src="" alt="">
+    <div class="mini-player-body">
+        <p class="mini-player-title" id="miniPlayerTitle"></p>
+        <div class="mini-player-progress" id="miniPlayerProgress">
+            <div class="mini-player-progress-fill" id="miniPlayerProgressFill"></div>
+        </div>
+    </div>
+    <button class="mini-player-playpause" id="miniPlayerPlayPause" aria-label="Play or pause">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <button class="mini-player-close" id="miniPlayerClose" aria-label="Close player">&times;</button>
+</div>
+<audio id="sitePlayerAudio" preload="none"></audio>
+
 <script src="/js/main.js"></script>
+<script src="/js/player.js"></script>
 
 </body>
 </html>

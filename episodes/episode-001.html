@@ -37,15 +37,26 @@
         <h1 class="section-heading">Episode Title Goes Here</h1>
     </div>
 
-    <div class="player-wrapper">
-        <div class="placeholder-media">VIDEO PLAYER PLACEHOLDER</div>
+    <div class="episode-hero-thumb-wrap">
+        <div class="episode-hero-thumb">
+            <img src="/images/placeholder-thumb.svg" alt="Episode 001 thumbnail">
+        </div>
+        <button class="episode-play-btn episode-play-btn--large"
+                data-episode-id="episode-001"
+                data-audio-src="/audio/episode-001.mp3"
+                data-title="Episode Title Goes Here"
+                data-thumb="/images/placeholder-thumb.svg"
+                aria-label="Play episode">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
     </div>
 
-    <div class="audio-wrapper">
-        <audio controls>
-            <source src="" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <div class="episode-hero-actions center">
+        <a class="btn-youtube" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 7a2 2 0 0 0-1.41-1.41C16.76 5 12 5 12 5s-4.76 0-6.18.59A2 2 0 0 0 4.41 7 20.06 20.06 0 0 0 4 12a20.06 20.06 0 0 0 .41 5 2 2 0 0 0 1.41 1.41C7.24 19 12 19 12 19s4.76 0 6.18-.59A2 2 0 0 0 19.59 17 20.06 20.06 0 0 0 20 12a20.06 20.06 0 0 0-.41-5zM10 15V9l5.2 3z"/></svg>
+            Watch on YouTube
+        </a>
     </div>
 
     <div class="show-notes">
@@ -90,7 +101,27 @@
     &copy; 2026 Tate Harrison Media. All rights reserved.
 </footer>
 
+<!-- Site-wide persistent audio player — keeps playing across pages.
+     See js/player.js. Don't remove this from any page or the player
+     will stop working when a visitor navigates there. -->
+<div class="mini-player" id="miniPlayer" aria-hidden="true">
+    <img class="mini-player-thumb" id="miniPlayerThumb" src="" alt="">
+    <div class="mini-player-body">
+        <p class="mini-player-title" id="miniPlayerTitle"></p>
+        <div class="mini-player-progress" id="miniPlayerProgress">
+            <div class="mini-player-progress-fill" id="miniPlayerProgressFill"></div>
+        </div>
+    </div>
+    <button class="mini-player-playpause" id="miniPlayerPlayPause" aria-label="Play or pause">
+        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    </button>
+    <button class="mini-player-close" id="miniPlayerClose" aria-label="Close player">&times;</button>
+</div>
+<audio id="sitePlayerAudio" preload="none"></audio>
+
 <script src="/js/main.js"></script>
+<script src="/js/player.js"></script>
 
 </body>
 <!-- InstanceEnd -->
