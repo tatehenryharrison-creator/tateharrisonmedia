@@ -407,27 +407,41 @@ nav .nav-links a:hover { opacity: 1; }
     z-index: 2;
 }
 
-/* List of episode rows, newest at the top. Each row: thumbnail (with
-   a play button that starts the site-wide audio player), title,
-   auto-truncated description, "more" link, and a Watch on YouTube
-   button. */
-.episode-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 40px;
-}
+/* Episode entries. Each one is written once, as a plain full-length
+   block, in Library/episodes.lbi. js/episodes.js shortens it into a
+   compact row on list pages (.is-compact), or expands it into the full
+   page on episode.html (.is-detail). With no script, or in Dreamweaver's
+   Design view, the full block simply shows as-is. */
+.episode-list { margin-top: 40px; }
 
-.episode-row {
+/* The blank starter in the Library file never shows on the site. */
+.episode-entry-blank { display: none !important; }
+
+.episode-entry {
     display: flex;
     gap: 28px;
     padding: 28px 0;
     border-bottom: 1px solid rgba(28,26,20,0.1);
 }
 
-.episode-row:first-child { padding-top: 0; }
+.episode-entry:first-child { padding-top: 0; }
 
-.episode-meta {
+.episode-entry-thumb {
+    position: relative;
+    flex: 0 0 240px;
+}
+
+.episode-thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.episode-entry-body { flex: 1; min-width: 0; }
+
+.episode-number-line {
     font-size: 0.75rem;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -436,23 +450,80 @@ nav .nav-links a:hover { opacity: 1; }
     margin-bottom: 8px;
 }
 
-.episode-row-thumb-wrap {
-    position: relative;
-    flex-shrink: 0;
-    width: 240px;
+.episode-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 8px;
 }
 
-.episode-row-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-    overflow: hidden;
+.episode-title a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s ease;
 }
 
-.episode-row-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.episode-title a:hover { color: #5C6E82; }
 
-/* Play button — reused at list-row size here and at a larger size
-   (.episode-play-btn--large) on a single episode's own page. */
+.episode-desc { font-size: 0.95rem; margin-bottom: 16px; }
+
+.more-link {
+    color: #5C6E82;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.more-link:hover { text-decoration: underline; }
+
+.episode-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    margin-bottom: 0;
+}
+
+.btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: #1C1A14;
+    color: #f5f4f0;
+    text-decoration: none;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    transition: opacity 0.2s ease;
+}
+
+.btn-youtube:hover { opacity: 0.85; }
+.btn-youtube svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.episode-audio {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: #5C6E82;
+    text-decoration: none;
+}
+
+.episode-audio:hover { text-decoration: underline; }
+
+.episode-notes { margin-top: 26px; }
+.episode-notes h4 {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin: 0 0 8px;
+}
+
+.episode-empty { text-align: center; padding: 40px 0; }
+.episode-empty a { color: #5C6E82; }
+
+/* Play button, added to each entry's thumbnail by js/episodes.js. It
+   starts the site-wide audio player (js/player.js). */
 .episode-play-btn {
     position: absolute;
     inset: 0;
@@ -475,83 +546,50 @@ nav .nav-links a:hover { opacity: 1; }
 .episode-play-btn .icon-pause { display: none; }
 .episode-play-btn.is-playing .icon-play { display: none; }
 .episode-play-btn.is-playing .icon-pause { display: block; }
-
-.episode-row-body { flex: 1; min-width: 0; }
-
-.episode-row-body h3 {
-    font-size: 1.3rem;
-    margin-bottom: 8px;
-}
-
-.episode-row-body h3 a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.2s ease;
-}
-
-.episode-row-body h3 a:hover { color: #5C6E82; }
-
-.episode-desc { font-size: 0.95rem; margin-bottom: 16px; }
-
-.more-link {
-    color: #5C6E82;
-    text-decoration: none;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.more-link:hover { text-decoration: underline; }
-
-.episode-row-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-.btn-youtube {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 9px 18px;
-    border-radius: 8px;
-    background: #1C1A14;
-    color: #f5f4f0;
-    text-decoration: none;
-    font-family: 'EB Garamond', serif;
-    font-size: 0.85rem;
-    transition: opacity 0.2s ease;
-}
-
-.btn-youtube:hover { opacity: 0.85; }
-.btn-youtube svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-/* 7. SINGLE-EPISODE PAGE ---------------------------------------- */
-/* Big thumbnail + play button for this one episode, matching the
-   list rows' play button but larger. */
-.episode-hero-thumb-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto 30px;
-}
-
-.episode-hero-thumb {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 18px 40px rgba(28,26,20,0.15);
-}
-
-.episode-hero-thumb img { width: 100%; height: 100%; object-fit: cover; }
-
 .episode-play-btn--large { width: 76px; height: 76px; }
 .episode-play-btn--large svg { width: 28px; height: 28px; }
 
-.episode-hero-actions { margin-bottom: 40px; }
+/* List pages: compact rows (the long extras stay hidden) */
+.episode-list.is-compact .episode-notes,
+.episode-list.is-compact .episode-audio { display: none; }
 
-.show-notes {
-    max-width: 700px;
+/* 7. SINGLE-EPISODE PAGE (episode.html) ---------------------------- */
+.episode-back { max-width: 760px; margin: 0 auto 24px; }
+.episode-back a { color: #5C6E82; text-decoration: none; font-family: 'EB Garamond', serif; }
+.episode-back a:hover { text-decoration: underline; }
+
+.episode-list.is-detail { margin-top: 0; }
+
+.episode-list.is-detail .episode-entry {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    max-width: 760px;
     margin: 0 auto;
+    padding: 0;
+    border-bottom: none;
+    text-align: center;
 }
 
-.show-notes h2 { margin-top: 40px; }
+.episode-list.is-detail .episode-entry-thumb { flex: none; width: 100%; max-width: 640px; }
+
+.episode-list.is-detail .episode-thumb {
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(28,26,20,0.15);
+}
+
+.episode-list.is-detail .episode-entry-body { width: 100%; }
+
+.episode-list.is-detail .episode-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+    margin-bottom: 16px;
+}
+
+.episode-list.is-detail .episode-desc { font-size: 1.05rem; text-align: left; margin-bottom: 22px; }
+.episode-list.is-detail .episode-links { justify-content: center; }
+.episode-list.is-detail .episode-notes { text-align: left; margin-top: 36px; }
 
 /* 8. ABOUT PAGE ------------------------------------------------- */
 .about-inner {
@@ -779,10 +817,9 @@ body.player-active { padding-bottom: 76px; }
 
     .section-heading { font-size: 1.8rem; }
 
-    .episode-row { flex-direction: column; gap: 16px; }
-    .episode-row-thumb-wrap { width: 100%; }
+    .episode-entry { flex-direction: column; gap: 16px; }
+    .episode-entry-thumb { flex: none; width: 100%; }
 
-    .episode-hero-thumb-wrap { max-width: 100%; }
     .episode-play-btn--large { width: 60px; height: 60px; }
     .episode-play-btn--large svg { width: 22px; height: 22px; }
 

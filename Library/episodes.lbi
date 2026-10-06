@@ -1,0 +1,54 @@
+<article class="episode-entry episode-entry-blank">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-howto"><strong>NEW EPISODE STARTER &mdash; this block never shows on the website.</strong><br>
+        1. Click inside this block, pick the <strong>&lt;article&gt;</strong> tag at the bottom of the window, Copy, then Paste it right above or below.<br>
+        2. In your copy: double-click the picture to choose the episode's thumbnail.<br>
+        3. Type the episode number, date, title, description, and show notes over the sample text.<br>
+        4. Click &ldquo;Download audio&rdquo; &rarr; Properties panel &rarr; Link &rarr; folder icon &rarr; pick the mp3 from the audio folder.<br>
+        5. Click &ldquo;Watch on YouTube&rdquo; &rarr; Properties panel &rarr; Link &rarr; paste the video's address.<br>
+        6. Save. When Dreamweaver asks to update pages, click Update. The newest episode (highest number) appears first automatically.</p>
+        <p class="episode-number-line">Episode <span class="episode-number">0</span> &bull; <span class="episode-date">Month Year</span></p>
+        <h3 class="episode-title">TYPE THE EPISODE TITLE HERE</h3>
+        <p class="episode-desc">TYPE THE FULL DESCRIPTION HERE. Any length is fine &mdash; the website shortens it automatically on the episode list (with a &ldquo;more&rdquo; link) and shows all of it on the episode's own page.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/watch?v=PASTE-VIDEO-ID">Watch on YouTube</a> <a class="episode-audio" href="/audio/PASTE-AUDIO-FILE.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>TYPE SHOW NOTES HERE (optional). Links, timestamps, guests, and anything else listeners should know. Delete this whole Show Notes block if you don't need it.</p>
+        </div>
+    </div>
+</article>
+
+<article class="episode-entry">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-number-line">Episode <span class="episode-number">2</span> &bull; <span class="episode-date">Month Year</span></p>
+        <h3 class="episode-title">Sample Episode Two &mdash; Replace Me</h3>
+        <p class="episode-desc">This is a sample entry showing how a longer description gets shortened on the episode list. Type the full description once, here, and the website trims it to a short preview with a &ldquo;more&rdquo; link, then shows every word on the episode's own page.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/channel/UC3eTpfCdWSvxhF4Zc-3kJmw">Watch on YouTube</a> <a class="episode-audio" href="/audio/episode-002.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>Sample show notes. These only appear on the episode's own page, not on the list.</p>
+        </div>
+    </div>
+</article>
+
+<article class="episode-entry">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-number-line">Episode <span class="episode-number">1</span> &bull; <span class="episode-date">2026</span></p>
+        <h3 class="episode-title">Sample Episode One &mdash; Replace Me</h3>
+        <p class="episode-desc">A short description stays exactly as typed.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/channel/UC3eTpfCdWSvxhF4Zc-3kJmw">Watch on YouTube</a> <a class="episode-audio" href="/audio/episode-001.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>Sample show notes for episode one.</p>
+        </div>
+    </div>
+</article>

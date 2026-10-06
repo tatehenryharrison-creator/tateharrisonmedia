@@ -8,21 +8,22 @@ so every file opens and previews normally in Dreamweaver.
 ## Folder structure
 
 ```
-/index.html          Home page
-/episodes.html        List of all episodes, newest first
+/index.html           Home page (shows the newest 3 episodes)
+/episodes.html         The full list of episodes, newest first
+/episode.html          Every episode's own page (filled in automatically — don't edit)
 /about.html            About / bio page
-/contact.html          Contact / subscribe page
-/episodes/
-    episode-001.html    Example filled-in episode
-    episode-template.html  Blank starter — duplicate this for each new episode
+/contact.html          Contact page
+/Library/
+    episodes.lbi        EVERY EPISODE LIVES HERE — the one file you edit to add episodes
 /Templates/
     main.dwt            The Dreamweaver Template — nav, footer, mini-player, <head>
 /css/style.css         One global stylesheet (all colors, fonts, layout)
-/js/main.js            Reserved for future site-wide JS (currently empty)
-/js/player.js           The site-wide audio player (see below)
-/images/               Photos, thumbnails, logos (currently placeholder-*.svg)
-/video/                Video files (currently empty)
-/audio/                 Episode mp3 files (currently placeholder silent files)
+/js/episodes.js         Builds the episode list and episode pages from the Library item
+/js/player.js           The site-wide audio player (keeps playing across pages)
+/js/main.js             Reserved for future site-wide JS (currently empty)
+/images/               Photos and episode thumbnails
+/audio/                Episode mp3 files
+/video/                (unused — video lives on YouTube; you just paste the link)
 /services/             The OLD service-sales site, self-contained, standalone
                         HTML/CSS/media — lives at tateharrisonmedia.com/services.
                         Not part of the Dreamweaver Template system above and
@@ -83,67 +84,90 @@ page**: the nav bar, the footer, the `<head>` boilerplate. Every page
   name="content"` / `InstanceEndEditable` comments). Everything outside
   that region is locked, so you can't accidentally break the nav/footer.
 
+## Adding an episode (the whole workflow)
+
+You only ever edit **one file**: `Library/episodes.lbi`. The home page, the
+Episodes list, and each episode's own page all read from it, so there is
+nothing to copy between pages.
+
+**Before your first episode — one-time Dreamweaver setting:** Site →
+Manage Sites → edit this site → Advanced Settings → Local Info → set
+*Links relative to* **Site Root**. (That way picking a file with the folder
+icon always writes `/audio/episode-004.mp3`, which is what the site expects.)
+
+1. **Drop your files in.** In the Files panel, drag the episode's mp3 into
+   `audio/` and its thumbnail picture into `images/`.
+2. **Open the Library item.** Assets panel → Library → double-click
+   `episodes`. (Or open `Library/episodes.lbi` from the Files panel.)
+3. **Copy the blank starter.** The first block is a NEW EPISODE STARTER with
+   step-by-step instructions printed right on it. Click inside it, click the
+   `<article>` tag at the bottom of the window (that selects the whole
+   episode block), Copy, and Paste it just below. The starter never shows on
+   the website, so you can reuse it every time.
+4. **Fill in your copy** — it's all ordinary, visible text:
+   - double-click the picture → choose the thumbnail
+   - type the **episode number** (newest = highest number), **date**, **title**
+   - type the **full description** — any length. The site shortens it to
+     about 100 characters (finishing the word, then "…" and a "more" link)
+     on the lists, and shows all of it on the episode's own page
+   - click **Download audio** → Properties panel → Link → folder icon → pick
+     the mp3 from `audio/`
+   - click **Watch on YouTube** → Properties panel → Link → paste the video's
+     address
+   - type the **show notes** (optional — delete that block if you don't want
+     any; they only show on the episode's own page)
+5. **Save.** Dreamweaver asks to update pages that use the Library item —
+   click **Update**. Done: the new episode is first in the list, on the home
+   page, and has its own page.
+6. Publish: commit and push (see "Publishing" below).
+
+Good to know:
+
+- **Order is automatic.** Episodes sort by number, highest first, wherever you
+  paste them.
+- **Unfinished entries are safe.** If an entry still has the `PASTE-...`
+  placeholder for its audio, it shows without a play button; the same goes for
+  the YouTube button. Nothing breaks.
+- **To change or remove an episode,** edit or delete its block in the same
+  Library file, save, and click Update.
+- **Home page count:** the home page shows the newest 3. To change it, set
+  `data-limit="3"` on the `<div id="episodeList">` in `index.html`.
+- **"Watch the Latest Episode"** on the home page points at the newest
+  episode by itself.
+- **Each episode's own page** is `episode.html?ep=<audio file name>`, e.g.
+  `episode.html?ep=episode-004`, filled in by `js/episodes.js`. Because it is
+  one shared page, every episode shares the same social-media link preview.
+- In the Library file's Design view the entries look plain/unstyled — that's
+  normal (Library files can't carry the site's stylesheet). Open `episodes.html`
+  in Live view to see them styled.
+
 ## The site-wide audio player
 
-Every page shares one audio player, defined once in `Templates/main.dwt`
-(the dark bar with a thumbnail, title, progress bar, and play/pause —
-hidden until something plays) and driven by `js/player.js`. Any button
-with class `episode-play-btn` starts it:
+One audio player is built into every page (the dark bar at the bottom, hidden
+until something plays), defined once in `Templates/main.dwt` and driven by
+`js/player.js`. The play button on each episode's thumbnail is added by
+`js/episodes.js` automatically — you never create or edit it.
 
-```html
-<button class="episode-play-btn"
-        data-episode-id="episode-001"
-        data-audio-src="/audio/episode-001.mp3"
-        data-title="Episode Title"
-        data-thumb="/images/episode-001-thumb.jpg"
-        aria-label="Play episode">
-    <svg class="icon-play">...</svg>
-    <svg class="icon-pause">...</svg>
-</button>
-```
+**"Keeps playing across pages"** works by saving the playing episode and its
+position in the browser's local storage, then picking it back up on the next
+page. A full page navigation always interrupts audio for an instant — that's how
+plain multi-page sites work; avoiding it would mean turning the site into a
+single-page app — but the player resumes at the same spot automatically.
+Browsers sometimes block that automatic resume (their "autoplay" rules); when
+that happens the mini-player still appears, paused at the right spot, ready for
+one click.
 
-`data-episode-id` must be unique per episode — it's how the player knows
-whether a click should start a new episode or just toggle play/pause on
-the one already loaded.
-
-**"Keeps playing across pages"** works by saving the playing episode and
-its current position to the browser's local storage, then picking it back
-up on the next page's load. A full page navigation briefly stops the
-audio no matter what — that's just how plain multi-page sites work, there's
-no way around it without turning this into a single-page app — but the
-player resumes at the same spot automatically. Browsers sometimes block
-that automatic resume (their "autoplay" rules only allow it once a visitor
-has already interacted with the site); when that happens the mini-player
-still shows up paused at the exact right spot, ready for one click to
-continue, rather than losing the visitor's place.
-
-**Real audio files:** `/audio/` currently has short silent placeholder
-mp3s so the play buttons work end-to-end. Drop your real episode mp3s in
-there (e.g. `episode-002.mp3`) and update each episode's
-`data-audio-src` to match.
-
-## Adding a new episode
-
-1. In Dreamweaver's Files panel, duplicate `episodes/episode-template.html`
-   and rename it (e.g. `episode-002.html`). Fill in its title, thumbnail,
-   `data-*` attributes on the play button, YouTube link, and show notes.
-2. Drop the episode's real mp3 in `/audio/` and point the page's play
-   button `data-audio-src` at it.
-3. Open `episodes.html` (and optionally `index.html`'s "Latest Episodes"),
-   copy one `<article class="episode-row">...</article>` block, and paste
-   it at the **top** of `.episode-list` (newest episode goes first).
-   Update its thumbnail, play button `data-*` attributes, title link,
-   description, and YouTube link. The description can be any length —
-   `js/player.js` automatically shortens it to ~100 characters (finishing
-   the word in progress) with a "more" link to the full episode page.
+**Real audio files:** `audio/episode-001.mp3` and `episode-002.mp3` are short
+*silent* placeholders so the player works end-to-end. Replace them (or delete
+them along with the two sample entries) when you add real episodes.
 
 ## Adding real media
 
-The `images/` and `video/` folders are currently placeholders
-(`placeholder-*.svg`). Once you've picked which folder of old media you
-want to bring over, tell Claude its name/location and it will help you
-move the right files in and repoint the `<img>`/`<video>` tags — no need
-to touch CSS.
+The `images/` folder still holds placeholders (`placeholder-*.svg`) for the
+podcast cover art on the home page and the About photo. Swap those in
+Dreamweaver the normal way — double-click the picture, choose the new file.
+Episode thumbnails are chosen the same way inside the Library item (see
+"Adding an episode").
 
 ---
 

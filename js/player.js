@@ -215,28 +215,4 @@
             }
         }
     }
-
-    /* Truncate episode descriptions to ~100 characters (completing the
-       word in progress, never cutting one in half) and append a "more"
-       link built from each paragraph's data-more-href attribute. */
-    var descriptions = document.querySelectorAll('.episode-desc[data-more-href]');
-    var LIMIT = 100;
-    for (var d = 0; d < descriptions.length; d++) {
-        var p = descriptions[d];
-        var full = p.textContent.trim();
-        if (full.length <= LIMIT) continue;
-
-        var nextSpace = full.indexOf(' ', LIMIT);
-        var endIndex = nextSpace === -1 ? full.length : nextSpace;
-        var truncated = full.slice(0, endIndex).replace(/[.,;:!?…]+$/, '');
-
-        p.textContent = '';
-        p.appendChild(document.createTextNode(truncated + '… '));
-
-        var moreLink = document.createElement('a');
-        moreLink.href = p.getAttribute('data-more-href');
-        moreLink.className = 'more-link';
-        moreLink.textContent = 'more';
-        p.appendChild(moreLink);
-    }
 })();

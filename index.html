@@ -38,7 +38,7 @@
             <h1 class="hero-title">Human Motivation</h1>
             <p class="podcast-hero-host">with Tate Harrison</p>
             <p class="podcast-hero-intro">I&rsquo;m Tate Harrison, and this is: Human Motivation; the podcast where we uncover the mystery of living <em>for the sake of it</em>.</p>
-            <a class="btn" href="/episodes.html">Watch the Latest Episode</a>
+            <a class="btn" href="/episodes.html" data-latest-episode>Watch the Latest Episode</a>
         </div>
 
         <div class="podcast-hero-cover-col">
@@ -89,65 +89,68 @@
         <p class="section-eyebrow">Latest Episodes</p>
         <h2 class="section-heading">From the Series</h2>
 
-        <div class="episode-list">
-
-            <article class="episode-row">
-                <div class="episode-row-thumb-wrap">
-                    <div class="episode-row-thumb">
-                        <img src="/images/placeholder-thumb.svg" alt="Episode thumbnail placeholder">
-                    </div>
-                    <button class="episode-play-btn"
-                            data-episode-id="episode-template"
-                            data-audio-src="/audio/episode-template.mp3"
-                            data-title="Duplicate This For Your Next Episode"
-                            data-thumb="/images/placeholder-thumb.svg"
-                            aria-label="Play episode">
-                        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-                    </button>
-                </div>
-                <div class="episode-row-body">
-                    <p class="episode-meta">Episode 002 &bull; Month Year</p>
-                    <h3><a href="/episodes/episode-template.html">Duplicate This For Your Next Episode</a></h3>
-                    <p class="episode-desc" data-more-href="/episodes/episode-template.html">Duplicate /episodes/episode-template.html for every new episode you publish, then update its title, thumbnail, audio file, YouTube link, and show notes.</p>
-                    <div class="episode-row-actions">
-                        <a class="btn-youtube" href="#" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 7a2 2 0 0 0-1.41-1.41C16.76 5 12 5 12 5s-4.76 0-6.18.59A2 2 0 0 0 4.41 7 20.06 20.06 0 0 0 4 12a20.06 20.06 0 0 0 .41 5 2 2 0 0 0 1.41 1.41C7.24 19 12 19 12 19s4.76 0 6.18-.59A2 2 0 0 0 19.59 17 20.06 20.06 0 0 0 20 12a20.06 20.06 0 0 0-.41-5zM10 15V9l5.2 3z"/></svg>
-                            Watch on YouTube
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <article class="episode-row">
-                <div class="episode-row-thumb-wrap">
-                    <div class="episode-row-thumb">
-                        <img src="/images/placeholder-thumb.svg" alt="Episode 001 thumbnail">
-                    </div>
-                    <button class="episode-play-btn"
-                            data-episode-id="episode-001"
-                            data-audio-src="/audio/episode-001.mp3"
-                            data-title="Episode Title Goes Here"
-                            data-thumb="/images/placeholder-thumb.svg"
-                            aria-label="Play episode">
-                        <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-                    </button>
-                </div>
-                <div class="episode-row-body">
-                    <p class="episode-meta">Episode 001 &bull; 2026</p>
-                    <h3><a href="/episodes/episode-001.html">Episode Title Goes Here</a></h3>
-                    <p class="episode-desc" data-more-href="/episodes/episode-001.html">One or two sentences teasing what this episode is about — write the full description here and the site will automatically shorten it for the list.</p>
-                    <div class="episode-row-actions">
-                        <a class="btn-youtube" href="#" target="_blank" rel="noopener">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 7a2 2 0 0 0-1.41-1.41C16.76 5 12 5 12 5s-4.76 0-6.18.59A2 2 0 0 0 4.41 7 20.06 20.06 0 0 0 4 12a20.06 20.06 0 0 0 .41 5 2 2 0 0 0 1.41 1.41C7.24 19 12 19 12 19s4.76 0 6.18-.59A2 2 0 0 0 19.59 17 20.06 20.06 0 0 0 20 12a20.06 20.06 0 0 0-.41-5zM10 15V9l5.2 3z"/></svg>
-                            Watch on YouTube
-                        </a>
-                    </div>
-                </div>
-            </article>
-
+        <!-- Shows the newest 3 episodes, from the same single Library item as the
+             Episodes page (Library/episodes.lbi). Change data-limit to show more or fewer. -->
+        <div class="episode-list" id="episodeList" data-mode="list" data-limit="3">
+<!-- #BeginLibraryItem "/Library/episodes.lbi" -->
+<article class="episode-entry episode-entry-blank">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-howto"><strong>NEW EPISODE STARTER &mdash; this block never shows on the website.</strong><br>
+        1. Click inside this block, pick the <strong>&lt;article&gt;</strong> tag at the bottom of the window, Copy, then Paste it right above or below.<br>
+        2. In your copy: double-click the picture to choose the episode's thumbnail.<br>
+        3. Type the episode number, date, title, description, and show notes over the sample text.<br>
+        4. Click &ldquo;Download audio&rdquo; &rarr; Properties panel &rarr; Link &rarr; folder icon &rarr; pick the mp3 from the audio folder.<br>
+        5. Click &ldquo;Watch on YouTube&rdquo; &rarr; Properties panel &rarr; Link &rarr; paste the video's address.<br>
+        6. Save. When Dreamweaver asks to update pages, click Update. The newest episode (highest number) appears first automatically.</p>
+        <p class="episode-number-line">Episode <span class="episode-number">0</span> &bull; <span class="episode-date">Month Year</span></p>
+        <h3 class="episode-title">TYPE THE EPISODE TITLE HERE</h3>
+        <p class="episode-desc">TYPE THE FULL DESCRIPTION HERE. Any length is fine &mdash; the website shortens it automatically on the episode list (with a &ldquo;more&rdquo; link) and shows all of it on the episode's own page.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/watch?v=PASTE-VIDEO-ID">Watch on YouTube</a> <a class="episode-audio" href="/audio/PASTE-AUDIO-FILE.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>TYPE SHOW NOTES HERE (optional). Links, timestamps, guests, and anything else listeners should know. Delete this whole Show Notes block if you don't need it.</p>
         </div>
+    </div>
+</article>
+
+<article class="episode-entry">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-number-line">Episode <span class="episode-number">2</span> &bull; <span class="episode-date">Month Year</span></p>
+        <h3 class="episode-title">Sample Episode Two &mdash; Replace Me</h3>
+        <p class="episode-desc">This is a sample entry showing how a longer description gets shortened on the episode list. Type the full description once, here, and the website trims it to a short preview with a &ldquo;more&rdquo; link, then shows every word on the episode's own page.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/channel/UC3eTpfCdWSvxhF4Zc-3kJmw">Watch on YouTube</a> <a class="episode-audio" href="/audio/episode-002.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>Sample show notes. These only appear on the episode's own page, not on the list.</p>
+        </div>
+    </div>
+</article>
+
+<article class="episode-entry">
+    <div class="episode-entry-thumb">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+    </div>
+    <div class="episode-entry-body">
+        <p class="episode-number-line">Episode <span class="episode-number">1</span> &bull; <span class="episode-date">2026</span></p>
+        <h3 class="episode-title">Sample Episode One &mdash; Replace Me</h3>
+        <p class="episode-desc">A short description stays exactly as typed.</p>
+        <p class="episode-links"><a class="btn-youtube" href="https://www.youtube.com/channel/UC3eTpfCdWSvxhF4Zc-3kJmw">Watch on YouTube</a> <a class="episode-audio" href="/audio/episode-001.mp3">Download audio</a></p>
+        <div class="episode-notes">
+            <h4>Show Notes</h4>
+            <p>Sample show notes for episode one.</p>
+        </div>
+    </div>
+</article>
+<!-- #EndLibraryItem -->
+        </div>
+
+        <p class="center" style="margin-top: 32px;"><a class="btn" href="/episodes.html">See all episodes</a></p>
     </div>
 </section>
 
@@ -211,6 +214,7 @@
 <audio id="sitePlayerAudio" preload="none"></audio>
 
 <script src="/js/main.js"></script>
+<script src="/js/episodes.js"></script>
 <script src="/js/player.js"></script>
 
 </body>
