@@ -34,6 +34,13 @@
         return !!href && href !== '#' && !/PASTE|REPLACE/i.test(href);
     }
 
+    /* Video id from any common YouTube address (watch?v=, youtu.be/, embed/,
+       shorts/, live/). A channel address has no video id, so it returns ''. */
+    function youtubeId(url) {
+        var m = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/|v\/))([A-Za-z0-9_-]{11})(?![A-Za-z0-9_-])/.exec(url || '');
+        return m ? m[1] : '';
+    }
+
     function slug(text) {
         return (text || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
     }
@@ -82,6 +89,7 @@
             descEl: descEl,
             audioEl: audioEl,
             youtubeEl: youtubeEl,
+            youtubeHref: youtubeEl ? youtubeEl.getAttribute('href') : '',
             index: i,
             number: number,
             id: id,
@@ -173,6 +181,28 @@
         ep.descEl.appendChild(more);
     }
 
+    /* The episode page's video: built from the same YouTube link the "Watch on
+       YouTube" button uses, so there is nothing extra to fill in. A link with no
+       video in it (like a channel address) just shows the button. */
+    function addVideo(ep) {
+        var videoId = isRealLink(ep.youtubeHref) ? youtubeId(ep.youtubeHref) : '';
+        if (!videoId || !ep.descEl) return;
+
+        var box = document.createElement('div');
+        box.className = 'episode-video';
+
+        var frame = document.createElement('iframe');
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?rel=0';
+        frame.title = ep.title + ' (video)';
+        frame.loading = 'lazy';
+        frame.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen';
+        frame.setAttribute('allowfullscreen', '');
+        frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+
+        box.appendChild(frame);
+        ep.descEl.parentNode.insertBefore(box, ep.descEl.nextSibling);
+    }
+
     /* ---- list pages: compact rows ---- */
     if (mode !== 'detail') {
         list.classList.add('is-compact');
@@ -225,6 +255,7 @@
     document.title = match.title + ' | ' + SITE_NAME;
 
     addPlayButton(match, true);
+    addVideo(match);
     tidyLinks(match);
     if (match.audioEl && match.audio) match.audioEl.setAttribute('download', '');
 

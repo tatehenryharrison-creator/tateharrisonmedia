@@ -113,7 +113,8 @@ icon always writes `/audio/episode-004.mp3`, which is what the site expects.)
    - click **Download audio** → Properties panel → Link → folder icon → pick
      the mp3 from `audio/`
    - click **Watch on YouTube** → Properties panel → Link → paste the video's
-     address
+     address (the normal address from your browser's address bar, or a
+     youtu.be share link — either works)
    - type the **show notes** (optional — delete that block if you don't want
      any; they only show on the episode's own page)
 5. **Save.** Dreamweaver asks to update pages that use the Library item —
@@ -125,6 +126,14 @@ Good to know:
 
 - **Order is automatic.** Episodes sort by number, highest first, wherever you
   paste them.
+- **The video shows up by itself.** On an episode's own page, the YouTube
+  video is embedded right under the description, built from that same
+  YouTube link — there's nothing extra to fill in. The list pages keep just
+  the "Watch on YouTube" button. If the link is a channel address (no
+  specific video) or is still the `PASTE-VIDEO-ID` placeholder, the page shows
+  only the button, so nothing looks broken while you're mid-edit. The video
+  and the audio player are independent, so pause one before playing the
+  other.
 - **Unfinished entries are safe.** If an entry still has the `PASTE-...`
   placeholder for its audio, it shows without a play button; the same goes for
   the YouTube button. Nothing breaks.
