@@ -53,25 +53,16 @@
         if (node && node.parentNode) node.parentNode.removeChild(node);
     }
 
-    /* ---- read every entry ---- */
-    var nodes = list.querySelectorAll('.episode-entry');
-    var episodes = [];
-
-    for (var i = 0; i < nodes.length; i++) {
-        var el = nodes[i];
-
-        /* The blank starter in the Library file never shows on the site. */
-        if (el.classList.contains('episode-entry-blank')) {
-            remove(el);
-            continue;
-        }
-
+    /* ---- read one entry (also used for the "More to listen to" copies) ---- */
+    function readEntry(el, index) {
         var titleEl = el.querySelector('.episode-title');
         var descEl = el.querySelector('.episode-desc');
         var audioEl = el.querySelector('a.episode-audio');
         var youtubeEl = el.querySelector('a.btn-youtube');
         var thumbEl = el.querySelector('img.episode-thumb');
         var numberEl = el.querySelector('.episode-number');
+        var dateEl = el.querySelector('.episode-date');
+        var lengthEl = el.querySelector('.episode-length');
 
         var audioHref = audioEl ? audioEl.getAttribute('href') : '';
         var hasAudio = isRealLink(audioHref);
@@ -81,22 +72,38 @@
            -> "episode-004"), falling back to its number. It is used in the
            episode page's address and to remember what is playing. */
         var fileName = hasAudio ? audioHref.split('#')[0].split('?')[0].split('/').pop().replace(/\.[^.]+$/, '') : '';
-        var id = slug(fileName) || (isNaN(number) ? 'episode-' + (episodes.length + 1) : 'episode-' + number);
+        var id = slug(fileName) || (isNaN(number) ? 'episode-' + (index + 1) : 'episode-' + number);
 
-        episodes.push({
+        return {
             el: el,
             titleEl: titleEl,
             descEl: descEl,
             audioEl: audioEl,
             youtubeEl: youtubeEl,
             youtubeHref: youtubeEl ? youtubeEl.getAttribute('href') : '',
-            index: i,
+            lineEl: el.querySelector('.episode-number-line'),
+            guestEl: el.querySelector('.episode-guest'),
+            index: index,
             number: number,
+            date: dateEl ? clean(dateEl.textContent) : '',
+            length: lengthEl ? clean(lengthEl.textContent) : '',
             id: id,
             title: titleEl ? clean(titleEl.textContent) : 'Episode',
             audio: hasAudio ? audioEl.href : '',
             thumb: thumbEl ? thumbEl.src : ''
-        });
+        };
+    }
+
+    var nodes = list.querySelectorAll('.episode-entry');
+    var episodes = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        /* The blank starter in the Library file never shows on the site. */
+        if (nodes[i].classList.contains('episode-entry-blank')) {
+            remove(nodes[i]);
+            continue;
+        }
+        episodes.push(readEntry(nodes[i], i));
     }
 
     if (!episodes.length) {
@@ -119,6 +126,15 @@
     if (latestButton) latestButton.href = detailUrl(episodes[0]);
 
     /* ---- shared pieces ---- */
+    /* Both the round button on the thumbnail and the "Listen" button carry
+       these, which is all js/player.js needs to start the episode. */
+    function setPlayData(btn, ep) {
+        btn.setAttribute('data-episode-id', ep.id);
+        btn.setAttribute('data-audio-src', ep.audio);
+        btn.setAttribute('data-title', ep.title);
+        btn.setAttribute('data-thumb', ep.thumb);
+    }
+
     function addPlayButton(ep, large) {
         var wrap = ep.el.querySelector('.episode-entry-thumb');
         if (!ep.audio || !wrap) return;
@@ -126,13 +142,47 @@
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'episode-play-btn' + (large ? ' episode-play-btn--large' : '');
-        btn.setAttribute('data-episode-id', ep.id);
-        btn.setAttribute('data-audio-src', ep.audio);
-        btn.setAttribute('data-title', ep.title);
-        btn.setAttribute('data-thumb', ep.thumb);
+        setPlayData(btn, ep);
         btn.setAttribute('aria-label', 'Play ' + ep.title);
         btn.innerHTML = ICON_PLAY + ICON_PAUSE;
         wrap.appendChild(btn);
+    }
+
+    /* A text "Listen" button first in the row of links, so audio is as easy to
+       spot as the YouTube button. It turns into "Pause" while playing. */
+    function addListenButton(ep) {
+        var linksEl = ep.el.querySelector('.episode-links');
+        if (!ep.audio || !linksEl) return;
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-listen';
+        setPlayData(btn, ep);
+        btn.innerHTML = ICON_PLAY + ICON_PAUSE + '<span class="label-play">Listen</span><span class="label-pause">Pause</span>';
+        linksEl.insertBefore(btn, linksEl.firstChild);
+    }
+
+    /* Rebuild the "Episode 4 \u2022 October 2026 \u2022 42 min" line from whichever
+       pieces are filled in (the starter's placeholder text counts as empty),
+       and drop the guest line while it still has its placeholder. */
+    function tidyMeta(ep) {
+        if (ep.lineEl) {
+            var parts = [];
+            if (!isNaN(ep.number)) parts.push('Episode ' + ep.number);
+            if (ep.date && !/^month year$/i.test(ep.date)) parts.push(ep.date);
+            if (ep.length && !/^0*\s*min$/i.test(ep.length)) parts.push(ep.length);
+
+            if (parts.length) {
+                ep.lineEl.textContent = parts.join(' \u2022 ');
+            } else {
+                remove(ep.lineEl);
+            }
+        }
+
+        if (ep.guestEl) {
+            var guest = clean(ep.guestEl.textContent);
+            if (!guest || /GUEST NAME/i.test(guest)) remove(ep.guestEl);
+        }
     }
 
     function tidyLinks(ep) {
@@ -203,20 +253,26 @@
         ep.descEl.parentNode.insertBefore(box, ep.descEl.nextSibling);
     }
 
-    /* ---- list pages: compact rows ---- */
+    /* ---- compact rows (lists, and "More to listen to") ---- */
+    function decorateRow(ep) {
+        addPlayButton(ep, false);
+        addListenButton(ep);
+        tidyLinks(ep);
+        tidyMeta(ep);
+        linkTitle(ep);
+        shorten(ep);
+    }
+
+    /* ---- list pages ---- */
     if (mode !== 'detail') {
         list.classList.add('is-compact');
 
         for (var r = 0; r < episodes.length; r++) {
-            var row = episodes[r];
             if (limit && r >= limit) {
-                remove(row.el);
+                remove(episodes[r].el);
                 continue;
             }
-            addPlayButton(row, false);
-            tidyLinks(row);
-            linkTitle(row);
-            shorten(row);
+            decorateRow(episodes[r]);
         }
         return;
     }
@@ -239,8 +295,13 @@
         return;
     }
 
+    /* Take untouched copies of the other episodes for "More to listen to"
+       (newest first, up to 3) before they are removed from this page. */
+    var suggestions = [];
     for (var o = 0; o < episodes.length; o++) {
-        if (episodes[o] !== match) remove(episodes[o].el);
+        if (episodes[o] === match) continue;
+        if (suggestions.length < 3) suggestions.push(readEntry(episodes[o].el.cloneNode(true), episodes[o].index));
+        remove(episodes[o].el);
     }
 
     list.classList.add('is-detail');
@@ -256,11 +317,33 @@
 
     addPlayButton(match, true);
     addVideo(match);
+    addListenButton(match);
     tidyLinks(match);
+    tidyMeta(match);
     if (match.audioEl && match.audio) match.audioEl.setAttribute('download', '');
 
     var back = document.createElement('p');
     back.className = 'episode-back';
     back.innerHTML = '<a href="/episodes.html">← All episodes</a>';
     list.parentNode.insertBefore(back, list);
+
+    if (suggestions.length) {
+        var more = document.createElement('section');
+        more.className = 'episode-more';
+
+        var moreHeading = document.createElement('h2');
+        moreHeading.className = 'episode-more-heading';
+        moreHeading.textContent = 'More to listen to';
+
+        var moreList = document.createElement('div');
+        moreList.className = 'episode-list is-compact';
+
+        more.appendChild(moreHeading);
+        more.appendChild(moreList);
+        for (var k = 0; k < suggestions.length; k++) {
+            moreList.appendChild(suggestions[k].el);
+            decorateRow(suggestions[k]);
+        }
+        list.parentNode.insertBefore(more, list.nextSibling);
+    }
 })();

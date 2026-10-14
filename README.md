@@ -106,7 +106,10 @@ icon always writes `/audio/episode-004.mp3`, which is what the site expects.)
    the website, so you can reuse it every time.
 4. **Fill in your copy** — it's all ordinary, visible text:
    - double-click the picture → choose the thumbnail
-   - type the **episode number** (newest = highest number), **date**, **title**
+   - type the **episode number** (newest = highest number), **date**, **length**
+     (like `42 min`), and **title**
+   - type the **guest** line (like `with Dr. Jane Smith`) — or delete that line if
+     there's no guest
    - type the **full description** — any length. The site shortens it to
      about 100 characters (finishing the word, then "…" and a "more" link)
      on the lists, and shows all of it on the episode's own page
@@ -134,6 +137,14 @@ Good to know:
   only the button, so nothing looks broken while you're mid-edit. The video
   and the audio player are independent, so pause one before playing the
   other.
+- **Buttons and lists build themselves.** Each episode automatically gets a
+  **Listen** button (it becomes **Pause** while playing) next to **Watch on
+  YouTube**, and the round play button on its thumbnail — you never add either.
+  The "Episode 4 • October 2026 • 42 min" line is assembled from whichever
+  pieces you filled in; anything still showing the starter's placeholder text
+  (`Month Year`, `00 min`, `GUEST NAME`) is simply left out.
+- **"More to listen to"** appears at the bottom of every episode's own page:
+  the three newest *other* episodes, picked automatically. Nothing to maintain.
 - **Unfinished entries are safe.** If an entry still has the `PASTE-...`
   placeholder for its audio, it shows without a play button; the same goes for
   the YouTube button. Nothing breaks.

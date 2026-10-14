@@ -62,7 +62,7 @@
     }
 
     function syncPlayButtons() {
-        var buttons = document.querySelectorAll('.episode-play-btn');
+        var buttons = document.querySelectorAll('[data-audio-src]');
         for (var i = 0; i < buttons.length; i++) {
             var isThis = !!(current && current.id && buttons[i].getAttribute('data-episode-id') === current.id);
             buttons[i].classList.toggle('is-playing', isThis && !!current.playing);
@@ -117,7 +117,7 @@
     /* Event delegation so play buttons added later (or on other pages
        reusing this same script) all work without extra wiring. */
     document.addEventListener('click', function (e) {
-        var btn = e.target.closest ? e.target.closest('.episode-play-btn') : null;
+        var btn = e.target.closest ? e.target.closest('[data-audio-src]') : null;
         if (!btn) return;
         e.preventDefault();
 
