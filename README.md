@@ -84,7 +84,33 @@ page**: the nav bar, the footer, the `<head>` boilerplate. Every page
   name="content"` / `InstanceEndEditable` comments). Everything outside
   that region is locked, so you can't accidentally break the nav/footer.
 
-## Adding an episode (the whole workflow)
+## Website Studio — the no-skill way to do the technical parts
+
+Double-click **`Tools/Website Studio.command`**. A Terminal window opens and
+Website Studio appears in your browser. It does the jobs that normally need
+technical skill, with big buttons and plain English:
+
+- **Add a new episode.** Fill in a form and drop in the audio and a picture —
+  any file name, any picture size. It renames the files, crops and sizes the
+  thumbnail, reads the episode length from the audio, compresses audio that's
+  too big for GitHub, adds the episode to your site, and updates every page.
+- **Preview my website.** Opens your site exactly as visitors will see it.
+- **Publish to the live website.** Shows what's changed, then sends it live.
+  If something goes wrong (no internet, a file that's too large, a sign-in
+  problem) it tells you in plain words and nothing is lost.
+- **Remove an episode** (and clear out the two sample ones). Its files go to a
+  trash folder, never deleted.
+
+Leave the Terminal window open while you work; press **Quit Studio** (or close
+the window) when you're done. If macOS says the file can't be opened,
+right-click it → **Open** once.
+
+Use **Dreamweaver** for everything visual: changing wording, swapping photos,
+editing the About page, or tweaking an episode's text. Studio and Dreamweaver
+work on the same files, so use either in any order. If Dreamweaver says a file
+changed on disk, click **Yes** to reload it.
+
+## Adding an episode in Dreamweaver (the manual way)
 
 You only ever edit **one file**: `Library/episodes.lbi`. The home page, the
 Episodes list, and each episode's own page all read from it, so there is

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="studio-token" content="__TOKEN__">
+<title>Website Studio</title>
+<link rel="stylesheet" href="/css/fonts.css">
+<style>
+:root { --bg:#f5f4f0; --ink:#1C1A14; --muted:#635f51; --faint:#a8a49c; --line:rgba(28,26,20,.14); --blue:#5C6E82; --gold:#C9A84C; --bad:#9b2c2c; --good:#2f6b3f; }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:'IM Fell English',Georgia,serif; line-height:1.55; }
+.wrap { max-width:820px; margin:0 auto; padding:48px 24px 80px; }
+h1 { font-family:'Cinzel',Georgia,serif; font-weight:400; font-size:2.2rem; margin:0 0 6px; }
+h2 { font-family:'Cinzel',Georgia,serif; font-weight:400; font-size:1.4rem; margin:0 0 16px; }
+.sub { color:var(--muted); margin:0 0 34px; max-width:620px; }
+.actions { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+.action { position:relative; display:flex; flex-direction:column; gap:6px; text-align:left; text-decoration:none; color:inherit; font:inherit; background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; cursor:pointer; transition:transform .15s, box-shadow .15s, border-color .15s; }
+.action:hover, .action.active { transform:translateY(-2px); box-shadow:0 10px 26px rgba(28,26,20,.09); border-color:var(--blue); }
+.action .big { font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:1.2rem; }
+.action .small { color:var(--muted); font-size:.92rem; }
+.badge { position:absolute; top:-10px; right:-8px; box-shadow:0 2px 6px rgba(28,26,20,.18); background:var(--gold); color:var(--ink); border-radius:20px; padding:0 10px; font-family:'EB Garamond',Georgia,serif; font-size:.9rem; font-weight:600; }
+.panel { background:#fff; border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:24px; }
+label { display:block; margin:0 0 18px; font-family:'EB Garamond',Georgia,serif; font-weight:600; }
+label small, .hint { font-weight:400; color:var(--muted); font-family:'IM Fell English',Georgia,serif; font-size:.9rem; }
+input[type=text], input[type=number], input:not([type]), textarea { display:block; width:100%; margin-top:6px; padding:11px 13px; font:inherit; font-weight:400; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:9px; }
+textarea { resize:vertical; }
+input:focus, textarea:focus { outline:2px solid var(--blue); outline-offset:1px; }
+.row { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.drop { border:2px dashed var(--faint); border-radius:12px; padding:20px 16px; text-align:center; cursor:pointer; background:var(--bg); transition:border-color .15s, background .15s; margin-bottom:18px; }
+.drop.over { border-color:var(--blue); background:#eef1f4; }
+.drop.done { border-style:solid; border-color:var(--good); }
+.drop .t { display:block; font-family:'EB Garamond',Georgia,serif; font-weight:600; }
+.drop .s { display:block; color:var(--muted); font-size:.92rem; margin-top:2px; word-break:break-word; }
+.drop input { display:none; }
+.bar { height:6px; background:var(--line); border-radius:3px; margin-top:10px; overflow:hidden; }
+.bar > i { display:block; height:100%; width:0; background:var(--blue); transition:width .1s; }
+.btn { font:inherit; font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:1rem; border-radius:10px; padding:12px 22px; cursor:pointer; border:1px solid var(--ink); background:#fff; color:var(--ink); text-decoration:none; display:inline-block; }
+.btn.primary { background:var(--ink); color:var(--bg); }
+.btn:disabled { opacity:.45; cursor:not-allowed; }
+.link { background:none; border:none; font:inherit; color:var(--blue); cursor:pointer; padding:0; text-decoration:underline; }
+.link.danger { color:var(--bad); }
+.error { color:var(--bad); font-weight:600; margin:0 0 14px; }
+.ok { color:var(--good); font-weight:600; }
+.note { background:#eef6ef; border:1px solid #c6dccb; border-radius:10px; padding:12px 14px; margin:0 0 18px; color:#25502f; }
+.done-box h2 { margin-bottom:8px; }
+.done-box .btns { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+ul.eps { list-style:none; margin:0; padding:0; }
+ul.eps li { display:flex; align-items:baseline; gap:14px; padding:12px 0; border-top:1px solid var(--line); }
+ul.eps li:first-child { border-top:none; }
+ul.eps .n { font-family:'EB Garamond',Georgia,serif; font-weight:600; color:var(--muted); min-width:34px; }
+ul.eps .ti { flex:1; }
+ul.eps .d { color:var(--faint); font-size:.9rem; }
+.changes { margin:0 0 18px; padding-left:20px; }
+details { margin-top:14px; color:var(--muted); font-size:.9rem; }
+pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding:10px; border-radius:8px; }
+.quit { margin-top:34px; text-align:center; }
+@media (max-width:700px) { .actions, .row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Website Studio</h1>
+  <p class="sub">Add episodes, preview your site, and publish it. No technical steps. Everything happens on this computer until you press <b>Publish</b>.</p>
+
+  <div class="actions">
+    <button class="action" id="openAdd" type="button"><span class="big">Add a new episode</span><span class="small">Drop in the audio, a picture, and your words</span></button>
+    <a class="action" href="/" target="_blank" rel="noopener"><span class="big">Preview my website</span><span class="small">See it exactly as visitors will</span></a>
+    <button class="action" id="openPublish" type="button"><span class="big">Publish to the live website<span class="badge" id="pubBadge" hidden></span></span><span class="small" id="pubHint">Send your changes live</span></button>
+  </div>
+
+  <section class="panel" id="panelAdd" hidden>
+    <form id="episodeForm" novalidate>
+      <h2>Add a new episode</h2>
+      <div class="row">
+        <label>Episode number <input type="number" id="number" min="1"></label>
+        <label>Date <input id="date" placeholder="October 2026"></label>
+      </div>
+      <label>Title <input id="title" autocomplete="off"></label>
+      <label>Guest <small>(optional)</small> <input id="guest" autocomplete="off" placeholder="with Dr. Jane Smith"></label>
+      <label>Description <small>Any length is fine. The website shortens it on the episode list and shows all of it on the episode's own page.</small>
+        <textarea id="description" rows="5"></textarea></label>
+      <label>Show notes <small>(optional). Leave a blank line between paragraphs.</small>
+        <textarea id="notes" rows="4"></textarea></label>
+
+      <div class="row">
+        <label class="drop" id="audioDrop" style="font-weight:400">
+          <span class="t">Audio file</span>
+          <span class="s" id="audioStatus">Drop an mp3 here, or click to choose</span>
+          <span class="bar" id="audioBar" hidden><i></i></span>
+          <input type="file" id="audioInput" accept=".mp3,.m4a,.wav,.aac,audio/*">
+        </label>
+        <label class="drop" id="thumbDrop" style="font-weight:400">
+          <span class="t">Episode picture</span>
+          <span class="s" id="thumbStatus">Drop a picture here, or click to choose. Any size works.</span>
+          <span class="bar" id="thumbBar" hidden><i></i></span>
+          <input type="file" id="thumbInput" accept="image/*,.heic,.heif">
+        </label>
+      </div>
+      <p class="note" id="audioNote" hidden></p>
+
+      <div class="row">
+        <label>Length <small>(filled in from the audio)</small> <input id="length" placeholder="42 min"></label>
+        <label>YouTube link <small>(optional)</small> <input id="youtube" placeholder="https://www.youtube.com/watch?v=..."></label>
+      </div>
+      <p class="error" id="formError" hidden></p>
+      <button class="btn primary" id="submitBtn" type="submit">Add episode</button>
+    </form>
+
+    <div class="done-box" id="addDone" hidden>
+      <h2 id="doneTitle">Episode added</h2>
+      <p>It's on your site now, in the right place in the list. Nothing is live to the public until you publish.</p>
+      <div class="btns">
+        <a class="btn" id="seeIt" href="#" target="_blank" rel="noopener">See it</a>
+        <button class="btn primary" id="publishNow" type="button">Publish it now</button>
+        <button class="btn" id="addAnother" type="button">Add another</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panelPublish" hidden>
+    <h2>Publish to the live website</h2>
+    <div id="pubForm">
+      <p id="pubSummary">Checking for changes...</p>
+      <ul class="changes" id="pubList"></ul>
+      <label>What did you change? <small>(optional, just a note for your own records)</small> <input id="pubNote" autocomplete="off" placeholder="Added episode 4"></label>
+      <button class="btn primary" id="pubBtn" type="button">Publish now</button>
+    </div>
+    <p id="pubResult" hidden></p>
+    <details id="pubDetail" hidden><summary>Technical details (only needed if you ask for help)</summary><pre id="pubDetailText"></pre></details>
+  </section>
+
+  <section class="panel" id="panelEpisodes">
+    <h2>Your episodes</h2>
+    <ul class="eps" id="epList"><li>Loading...</li></ul>
+    <p class="hint" style="margin:14px 0 0">To change wording or fix a typo, open the page in Dreamweaver. Removing an episode here is safe: its files are kept in a trash folder.</p>
+  </section>
+
+  <div class="quit"><button class="link" id="quit" type="button">Quit Studio</button></div>
+</div>
+
+<script>
+(function () {
+  const TOKEN = document.querySelector('meta[name="studio-token"]').content;
+  const $ = (id) => document.getElementById(id);
+  const state = { audio: null, thumb: null, busy: 0, lengthTouched: false, numberTouched: false, dateTouched: false };
+
+  async function api(path, body) {
+    const opts = { headers: { 'X-Studio-Token': TOKEN } };
+    if (body !== undefined) {
+      opts.method = 'POST';
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = JSON.stringify(body);
+    }
+    try {
+      const res = await fetch(path, opts);
+      const data = await res.json();
+      if (!res.ok && data.ok !== false) data.ok = false;
+      return data;
+    } catch (e) {
+      return { ok: false, message: "Couldn't reach Website Studio. Is the Terminal window still open?" };
+    }
+  }
+
+  function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+  function show(el, on) { el.hidden = !on; }
+
+  /* ---------- state ---------- */
+  async function refresh() {
+    const s = await api('/__api/state');
+    if (!s.ok) return;
+    $('epList').innerHTML = s.episodes.length
+      ? s.episodes.map((e) => '<li><span class="n">#' + esc(e.number) + '</span><span class="ti">' + esc(e.title) + '</span><span class="d">' + esc(e.date) + '</span><button class="link danger" data-remove="' + esc(e.id) + '" data-title="' + esc(e.title) + '">Remove</button></li>').join('')
+      : '<li>No episodes yet. Add your first one above.</li>';
+
+    if (!state.numberTouched) $('number').value = s.next_number;
+    if (!state.dateTouched && !$('date').value) $('date').value = s.default_date;
+
+    const total = s.changes.total;
+    $('pubBadge').textContent = total;
+    show($('pubBadge'), total > 0);
+    $('pubHint').textContent = total ? 'You have changes that aren\'t live yet' : 'Everything is up to date';
+    $('pubSummary').textContent = total ? 'These changes are ready to go live:' : 'Everything is already published. There\'s nothing new to send.';
+    $('pubList').innerHTML = s.changes.groups.map((g) => '<li>' + esc(g.label) + ' (' + g.count + ')</li>').join('');
+    $('pubBtn').disabled = !total;
+    window.__site = s.site_url;
+  }
+
+  /* ---------- panels ---------- */
+  function openPanel(which) {
+    show($('panelAdd'), which === 'add');
+    show($('panelPublish'), which === 'publish');
+    $('openAdd').classList.toggle('active', which === 'add');
+    $('openPublish').classList.toggle('active', which === 'publish');
+    const target = which === 'add' ? $('panelAdd') : $('panelPublish');
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  $('openAdd').onclick = async () => { await resetForm(); openPanel('add'); };
+  $('openPublish').onclick = async () => { resetPublish(); await refresh(); openPanel('publish'); };
+
+  /* ---------- uploads ---------- */
+  function upload(kind, file, onProgress) {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('PUT', '/__api/upload?kind=' + kind + '&name=' + encodeURIComponent(file.name));
+      xhr.setRequestHeader('X-Studio-Token', TOKEN);
+      xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total); };
+      xhr.onload = () => {
+        let d; try { d = JSON.parse(xhr.responseText); } catch (e) { d = { ok: false, message: 'The upload failed.' }; }
+        d.ok ? resolve(d) : reject(new Error(d.message || 'The upload failed.'));
+      };
+      xhr.onerror = () => reject(new Error("The upload failed. Is the Terminal window still open?"));
+      xhr.send(file);
+    });
+  }
+
+  function mb(n) { return n < 1048576 ? Math.max(1, Math.round(n / 1024)) + ' KB' : (n / 1048576).toFixed(n > 10485760 ? 0 : 1) + ' MB'; }
+
+  function setupDrop(kind, dropId, inputId, statusId, barId) {
+    const drop = $(dropId), input = $(inputId), status = $(statusId), bar = $(barId);
+    const idle = status.textContent;
+    async function take(file) {
+      if (!file) return;
+      state.busy++; $('submitBtn').disabled = true;
+      state[kind] = null; drop.classList.remove('done');
+      status.textContent = 'Uploading ' + file.name + '...';
+      show(bar, true); bar.firstElementChild.style.width = '0%';
+      try {
+        const r = await upload(kind, file, (p) => { bar.firstElementChild.style.width = Math.round(p * 100) + '%'; });
+        state[kind] = r.token;
+        status.textContent = r.name + ' (' + mb(r.size) + ') is ready';
+        drop.classList.add('done');
+        if (kind === 'audio') {
+          if (r.minutes && !state.lengthTouched) $('length').value = r.minutes + ' min';
+          $('audioNote').textContent = r.note || '';
+          show($('audioNote'), !!r.note);
+        }
+      } catch (e) {
+        status.textContent = e.message;
+      } finally {
+        show(bar, false);
+        state.busy--; if (!state.busy) $('submitBtn').disabled = false;
+      }
+    }
+    input.onchange = () => take(input.files[0]);
+    ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', (e) => take(e.dataTransfer.files[0]));
+    drop.resetIdle = () => { status.textContent = idle; drop.classList.remove('done'); input.value = ''; };
+    window['__take_' + kind] = take;
+  }
+  setupDrop('audio', 'audioDrop', 'audioInput', 'audioStatus', 'audioBar');
+  setupDrop('thumb', 'thumbDrop', 'thumbInput', 'thumbStatus', 'thumbBar');
+
+  ['length'].forEach((id) => $(id).addEventListener('input', () => { state.lengthTouched = true; }));
+  $('number').addEventListener('input', () => { state.numberTouched = true; });
+  $('date').addEventListener('input', () => { state.dateTouched = true; });
+
+  /* ---------- add episode ---------- */
+  function resetForm() {
+    $('episodeForm').reset();
+    state.audio = state.thumb = null; state.lengthTouched = state.numberTouched = state.dateTouched = false;
+    $('audioDrop').resetIdle(); $('thumbDrop').resetIdle();
+    show($('audioNote'), false); show($('formError'), false);
+    show($('episodeForm'), true); show($('addDone'), false);
+    return refresh();
+  }
+
+  $('episodeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    show($('formError'), false);
+    $('submitBtn').disabled = true; $('submitBtn').textContent = 'Adding...';
+    const r = await api('/__api/episode', {
+      number: $('number').value, date: $('date').value, length: $('length').value,
+      title: $('title').value, guest: $('guest').value, description: $('description').value,
+      notes: $('notes').value, youtube: $('youtube').value,
+      audio_token: state.audio, thumb_token: state.thumb
+    });
+    $('submitBtn').disabled = false; $('submitBtn').textContent = 'Add episode';
+    if (!r.ok) { $('formError').textContent = r.message || 'Something went wrong.'; show($('formError'), true); return; }
+    $('doneTitle').textContent = 'Episode ' + r.number + ' added';
+    $('seeIt').href = r.url;
+    show($('episodeForm'), false); show($('addDone'), true);
+    refresh();
+  });
+  $('addAnother').onclick = resetForm;
+  $('publishNow').onclick = async () => { resetPublish(); await refresh(); openPanel('publish'); };
+
+  /* ---------- remove ---------- */
+  $('epList').addEventListener('click', async (e) => {
+    const id = e.target.getAttribute && e.target.getAttribute('data-remove');
+    if (!id) return;
+    if (!confirm('Remove "' + e.target.getAttribute('data-title') + '" from your site?\n\nIts files go to a trash folder, so nothing is lost.')) return;
+    const r = await api('/__api/remove', { id });
+    if (!r.ok) alert(r.message || 'Something went wrong.');
+    refresh();
+  });
+
+  /* ---------- publish ---------- */
+  function resetPublish() { show($('pubForm'), true); show($('pubResult'), false); show($('pubDetail'), false); }
+  $('pubBtn').onclick = async () => {
+    $('pubBtn').disabled = true; $('pubBtn').textContent = 'Publishing... large audio can take a few minutes';
+    const r = await api('/__api/publish', { note: $('pubNote').value });
+    $('pubBtn').textContent = 'Publish now';
+    show($('pubForm'), false);
+    $('pubResult').className = r.ok ? 'ok' : 'error';
+    $('pubResult').innerHTML = esc(r.message || (r.ok ? 'Published.' : 'Something went wrong.')) +
+      (r.ok && r.url ? ' <a href="' + esc(r.url) + '" target="_blank" rel="noopener">Open the live site</a>' : '') +
+      (!r.ok ? ' <button class="link" id="tryAgain" type="button">Try again</button>' : '');
+    show($('pubResult'), true);
+    if (r.detail) { $('pubDetailText').textContent = r.detail; show($('pubDetail'), true); }
+    const again = $('tryAgain'); if (again) again.onclick = () => { resetPublish(); refresh(); };
+    $('pubNote').value = '';
+    refresh();
+  };
+
+  $('quit').onclick = async () => {
+    if (!confirm('Quit Website Studio? Your changes are saved on this computer.')) return;
+    await api('/__api/quit', {});
+    document.body.innerHTML = '<div class="wrap"><h1>Website Studio has stopped</h1><p class="sub">You can close this tab and the Terminal window.</p></div>';
+  };
+
+  refresh();
+})();
+</script>
+</body>
+</html>

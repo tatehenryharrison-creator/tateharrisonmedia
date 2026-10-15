@@ -1,1 +1,13 @@
 .DS_Store
+
+# Dreamweaver leftovers
+_notes/
+*.LCK
+*.lck
+dwsync.xml
+
+# Website Studio scratch space
+Tools/.tmp/
+Tools/.trash/
+__pycache__/
+*.pyc
