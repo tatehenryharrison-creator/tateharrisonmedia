@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Human Motivation</title>
+  <link>https://tateharrisonmedia.com/</link>
+  <atom:link href="https://tateharrisonmedia.com/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>I'm Tate Harrison, and this is: Human Motivation; the podcast where we uncover the mystery of living for the sake of it.</description>
+  <language>en-us</language>
+  <copyright>Tate Harrison Media LLC</copyright>
+  <itunes:author>Tate Harrison</itunes:author>
+  <itunes:summary>I'm Tate Harrison, and this is: Human Motivation; the podcast where we uncover the mystery of living for the sake of it.</itunes:summary>
+  <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <itunes:category text="Society &amp; Culture"/>
+  <itunes:owner><itunes:name>Tate Harrison</itunes:name><itunes:email>info@tateharrisonmedia.com</itunes:email></itunes:owner>
+</channel>
+</rss>

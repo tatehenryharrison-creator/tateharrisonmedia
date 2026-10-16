@@ -225,6 +225,27 @@ silently doing nothing.
 *silent* placeholders so the player works end-to-end. Replace them (or delete
 them along with the two sample entries) when you add real episodes.
 
+## The podcast feed (`feed.xml`)
+
+Apple Podcasts, Spotify, and other podcast apps subscribe through an RSS feed,
+and this site has one at **tateharrisonmedia.com/feed.xml**. You never edit it:
+Website Studio rebuilds it every time you add, edit, remove, or publish an
+episode (if you add an episode by hand in Dreamweaver, just open Studio and
+press **Publish**, which refreshes it first).
+
+- Only episodes with a real audio file are included, and the two "Replace Me"
+  samples are always left out, so they can't reach podcast apps by accident.
+- The date you type (like "October 2026") becomes the episode's release date;
+  a month with no day lands on the 1st. Type a full date ("October 15, 2026")
+  to be exact.
+- **Cover art:** podcast apps need a square picture between 1400 and 3000
+  pixels wide. Save it as `images/podcast-cover.jpg`, and the feed starts
+  including it automatically. (Also put it in the hero's cover-art spot.)
+- To list the show in Apple Podcasts or Spotify, you submit
+  `https://tateharrisonmedia.com/feed.xml` once on their sites, then paste each
+  directory's link into the two "Apple Podcasts" and "Spotify" buttons on the
+  home page (they stay hidden until they have a real link).
+
 ## Adding real media
 
 The `images/` folder still holds placeholders (`placeholder-*.svg`) for the

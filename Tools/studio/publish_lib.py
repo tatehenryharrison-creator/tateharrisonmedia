@@ -31,6 +31,7 @@ def summarize(files):
     """Group changed files into things a person recognizes."""
     groups = [
         ("Episode list", lambda p: p.startswith("Library/")),
+        ("Podcast feed", lambda p: p == "feed.xml"),
         ("Audio files", lambda p: p.startswith("audio/")),
         ("Pictures", lambda p: p.startswith("images/")),
         ("Pages", lambda p: p.endswith(".html")),

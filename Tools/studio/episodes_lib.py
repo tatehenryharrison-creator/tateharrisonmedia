@@ -2,11 +2,14 @@
 pages that embed it in sync -- the same job Dreamweaver's "Update Pages" does,
 plus the fiddly file work (naming, thumbnail sizing, audio size) that normally
 takes technical know-how."""
+import datetime
+import email.utils
 import html
 import os
 import re
 import shutil
 import subprocess
+from xml.sax.saxutils import escape as xml_escape
 
 LIB_PATH = "Library/episodes.lbi"
 PAGES = ["index.html", "episodes.html", "episode.html"]
@@ -262,7 +265,136 @@ def sync_pages(root):
             with open(path, "w", encoding="utf-8") as fh:
                 fh.write(new)
             updated.append(name)
+    if write_feed(root, read_library(root)):
+        updated.append(FEED_PATH)
     return updated
+
+
+# ------------------------------------------------------------ podcast feed --
+
+SITE_URL = "https://tateharrisonmedia.com"
+FEED_PATH = "feed.xml"
+COVER_PATH = "images/podcast-cover.jpg"
+SHOW_TITLE = "Human Motivation"
+SHOW_DESCRIPTION = ("I'm Tate Harrison, and this is: Human Motivation; the podcast where we uncover the "
+                    "mystery of living for the sake of it.")
+AUDIO_TYPES = {".mp3": "audio/mpeg", ".m4a": "audio/x-m4a", ".aac": "audio/aac"}
+MONTHS = {m: i for i, m in enumerate(
+    ["january", "february", "march", "april", "may", "june", "july", "august", "september",
+     "october", "november", "december"], 1)}
+
+
+def audio_seconds(path):
+    """Length in seconds from the file itself (macOS afinfo, else ffprobe)."""
+    if shutil.which("afinfo"):
+        found = re.search(r"estimated duration:\s*([\d.]+)", _run(["afinfo", path]).stdout)
+        if found:
+            return int(round(float(found.group(1))))
+    if shutil.which("ffprobe"):
+        out = _run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+                    "-of", "default=nw=1:nk=1", path]).stdout.strip()
+        try:
+            return int(round(float(out)))
+        except ValueError:
+            pass
+    return None
+
+
+def parse_date(text, fallback):
+    """"October 2026", "Oct 2026", "October 15, 2026" or "2026" -> a datetime. Month-only
+    dates land on the 1st at noon UTC; anything unreadable uses the fallback."""
+    words = re.findall(r"[A-Za-z]+|\d+", text or "")
+    year = next((int(w) for w in words if len(w) == 4 and w.isdigit()), None)
+    if year is None:
+        return fallback
+    month = next((MONTHS[w.lower()] for w in words if w.lower() in MONTHS), None)
+    if month is None:
+        month = next((MONTHS[k] for w in words for k in MONTHS if len(w) >= 3 and k.startswith(w.lower())), 1)
+    day = next((int(w) for w in words if w.isdigit() and len(w) <= 2 and 1 <= int(w) <= 28), 1)
+    return datetime.datetime(year, month, day, 12, 0, tzinfo=datetime.timezone.utc)
+
+
+def _clock(seconds):
+    return "%d:%02d:%02d" % (seconds // 3600, (seconds % 3600) // 60, seconds % 60)
+
+
+def feed_items(root, text):
+    """Entries that belong in the podcast feed: real audio on disk, and not a sample."""
+    items = []
+    for entry in list_episodes(text):
+        fields = read_fields(text[entry["start"]:entry["end"]])
+        audio = fields["audio_path"]
+        if not audio or "replace me" in fields["title"].lower():
+            continue
+        path = os.path.join(root, audio.lstrip("/"))
+        ext = os.path.splitext(path)[1].lower()
+        if not os.path.isfile(path) or ext not in AUDIO_TYPES:
+            continue
+        mtime = datetime.datetime.fromtimestamp(os.path.getmtime(path), datetime.timezone.utc)
+        items.append(dict(fields, id=entry["id"], path=path, type=AUDIO_TYPES[ext], size=os.path.getsize(path),
+                          seconds=audio_seconds(path), published=parse_date(fields["date"], mtime)))
+    items.sort(key=lambda i: (i["published"], i["number"] or 0), reverse=True)
+    return items
+
+
+def build_feed(root, text=None):
+    """The podcast's RSS feed, written the same way every time (no "built at" stamp), so
+    pressing Publish with nothing new never shows a change."""
+    text = read_library(root) if text is None else text
+    items = feed_items(root, text)
+    e = xml_escape
+    out = ['<?xml version="1.0" encoding="UTF-8"?>',
+           '<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" '
+           'xmlns:atom="http://www.w3.org/2005/Atom">',
+           '<channel>',
+           '  <title>%s</title>' % e(SHOW_TITLE),
+           '  <link>%s/</link>' % SITE_URL,
+           '  <atom:link href="%s/%s" rel="self" type="application/rss+xml"/>' % (SITE_URL, FEED_PATH),
+           '  <description>%s</description>' % e(SHOW_DESCRIPTION),
+           '  <language>en-us</language>',
+           '  <copyright>%s</copyright>' % e("Tate Harrison Media LLC"),
+           '  <itunes:author>Tate Harrison</itunes:author>',
+           '  <itunes:summary>%s</itunes:summary>' % e(SHOW_DESCRIPTION),
+           '  <itunes:explicit>false</itunes:explicit>',
+           '  <itunes:type>episodic</itunes:type>',
+           '  <itunes:category text="Society &amp; Culture"/>',
+           '  <itunes:owner><itunes:name>Tate Harrison</itunes:name><itunes:email>info@tateharrisonmedia.com</itunes:email></itunes:owner>']
+    if os.path.isfile(os.path.join(root, COVER_PATH)):
+        out.append('  <itunes:image href="%s/%s"/>' % (SITE_URL, COVER_PATH))
+    if items:
+        out.append('  <lastBuildDate>%s</lastBuildDate>' % email.utils.format_datetime(items[0]["published"]))
+    for item in items:
+        link = "%s/episode.html?ep=%s" % (SITE_URL, item["id"])
+        body = [item["description"]] + [p for p in item["notes"].split("\n\n") if p.strip()]
+        out += ['  <item>',
+                '    <title>%s</title>' % e(item["title"]),
+                '    <link>%s</link>' % e(link),
+                '    <guid isPermaLink="true">%s</guid>' % e(link),
+                '    <pubDate>%s</pubDate>' % email.utils.format_datetime(item["published"]),
+                '    <description>%s</description>' % e("\n\n".join(body)),
+                '    <enclosure url="%s%s" length="%d" type="%s"/>' % (e(SITE_URL), e(item["audio_path"]), item["size"], item["type"]),
+                '    <itunes:episodeType>full</itunes:episodeType>']
+        if item["number"] is not None:
+            out.append('    <itunes:episode>%d</itunes:episode>' % item["number"])
+        if item["seconds"]:
+            out.append('    <itunes:duration>%s</itunes:duration>' % _clock(item["seconds"]))
+        if item["guest"]:
+            out.append('    <itunes:subtitle>%s</itunes:subtitle>' % e(item["guest"]))
+        out.append('  </item>')
+    out += ['</channel>', '</rss>', '']
+    return "\n".join(out)
+
+
+def write_feed(root, text=None):
+    """Returns True if feed.xml changed."""
+    new = build_feed(root, text)
+    path = os.path.join(root, FEED_PATH)
+    old = open(path, encoding="utf-8").read() if os.path.exists(path) else None
+    if new == old:
+        return False
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write(new)
+    return True
 
 
 # ------------------------------------------------------------ file helpers --
