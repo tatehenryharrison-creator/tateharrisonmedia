@@ -361,6 +361,12 @@ nav .nav-links a:hover { opacity: 1; }
 
 .center { text-align: center; }
 
+/* 404 page */
+.not-found { text-align: center; padding-top: 140px; padding-bottom: 120px; }
+.not-found p, .not-found .section-eyebrow, .not-found .section-heading { margin: 0 0 18px; color: #635f51; text-align: center; }
+.not-found .section-heading { color: #1C1A14; }
+.not-found-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 28px; }
+
 .cta { text-align: center; }
 
 /* 6. EPISODE GRID / CARDS (blog + video + podcast list) -------- */

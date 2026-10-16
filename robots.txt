@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Tools/
+
+Sitemap: https://tateharrisonmedia.com/sitemap.xml
