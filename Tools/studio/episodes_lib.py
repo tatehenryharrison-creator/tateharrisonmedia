@@ -159,6 +159,78 @@ def build_article(f):
     return "\n".join(out)
 
 
+def _has_markup(fragment):
+    """True if the fragment holds formatting (links, bold...) that rewriting it from plain
+    fields would lose. A line break is fine."""
+    return bool(re.search(r"<(?!/?br\b)[a-z]", fragment or "", re.I))
+
+
+def _plain(fragment):
+    """Text with line breaks kept as new lines and everything else tidied."""
+    lines = re.sub(r"<br\s*/?>", "\n", fragment or "", flags=re.I)
+    lines = html.unescape(re.sub(r"<[^>]+>", "", lines))
+    return "\n".join(re.sub(r"[ \t\r\f\v]+", " ", line).strip() for line in lines.split("\n")).strip()
+
+
+def _raw(block, tag, css_class):
+    found = re.search(r'<%s\b[^>]*class="[^"]*%s[^"]*"[^>]*>(.*?)</%s>' % (tag, _token(css_class), tag), block, re.S)
+    return found.group(1) if found else None
+
+
+def _words(block):
+    """The visible words of an entry, minus the labels the tool itself writes."""
+    text = clean(re.sub(r"<br\s*/?>", " ", block))
+    for label in ("Watch on YouTube", "Download audio", "Show Notes", "Episode", "•"):
+        text = text.replace(label, " ")
+    return text.split()
+
+
+def read_fields(block):
+    """Pull an entry apart into the same plain fields the Studio form uses.
+
+    "editable" says whether it is safe to write the entry back from those fields.
+    Anything with extra formatting is left for Dreamweaver, so editing in the Studio
+    can never quietly drop a link or a bold word."""
+    audio = _attr_of(block, "episode-audio", "href")
+    youtube = _attr_of(block, "btn-youtube", "href")
+    notes_div = re.search(r'<div class="episode-notes">(.*?)</div>', block, re.S)
+    note_paras = re.findall(r"<p\b[^>]*>(.*?)</p>", notes_div.group(1), re.S) if notes_div else []
+
+    number_text = _inner(block, "episode-number")
+    description_raw = _raw(block, "p", "episode-desc")
+    guest_raw = _raw(block, "p", "episode-guest")
+    title_raw = _raw(block, "h3", "episode-title")
+    fields = {
+        "number": int(number_text) if number_text.isdigit() else None,
+        "date": _inner(block, "episode-date"),
+        "length": _inner(block, "episode-length"),
+        "title": _plain(title_raw),
+        "guest": _plain(guest_raw) if guest_raw is not None else "",
+        "description": re.sub(r"\s+", " ", _plain(description_raw)) if description_raw is not None else "",
+        "notes": "\n\n".join(_plain(p) for p in note_paras if _plain(p)),
+        "youtube": youtube if is_real_link(youtube) else "",
+        "audio_path": audio if is_real_link(audio) else "",
+        "thumb_path": _attr_of(block, "episode-thumb", "src"),
+    }
+
+    reason = ""
+    if fields["number"] is None:
+        reason = "it has no episode number"
+    elif any(_has_markup(part) for part in [title_raw, guest_raw, description_raw] + note_paras):
+        reason = "it has special formatting (a link or bold text)"
+    elif len(re.findall(r"<a\b", block)) != len(re.findall(r'<a\b[^>]*class="[^"]*(?:btn-youtube|episode-audio)', block)):
+        reason = "it has extra links"
+    elif _words(block) != _words(build_article(dict(fields, number=fields["number"] or 0))):
+        reason = "it has extra content the Studio doesn't know about"
+    fields["editable"] = not reason
+    fields["why_not"] = reason
+    return fields
+
+
+def replace_entry(text, entry, article):
+    return text[:entry["start"]] + article + text[entry["end"]:]
+
+
 def insert_entry(text, article):
     """Put a new entry right under the blank starter, so the newest sits near the top."""
     for entry in parse_entries(text):

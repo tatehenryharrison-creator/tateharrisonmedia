@@ -14,6 +14,7 @@ body { margin:0; background:var(--bg); color:var(--ink); font-family:'IM Fell En
 .wrap { max-width:820px; margin:0 auto; padding:48px 24px 80px; }
 h1 { font-family:'Cinzel',Georgia,serif; font-weight:400; font-size:2.2rem; margin:0 0 6px; }
 h2 { font-family:'Cinzel',Georgia,serif; font-weight:400; font-size:1.4rem; margin:0 0 16px; }
+h3 { font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:1.05rem; margin:26px 0 8px; }
 .sub { color:var(--muted); margin:0 0 34px; max-width:620px; }
 .actions { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
 .action { position:relative; display:flex; flex-direction:column; gap:6px; text-align:left; text-decoration:none; color:inherit; font:inherit; background:#fff; border:1px solid var(--line); border-radius:14px; padding:20px; cursor:pointer; transition:transform .15s, box-shadow .15s, border-color .15s; }
@@ -22,41 +23,81 @@ h2 { font-family:'Cinzel',Georgia,serif; font-weight:400; font-size:1.4rem; marg
 .action .small { color:var(--muted); font-size:.92rem; }
 .badge { position:absolute; top:-10px; right:-8px; box-shadow:0 2px 6px rgba(28,26,20,.18); background:var(--gold); color:var(--ink); border-radius:20px; padding:0 10px; font-family:'EB Garamond',Georgia,serif; font-size:.9rem; font-weight:600; }
 .panel { background:#fff; border:1px solid var(--line); border-radius:14px; padding:28px; margin-bottom:24px; }
+.step { font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:1.05rem; margin:26px 0 12px; padding-top:18px; border-top:1px solid var(--line); }
+.step.first { margin-top:6px; padding-top:0; border-top:none; }
+.step small { font-weight:400; color:var(--muted); font-family:'IM Fell English',Georgia,serif; font-size:.9rem; }
 label { display:block; margin:0 0 18px; font-family:'EB Garamond',Georgia,serif; font-weight:600; }
 label small, .hint { font-weight:400; color:var(--muted); font-family:'IM Fell English',Georgia,serif; font-size:.9rem; }
 input[type=text], input[type=number], input:not([type]), textarea { display:block; width:100%; margin-top:6px; padding:11px 13px; font:inherit; font-weight:400; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:9px; }
+input[readonly] { color:var(--muted); background:#ecebe6; }
 textarea { resize:vertical; }
 input:focus, textarea:focus { outline:2px solid var(--blue); outline-offset:1px; }
+.bad input, .bad textarea { border-color:var(--bad); }
+.fielderr { display:block; color:var(--bad); font-weight:400; font-size:.92rem; margin-top:5px; }
+.fieldnote { display:block; font-weight:400; font-size:.9rem; margin-top:5px; color:var(--muted); font-family:'IM Fell English',Georgia,serif; }
+.fieldnote.good { color:var(--good); }
+.fieldnote.warn { color:#7a5a12; }
 .row { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-.drop { border:2px dashed var(--faint); border-radius:12px; padding:20px 16px; text-align:center; cursor:pointer; background:var(--bg); transition:border-color .15s, background .15s; margin-bottom:18px; }
+.row3 { display:grid; grid-template-columns:110px 1fr 1fr; gap:18px; }
+.drop { position:relative; border:2px dashed var(--faint); border-radius:12px; padding:20px 16px; text-align:center; cursor:pointer; background:var(--bg); transition:border-color .15s, background .15s; margin-bottom:18px; }
+.drop:hover, .drop:focus-within { border-color:var(--blue); }
 .drop.over { border-color:var(--blue); background:#eef1f4; }
 .drop.done { border-style:solid; border-color:var(--good); }
 .drop .t { display:block; font-family:'EB Garamond',Georgia,serif; font-weight:600; }
-.drop .s { display:block; color:var(--muted); font-size:.92rem; margin-top:2px; word-break:break-word; }
-.drop input { display:none; }
-.bar { height:6px; background:var(--line); border-radius:3px; margin-top:10px; overflow:hidden; }
+.drop .s { display:block; font-weight:400; color:var(--muted); font-size:.92rem; margin-top:2px; word-break:break-word; }
+.drop input { position:absolute; width:1px; height:1px; opacity:0; overflow:hidden; }
+.bar { display:block; height:6px; background:var(--line); border-radius:3px; margin-top:10px; overflow:hidden; }
 .bar > i { display:block; height:100%; width:0; background:var(--blue); transition:width .1s; }
 .btn { font:inherit; font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:1rem; border-radius:10px; padding:12px 22px; cursor:pointer; border:1px solid var(--ink); background:#fff; color:var(--ink); text-decoration:none; display:inline-block; }
 .btn.primary { background:var(--ink); color:var(--bg); }
 .btn:disabled { opacity:.45; cursor:not-allowed; }
 .link { background:none; border:none; font:inherit; color:var(--blue); cursor:pointer; padding:0; text-decoration:underline; }
 .link.danger { color:var(--bad); }
+.link:disabled { color:var(--faint); cursor:not-allowed; text-decoration:none; }
 .error { color:var(--bad); font-weight:600; margin:0 0 14px; }
 .ok { color:var(--good); font-weight:600; }
 .note { background:#eef6ef; border:1px solid #c6dccb; border-radius:10px; padding:12px 14px; margin:0 0 18px; color:#25502f; }
+.note.info { background:#eef1f4; border-color:#cfd7de; color:#33414f; }
+.formbtns { display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
 .done-box h2 { margin-bottom:8px; }
 .done-box .btns { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+
+/* live preview of the episode list entry */
+.pv { display:flex; gap:18px; background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:16px; align-items:flex-start; }
+.pv img { width:200px; max-width:38%; aspect-ratio:16/9; object-fit:cover; border-radius:8px; background:#ddd; flex:none; }
+.pv .l { font-family:'EB Garamond',Georgia,serif; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 4px; }
+.pv .ti { font-family:'Cinzel',Georgia,serif; font-size:1.15rem; margin:0 0 4px; }
+.pv .g { font-style:italic; color:var(--muted); margin:0 0 6px; }
+.pv .d { margin:0 0 10px; }
+.pv .d a { color:var(--blue); }
+.pv .b { display:inline-block; font-family:'EB Garamond',Georgia,serif; font-weight:600; font-size:.85rem; border:1px solid var(--ink); border-radius:8px; padding:4px 12px; margin-right:8px; }
+.pv .b.dark { background:var(--ink); color:var(--bg); }
+.pvcap { margin:8px 0 0; color:var(--muted); font-size:.9rem; }
+
+/* episode list */
 ul.eps { list-style:none; margin:0; padding:0; }
-ul.eps li { display:flex; align-items:baseline; gap:14px; padding:12px 0; border-top:1px solid var(--line); }
+ul.eps li { display:flex; align-items:center; gap:14px; padding:12px 0; border-top:1px solid var(--line); }
 ul.eps li:first-child { border-top:none; }
-ul.eps .n { font-family:'EB Garamond',Georgia,serif; font-weight:600; color:var(--muted); min-width:34px; }
-ul.eps .ti { flex:1; }
-ul.eps .d { color:var(--faint); font-size:.9rem; }
+ul.eps .th { width:64px; aspect-ratio:16/9; object-fit:cover; border-radius:5px; background:#ddd; flex:none; }
+ul.eps .n { font-family:'EB Garamond',Georgia,serif; font-weight:600; color:var(--muted); min-width:30px; }
+ul.eps .ti { flex:1; min-width:0; }
+ul.eps .d { display:block; color:var(--faint); font-size:.88rem; }
+ul.eps .acts { display:flex; gap:14px; flex:none; }
+ul.eps a { color:var(--blue); }
+.removed { margin-top:22px; padding-top:6px; border-top:1px solid var(--line); }
+.removed li { padding:8px 0; color:var(--muted); }
+.removed .ti { flex:1; }
+
 .changes { margin:0 0 18px; padding-left:20px; }
 details { margin-top:14px; color:var(--muted); font-size:.9rem; }
 pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding:10px; border-radius:8px; }
 .quit { margin-top:34px; text-align:center; }
-@media (max-width:700px) { .actions, .row { grid-template-columns:1fr; } }
+.overlay { position:fixed; inset:0; background:rgba(245,244,240,.92); display:flex; align-items:center; justify-content:center; font-family:'Cinzel',Georgia,serif; font-size:1.3rem; z-index:9; }
+@media (max-width:700px) {
+  .actions, .row, .row3 { grid-template-columns:1fr; }
+  .pv { flex-direction:column; } .pv img { max-width:100%; width:100%; }
+  ul.eps li { flex-wrap:wrap; } ul.eps .acts { width:100%; padding-left:78px; }
+}
 </style>
 </head>
 <body>
@@ -72,26 +113,18 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
 
   <section class="panel" id="panelAdd" hidden>
     <form id="episodeForm" novalidate>
-      <h2>Add a new episode</h2>
-      <div class="row">
-        <label>Episode number <input type="number" id="number" min="1"></label>
-        <label>Date <input id="date" placeholder="October 2026"></label>
-      </div>
-      <label>Title <input id="title" autocomplete="off"></label>
-      <label>Guest <small>(optional)</small> <input id="guest" autocomplete="off" placeholder="with Dr. Jane Smith"></label>
-      <label>Description <small>Any length is fine. The website shortens it on the episode list and shows all of it on the episode's own page.</small>
-        <textarea id="description" rows="5"></textarea></label>
-      <label>Show notes <small>(optional). Leave a blank line between paragraphs.</small>
-        <textarea id="notes" rows="4"></textarea></label>
+      <h2 id="formTitle">Add a new episode</h2>
+      <p class="note info" id="draftNote" hidden>Picked up your unfinished episode from last time. <button class="link" id="clearDraft" type="button">Start fresh</button></p>
 
+      <p class="step first">1. Drop in your files <small>(you can also drop them anywhere on this page)</small></p>
       <div class="row">
-        <label class="drop" id="audioDrop" style="font-weight:400">
+        <label class="drop" id="audioDrop">
           <span class="t">Audio file</span>
           <span class="s" id="audioStatus">Drop an mp3 here, or click to choose</span>
           <span class="bar" id="audioBar" hidden><i></i></span>
           <input type="file" id="audioInput" accept=".mp3,.m4a,.wav,.aac,audio/*">
         </label>
-        <label class="drop" id="thumbDrop" style="font-weight:400">
+        <label class="drop" id="thumbDrop">
           <span class="t">Episode picture</span>
           <span class="s" id="thumbStatus">Drop a picture here, or click to choose. Any size works.</span>
           <span class="bar" id="thumbBar" hidden><i></i></span>
@@ -100,17 +133,43 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
       </div>
       <p class="note" id="audioNote" hidden></p>
 
-      <div class="row">
-        <label>Length <small>(filled in from the audio)</small> <input id="length" placeholder="42 min"></label>
-        <label>YouTube link <small>(optional)</small> <input id="youtube" placeholder="https://www.youtube.com/watch?v=..."></label>
+      <p class="step">2. Describe it</p>
+      <div class="row3">
+        <label id="f-number">Number <input type="number" id="number" min="1"><span class="fielderr" id="err-number" hidden></span></label>
+        <label>Date <input id="date" placeholder="October 2026"></label>
+        <label>Length <small>(from the audio)</small> <input id="length" placeholder="42 min"></label>
       </div>
+      <label id="f-title">Title <input id="title" autocomplete="off"><span class="fielderr" id="err-title" hidden></span></label>
+      <label>Guest <small>(optional)</small> <input id="guest" autocomplete="off" placeholder="with Dr. Jane Smith"></label>
+      <label id="f-description">Description <small>Any length is fine. The episode list shows just the start; the episode's own page shows all of it.</small>
+        <textarea id="description" rows="5"></textarea><span class="fielderr" id="err-description" hidden></span></label>
+      <label>Show notes <small>(optional). Leave a blank line between paragraphs.</small>
+        <textarea id="notes" rows="4"></textarea></label>
+      <label id="f-youtube">YouTube link <small>(optional)</small> <input id="youtube" placeholder="https://www.youtube.com/watch?v=..."><span class="fieldnote" id="ytNote" hidden></span><span class="fielderr" id="err-youtube" hidden></span></label>
+
+      <p class="step">3. Check how it will look</p>
+      <div class="pv" id="pv">
+        <img id="pvThumb" alt="">
+        <div>
+          <p class="l" id="pvLine"></p>
+          <p class="ti" id="pvTitle"></p>
+          <p class="g" id="pvGuest" hidden></p>
+          <p class="d" id="pvDesc"></p>
+          <span class="b dark" id="pvListen" hidden>Listen</span><span class="b" id="pvYt" hidden>Watch on YouTube</span>
+        </div>
+      </div>
+      <p class="pvcap" id="pvCap"></p>
+
       <p class="error" id="formError" hidden></p>
-      <button class="btn primary" id="submitBtn" type="submit">Add episode</button>
+      <div class="formbtns" style="margin-top:22px">
+        <button class="btn primary" id="submitBtn" type="submit">Add episode</button>
+        <button class="btn" id="cancelBtn" type="button">Cancel</button>
+      </div>
     </form>
 
     <div class="done-box" id="addDone" hidden>
       <h2 id="doneTitle">Episode added</h2>
-      <p>It's on your site now, in the right place in the list. Nothing is live to the public until you publish.</p>
+      <p id="doneText">It's on your site now, in the right place in the list. Nothing is live to the public until you publish.</p>
       <div class="btns">
         <a class="btn" id="seeIt" href="#" target="_blank" rel="noopener">See it</a>
         <button class="btn primary" id="publishNow" type="button">Publish it now</button>
@@ -124,7 +183,8 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
     <div id="pubForm">
       <p id="pubSummary">Checking for changes...</p>
       <ul class="changes" id="pubList"></ul>
-      <label>What did you change? <small>(optional, just a note for your own records)</small> <input id="pubNote" autocomplete="off" placeholder="Added episode 4"></label>
+      <p class="hint" id="pubPreview" hidden>Want one last look first? <a href="/" target="_blank" rel="noopener">Preview your site</a>.</p>
+      <label style="margin-top:14px">What did you change? <small>(optional, just a note for your own records)</small> <input id="pubNote" autocomplete="off" placeholder="Added episode 4"></label>
       <button class="btn primary" id="pubBtn" type="button">Publish now</button>
     </div>
     <p id="pubResult" hidden></p>
@@ -134,7 +194,11 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
   <section class="panel" id="panelEpisodes">
     <h2>Your episodes</h2>
     <ul class="eps" id="epList"><li>Loading...</li></ul>
-    <p class="hint" style="margin:14px 0 0">To change wording or fix a typo, open the page in Dreamweaver. Removing an episode here is safe: its files are kept in a trash folder.</p>
+    <div class="removed" id="removedBox" hidden>
+      <h3>Recently removed</h3>
+      <ul class="eps" id="removedList"></ul>
+    </div>
+    <p class="hint" style="margin:14px 0 0">Removing an episode is safe: its files are kept in a trash folder, and you can bring it back from here. For bigger changes to the page itself, use Dreamweaver.</p>
   </section>
 
   <div class="quit"><button class="link" id="quit" type="button">Quit Studio</button></div>
@@ -144,7 +208,17 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
 (function () {
   const TOKEN = document.querySelector('meta[name="studio-token"]').content;
   const $ = (id) => document.getElementById(id);
-  const state = { audio: null, thumb: null, busy: 0, lengthTouched: false, numberTouched: false, dateTouched: false };
+  const PLACEHOLDER = '/images/placeholder-thumb.svg';
+  const AUDIO_EXT = ['mp3', 'm4a', 'wav', 'aac'];
+  const IMAGE_EXT = ['jpg', 'jpeg', 'png', 'heic', 'heif', 'webp', 'gif', 'tif', 'tiff'];
+  const DRAFT_KEY = 'studio_draft_v1';
+  const FIELDS = ['date', 'title', 'guest', 'description', 'notes', 'youtube'];
+
+  const state = {
+    mode: 'add', editId: null, audio: null, thumb: null, busy: 0,
+    lengthTouched: false, numberTouched: false, dateTouched: false,
+    thumbUrl: '', currentThumb: '', currentAudio: '', episodes: [], nextNumber: 1, defaultDate: ''
+  };
 
   async function api(path, body) {
     const opts = { headers: { 'X-Studio-Token': TOKEN } };
@@ -165,24 +239,57 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
 
   function esc(t) { return String(t == null ? '' : t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
   function show(el, on) { el.hidden = !on; }
+  function ext(name) { return (String(name).split('.').pop() || '').toLowerCase(); }
+
+  /* ---------- same rules the website uses ---------- */
+  function youtubeId(url) {
+    const m = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/|v\/))([A-Za-z0-9_-]{11})(?![A-Za-z0-9_-])/.exec(url || '');
+    return m ? m[1] : '';
+  }
+  function shorten(full) {
+    full = String(full || '').replace(/\s+/g, ' ').trim();
+    if (full.length <= 100) return { text: full, cut: false };
+    const sp = full.indexOf(' ', 100);
+    const end = sp === -1 ? full.length : sp;
+    if (end >= full.length) return { text: full, cut: false };
+    return { text: full.slice(0, end).replace(/[\s.,;:!?…—-]+$/, ''), cut: true };
+  }
 
   /* ---------- state ---------- */
   async function refresh() {
     const s = await api('/__api/state');
     if (!s.ok) return;
-    $('epList').innerHTML = s.episodes.length
-      ? s.episodes.map((e) => '<li><span class="n">#' + esc(e.number) + '</span><span class="ti">' + esc(e.title) + '</span><span class="d">' + esc(e.date) + '</span><button class="link danger" data-remove="' + esc(e.id) + '" data-title="' + esc(e.title) + '">Remove</button></li>').join('')
-      : '<li>No episodes yet. Add your first one above.</li>';
+    state.episodes = s.episodes; state.nextNumber = s.next_number; state.defaultDate = s.default_date;
 
-    if (!state.numberTouched) $('number').value = s.next_number;
-    if (!state.dateTouched && !$('date').value) $('date').value = s.default_date;
+    $('epList').innerHTML = s.episodes.length
+      ? s.episodes.map((e) => {
+          const src = e.thumb ? e.thumb + '?v=' + Date.now() : PLACEHOLDER;
+          return '<li><img class="th" src="' + esc(src) + '" alt=""><span class="n">#' + esc(e.number) + '</span>' +
+            '<span class="ti">' + esc(e.title) + '<span class="d">' + esc(e.date) + '</span></span>' +
+            '<span class="acts"><a href="' + esc(e.url) + '" target="_blank" rel="noopener">View</a>' +
+            '<button class="link" data-edit="' + esc(e.id) + '"' + (e.editable ? '' : ' disabled title="' + esc('Edit this one in Dreamweaver: ' + e.why_not) + '"') + '>Edit</button>' +
+            '<button class="link danger" data-remove="' + esc(e.id) + '" data-title="' + esc(e.title) + '">Remove</button></span></li>';
+        }).join('')
+      : '<li>No episodes yet. Press "Add a new episode" above to make your first one.</li>';
+
+    show($('removedBox'), s.removed.length > 0);
+    $('removedList').innerHTML = s.removed.map((r) =>
+      '<li><span class="n">#' + esc(r.number) + '</span><span class="ti">' + esc(r.title) + '</span>' +
+      '<span class="acts"><button class="link" data-restore="' + esc(r.bundle) + '">Bring back</button></span></li>').join('');
+
+    if (state.mode === 'add') {
+      if (!state.numberTouched) $('number').value = state.nextNumber;
+      if (!state.dateTouched && !$('date').value) $('date').value = state.defaultDate;
+      updatePreview();
+    }
 
     const total = s.changes.total;
     $('pubBadge').textContent = total;
     show($('pubBadge'), total > 0);
-    $('pubHint').textContent = total ? 'You have changes that aren\'t live yet' : 'Everything is up to date';
-    $('pubSummary').textContent = total ? 'These changes are ready to go live:' : 'Everything is already published. There\'s nothing new to send.';
+    $('pubHint').textContent = total ? "You have changes that aren't live yet" : 'Everything is up to date';
+    $('pubSummary').textContent = total ? 'These changes are ready to go live:' : "Everything is already published. There's nothing new to send.";
     $('pubList').innerHTML = s.changes.groups.map((g) => '<li>' + esc(g.label) + ' (' + g.count + ')</li>').join('');
+    show($('pubPreview'), total > 0);
     $('pubBtn').disabled = !total;
     window.__site = s.site_url;
   }
@@ -193,11 +300,11 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
     show($('panelPublish'), which === 'publish');
     $('openAdd').classList.toggle('active', which === 'add');
     $('openPublish').classList.toggle('active', which === 'publish');
-    const target = which === 'add' ? $('panelAdd') : $('panelPublish');
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (which) (which === 'add' ? $('panelAdd') : $('panelPublish')).scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  $('openAdd').onclick = async () => { await resetForm(); openPanel('add'); };
+  $('openAdd').onclick = async () => { await resetForm('add'); openPanel('add'); };
   $('openPublish').onclick = async () => { resetPublish(); await refresh(); openPanel('publish'); };
+  $('cancelBtn').onclick = () => { openPanel(null); };
 
   /* ---------- uploads ---------- */
   function upload(kind, file, onProgress) {
@@ -210,7 +317,7 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
         let d; try { d = JSON.parse(xhr.responseText); } catch (e) { d = { ok: false, message: 'The upload failed.' }; }
         d.ok ? resolve(d) : reject(new Error(d.message || 'The upload failed.'));
       };
-      xhr.onerror = () => reject(new Error("The upload failed. Is the Terminal window still open?"));
+      xhr.onerror = () => reject(new Error('The upload failed. Is the Terminal window still open?'));
       xhr.send(file);
     });
   }
@@ -219,7 +326,7 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
 
   function setupDrop(kind, dropId, inputId, statusId, barId) {
     const drop = $(dropId), input = $(inputId), status = $(statusId), bar = $(barId);
-    const idle = status.textContent;
+    let idle = status.textContent;
     async function take(file) {
       if (!file) return;
       state.busy++; $('submitBtn').disabled = true;
@@ -235,64 +342,209 @@ pre { white-space:pre-wrap; word-break:break-word; background:var(--bg); padding
           if (r.minutes && !state.lengthTouched) $('length').value = r.minutes + ' min';
           $('audioNote').textContent = r.note || '';
           show($('audioNote'), !!r.note);
+        } else {
+          if (state.thumbUrl) URL.revokeObjectURL(state.thumbUrl);
+          state.thumbUrl = URL.createObjectURL(file);
         }
       } catch (e) {
         status.textContent = e.message;
       } finally {
         show(bar, false);
         state.busy--; if (!state.busy) $('submitBtn').disabled = false;
+        updatePreview();
       }
     }
-    input.onchange = () => take(input.files[0]);
+    input.onchange = () => { take(input.files[0]); };
     ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
     ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
-    drop.addEventListener('drop', (e) => take(e.dataTransfer.files[0]));
+    drop.addEventListener('drop', (e) => { e.stopPropagation(); take(e.dataTransfer.files[0]); });
+    drop.setIdle = (text) => { idle = text; };
     drop.resetIdle = () => { status.textContent = idle; drop.classList.remove('done'); input.value = ''; };
     window['__take_' + kind] = take;
   }
   setupDrop('audio', 'audioDrop', 'audioInput', 'audioStatus', 'audioBar');
   setupDrop('thumb', 'thumbDrop', 'thumbInput', 'thumbStatus', 'thumbBar');
 
-  ['length'].forEach((id) => $(id).addEventListener('input', () => { state.lengthTouched = true; }));
+  /* Drop files anywhere: audio and pictures find their own boxes. */
+  ['dragover', 'drop'].forEach((ev) => window.addEventListener(ev, (e) => e.preventDefault()));
+  window.addEventListener('drop', async (e) => {
+    const files = Array.from((e.dataTransfer && e.dataTransfer.files) || []);
+    if (!files.length) return;
+    if ($('panelAdd').hidden || state.mode !== 'add' || $('episodeForm').hidden) { await resetForm('add'); openPanel('add'); }
+    const unknown = [];
+    files.forEach((f) => {
+      if (AUDIO_EXT.includes(ext(f.name))) window.__take_audio(f);
+      else if (IMAGE_EXT.includes(ext(f.name))) window.__take_thumb(f);
+      else unknown.push(f.name);
+    });
+    if (unknown.length) { $('formError').textContent = "Studio doesn't know what to do with " + unknown.join(', ') + '. Audio: mp3, m4a, wav. Pictures: jpg, png, heic, webp.'; show($('formError'), true); }
+  });
+  window.addEventListener('beforeunload', (e) => { if (state.busy) { e.preventDefault(); e.returnValue = ''; } });
+
+  /* ---------- live preview ---------- */
+  function updatePreview() {
+    const n = $('number').value, date = $('date').value.trim(), len = $('length').value.trim();
+    $('pvLine').textContent = ['Episode ' + (n || '?'), date, len].filter(Boolean).join(' • ');
+    $('pvTitle').textContent = $('title').value.trim() || 'Your episode title';
+    const guest = $('guest').value.trim();
+    $('pvGuest').textContent = guest; show($('pvGuest'), !!guest);
+
+    const full = $('description').value;
+    const s = shorten(full);
+    const d = $('pvDesc');
+    d.textContent = s.text || 'Your description appears here.';
+    if (s.cut) { d.appendChild(document.createTextNode('… ')); const a = document.createElement('a'); a.textContent = 'more'; d.appendChild(a); }
+    $('pvCap').textContent = s.cut
+      ? 'The list shows the start of your description, then "more". The episode page shows all ' + full.trim().length + ' characters.'
+      : (full.trim() ? 'Your whole description fits on the list.' : '');
+
+    show($('pvListen'), !!(state.audio || state.currentAudio));
+    show($('pvYt'), !!$('youtube').value.trim());
+    $('pvThumb').src = state.thumbUrl || state.currentThumb || PLACEHOLDER;
+
+    const yt = $('youtube').value.trim(), note = $('ytNote');
+    if (!yt) { show(note, false); }
+    else if (!/^https?:\/\//i.test(yt)) { note.className = 'fieldnote warn'; note.textContent = 'This should start with https://'; show(note, true); }
+    else if (youtubeId(yt)) { note.className = 'fieldnote good'; note.textContent = "Video found. It will play on the episode's own page."; show(note, true); }
+    else { note.className = 'fieldnote warn'; note.textContent = "The button will work, but no video will appear on the episode's page. Paste the video's own address (it has watch?v= in it)."; show(note, true); }
+  }
+  $('pvThumb').onerror = () => { if ($('pvThumb').getAttribute('src') !== PLACEHOLDER) $('pvThumb').src = PLACEHOLDER; };
+
+  /* ---------- form helpers ---------- */
+  function clearErrors() {
+    ['number', 'title', 'description', 'youtube'].forEach((k) => { show($('err-' + k), false); $('f-' + k).classList.remove('bad'); });
+    show($('formError'), false);
+  }
+  function flag(key, message) {
+    $('err-' + key).textContent = message; show($('err-' + key), true);
+    $('f-' + key).classList.add('bad');
+    return key;
+  }
+  function validate() {
+    clearErrors();
+    const n = parseInt($('number').value, 10);
+    if (!(n >= 1)) return flag('number', 'Needs a whole number, like 4.');
+    if (state.mode === 'add' && state.episodes.some((e) => e.number === n)) return flag('number', 'Episode ' + n + ' already exists. Pick another number.');
+    if (!$('title').value.trim()) return flag('title', 'Please give the episode a title.');
+    if (!$('description').value.trim()) return flag('description', 'Please add a description.');
+    const yt = $('youtube').value.trim();
+    if (yt && !/^https?:\/\//i.test(yt)) return flag('youtube', 'The link should start with https://');
+    return '';
+  }
+
+  function saveDraft() {
+    if (state.mode !== 'add') return;
+    try {
+      const d = {}; FIELDS.forEach((k) => { d[k] = $(k).value; });
+      const any = ['title', 'guest', 'description', 'notes', 'youtube'].some((k) => d[k].trim());
+      if (any) localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); else localStorage.removeItem(DRAFT_KEY);
+    } catch (e) { /* drafts are a convenience only */ }
+  }
+  function loadDraft() {
+    try {
+      const d = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
+      if (!d) return false;
+      FIELDS.forEach((k) => { if (typeof d[k] === 'string') $(k).value = d[k]; });
+      state.dateTouched = !!d.date;
+      return ['title', 'guest', 'description', 'notes', 'youtube'].some((k) => (d[k] || '').trim());
+    } catch (e) { return false; }
+  }
+  function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) { /* ignore */ } }
+
+  FIELDS.concat(['number', 'length']).forEach((id) => $(id).addEventListener('input', () => { saveDraft(); updatePreview(); }));
+  $('length').addEventListener('input', () => { state.lengthTouched = true; });
   $('number').addEventListener('input', () => { state.numberTouched = true; });
   $('date').addEventListener('input', () => { state.dateTouched = true; });
 
-  /* ---------- add episode ---------- */
-  function resetForm() {
+  /* ---------- add / edit episode ---------- */
+  async function resetForm(mode) {
+    state.mode = mode || 'add'; state.editId = null;
     $('episodeForm').reset();
-    state.audio = state.thumb = null; state.lengthTouched = state.numberTouched = state.dateTouched = false;
+    state.audio = state.thumb = null; state.currentThumb = ''; state.currentAudio = '';
+    if (state.thumbUrl) { URL.revokeObjectURL(state.thumbUrl); state.thumbUrl = ''; }
+    state.lengthTouched = state.numberTouched = state.dateTouched = false;
+    $('audioDrop').setIdle('Drop an mp3 here, or click to choose');
+    $('thumbDrop').setIdle('Drop a picture here, or click to choose. Any size works.');
     $('audioDrop').resetIdle(); $('thumbDrop').resetIdle();
-    show($('audioNote'), false); show($('formError'), false);
+    $('number').readOnly = false;
+    $('formTitle').textContent = 'Add a new episode'; $('submitBtn').textContent = 'Add episode';
+    show($('audioNote'), false); clearErrors();
     show($('episodeForm'), true); show($('addDone'), false);
-    return refresh();
+    show($('draftNote'), state.mode === 'add' && loadDraft());
+    await refresh();
+    updatePreview();
+  }
+  $('clearDraft').onclick = () => { clearDraft(); resetForm('add'); };
+
+  async function openEdit(id) {
+    const r = await api('/__api/episode?id=' + encodeURIComponent(id));
+    if (!r.ok) { alert(r.message || 'Something went wrong.'); return; }
+    await resetForm('edit');
+    state.mode = 'edit'; state.editId = id;
+    show($('draftNote'), false);
+    $('formTitle').textContent = 'Edit episode ' + r.number;
+    $('submitBtn').textContent = 'Save changes';
+    $('number').value = r.number; $('number').readOnly = true;
+    ['date', 'length', 'title', 'guest', 'description', 'notes', 'youtube'].forEach((k) => { $(k).value = r[k] || ''; });
+    state.lengthTouched = true;
+    state.currentThumb = r.thumb_path || ''; state.currentAudio = r.audio_path || '';
+    const audioName = r.audio_path ? r.audio_path.split('/').pop() : '';
+    $('audioDrop').setIdle(audioName ? 'Current: ' + audioName + '. Drop a new file to replace it.' : 'No audio yet. Drop an mp3 here to add it.');
+    $('thumbDrop').setIdle(r.thumb_path && r.thumb_path.indexOf('placeholder') === -1 ? 'Current picture is in place. Drop a new one to replace it.' : 'No picture yet. Drop one here to add it.');
+    $('audioDrop').resetIdle(); $('thumbDrop').resetIdle();
+    updatePreview();
+    openPanel('add');
   }
 
   $('episodeForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    show($('formError'), false);
-    $('submitBtn').disabled = true; $('submitBtn').textContent = 'Adding...';
-    const r = await api('/__api/episode', {
+    const bad = validate();
+    if (bad) { const f = $('f-' + bad); f.scrollIntoView({ behavior: 'smooth', block: 'center' }); const i = f.querySelector('input,textarea'); if (i) i.focus({ preventScroll: true }); return; }
+    if (state.mode === 'add' && !state.audio && !confirm("You haven't added an audio file, so this episode won't have a Listen button.\n\nAdd it anyway?")) return;
+
+    const adding = state.mode === 'add';
+    $('submitBtn').disabled = true; $('submitBtn').textContent = adding ? 'Adding...' : 'Saving...';
+    const body = {
       number: $('number').value, date: $('date').value, length: $('length').value,
       title: $('title').value, guest: $('guest').value, description: $('description').value,
       notes: $('notes').value, youtube: $('youtube').value,
       audio_token: state.audio, thumb_token: state.thumb
-    });
-    $('submitBtn').disabled = false; $('submitBtn').textContent = 'Add episode';
+    };
+    if (!adding) body.id = state.editId;
+    const r = await api(adding ? '/__api/episode' : '/__api/update', body);
+    $('submitBtn').disabled = false; $('submitBtn').textContent = adding ? 'Add episode' : 'Save changes';
     if (!r.ok) { $('formError').textContent = r.message || 'Something went wrong.'; show($('formError'), true); return; }
-    $('doneTitle').textContent = 'Episode ' + r.number + ' added';
+
+    if (adding) clearDraft();
+    $('doneTitle').textContent = adding ? 'Episode ' + r.number + ' added' : 'Episode ' + r.number + ' saved';
+    $('doneText').textContent = adding
+      ? "It's on your site now, in the right place in the list. Nothing is live to the public until you publish."
+      : 'Your changes are on your site. Nothing is live to the public until you publish.';
+    $('addAnother').textContent = adding ? 'Add another' : 'Done';
     $('seeIt').href = r.url;
     show($('episodeForm'), false); show($('addDone'), true);
+    $('panelAdd').scrollIntoView({ behavior: 'smooth', block: 'start' });
     refresh();
   });
-  $('addAnother').onclick = resetForm;
+  $('addAnother').onclick = async () => { if (state.mode === 'add') { await resetForm('add'); } else { openPanel(null); } };
   $('publishNow').onclick = async () => { resetPublish(); await refresh(); openPanel('publish'); };
 
-  /* ---------- remove ---------- */
+  /* ---------- list actions: edit, remove, bring back ---------- */
   $('epList').addEventListener('click', async (e) => {
-    const id = e.target.getAttribute && e.target.getAttribute('data-remove');
+    const t = e.target;
+    const edit = t.getAttribute && t.getAttribute('data-edit');
+    if (edit) return openEdit(edit);
+    const id = t.getAttribute && t.getAttribute('data-remove');
     if (!id) return;
-    if (!confirm('Remove "' + e.target.getAttribute('data-title') + '" from your site?\n\nIts files go to a trash folder, so nothing is lost.')) return;
+    if (!confirm('Remove "' + t.getAttribute('data-title') + '" from your site?\n\nIts files go to a trash folder, and you can bring it back.')) return;
     const r = await api('/__api/remove', { id });
+    if (!r.ok) alert(r.message || 'Something went wrong.');
+    refresh();
+  });
+  $('removedList').addEventListener('click', async (e) => {
+    const bundle = e.target.getAttribute && e.target.getAttribute('data-restore');
+    if (!bundle) return;
+    const r = await api('/__api/restore', { bundle });
     if (!r.ok) alert(r.message || 'Something went wrong.');
     refresh();
   });

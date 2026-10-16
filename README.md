@@ -90,16 +90,23 @@ Double-click **`Tools/Website Studio.command`**. A Terminal window opens and
 Website Studio appears in your browser. It does the jobs that normally need
 technical skill, with big buttons and plain English:
 
-- **Add a new episode.** Fill in a form and drop in the audio and a picture —
-  any file name, any picture size. It renames the files, crops and sizes the
+- **Add a new episode.** Drop in the audio and a picture (anywhere on the page
+  works, any file name, any picture size), then fill in the words. A live
+  preview shows how the entry will look on the episode list, including where the
+  description gets shortened. Studio renames the files, crops and sizes the
   thumbnail, reads the episode length from the audio, compresses audio that's
   too big for GitHub, adds the episode to your site, and updates every page.
+  Unfinished episodes are remembered if you close the page.
+- **Edit an episode.** Fix a typo, change the description, or swap the audio or
+  picture. Entries that have extra formatting (a link inside the description,
+  bold text, extra paragraphs) are left for Dreamweaver, so Studio never
+  silently drops anything.
 - **Preview my website.** Opens your site exactly as visitors will see it.
 - **Publish to the live website.** Shows what's changed, then sends it live.
   If something goes wrong (no internet, a file that's too large, a sign-in
   problem) it tells you in plain words and nothing is lost.
 - **Remove an episode** (and clear out the two sample ones). Its files go to a
-  trash folder, never deleted.
+  trash folder, and **Bring back** under "Recently removed" restores it.
 
 Leave the Terminal window open while you work; press **Quit Studio** (or close
 the window) when you're done. If macOS says the file can't be opened,
