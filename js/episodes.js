@@ -263,6 +263,65 @@
         shorten(ep);
     }
 
+    /* "Copy link" next to the other links (phones get their share sheet). */
+    function addShareButton(ep) {
+        var linksEl = ep.el.querySelector('.episode-links');
+        if (!linksEl) return;
+        var shareUrl = window.location.origin + '/episode.html?ep=' + encodeURIComponent(ep.id);
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'episode-share';
+        btn.textContent = navigator.share ? 'Share' : 'Copy link';
+
+        function flash(text) {
+            var old = btn.textContent;
+            btn.textContent = text;
+            window.setTimeout(function () { btn.textContent = old; }, 2200);
+        }
+
+        btn.addEventListener('click', function () {
+            if (navigator.share) {
+                navigator.share({ title: ep.title, url: shareUrl }).catch(function () { /* they closed the sheet */ });
+            } else if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(shareUrl).then(function () { flash('Link copied'); }, function () { window.prompt('Copy this link:', shareUrl); });
+            } else {
+                window.prompt('Copy this link:', shareUrl);
+            }
+        });
+        linksEl.appendChild(btn);
+    }
+
+    /* Older / newer episode, so a listener can keep going without the list. */
+    function buildPager(position) {
+        var newer = position > 0 ? episodes[position - 1] : null;
+        var older = position < episodes.length - 1 ? episodes[position + 1] : null;
+        if (!newer && !older) return null;
+
+        var pager = document.createElement('nav');
+        pager.className = 'episode-pager';
+        pager.setAttribute('aria-label', 'More episodes');
+
+        function side(ep, cls, arrowFirst, label) {
+            var a = document.createElement('a');
+            a.className = cls;
+            if (!ep) { a.className += ' is-empty'; a.setAttribute('aria-hidden', 'true'); return a; }
+            a.href = detailUrl(ep);
+            var small = document.createElement('span');
+            small.className = 'episode-pager-label';
+            small.textContent = arrowFirst ? '\u2190 ' + label : label + ' \u2192';
+            var title = document.createElement('span');
+            title.className = 'episode-pager-title';
+            title.textContent = ep.title;
+            a.appendChild(small);
+            a.appendChild(title);
+            return a;
+        }
+        pager.appendChild(side(older, 'episode-pager-prev', true, 'Previous episode'));
+        pager.appendChild(side(newer, 'episode-pager-next', false, 'Next episode'));
+        return pager;
+    }
+
     /* Give this episode its own search/share details (title, summary, link,
        picture, and structured data), since one page shows every episode. */
     function describePage(ep) {
@@ -354,6 +413,8 @@
         return;
     }
 
+    var matchPosition = episodes.indexOf(match);
+
     /* Take untouched copies of the other episodes for "More to listen to"
        (newest first, up to 3) before they are removed from this page. */
     var suggestions = [];
@@ -381,6 +442,7 @@
     tidyLinks(match);
     tidyMeta(match);
     if (match.audioEl && match.audio) match.audioEl.setAttribute('download', '');
+    addShareButton(match);
 
     var back = document.createElement('p');
     back.className = 'episode-back';
@@ -406,4 +468,7 @@
         }
         list.parentNode.insertBefore(more, list.nextSibling);
     }
+
+    var pager = buildPager(matchPosition);
+    if (pager) list.parentNode.insertBefore(pager, list.nextSibling);
 })();

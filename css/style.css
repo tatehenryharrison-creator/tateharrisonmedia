@@ -596,6 +596,18 @@ nav .nav-links a[aria-current="page"] { opacity: 1; border-bottom: 1px solid #C9
 
 .episode-audio:hover { text-decoration: underline; }
 
+.episode-share {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: #5C6E82;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    margin-left: 4px;
+}
+.episode-share:hover { text-decoration: underline; }
+
 .episode-notes { margin-top: 26px; }
 .episode-notes h4 {
     font-family: 'Cinzel', serif;
@@ -639,6 +651,29 @@ nav .nav-links a[aria-current="page"] { opacity: 1; border-bottom: 1px solid #C9
 .episode-list.is-compact .episode-audio { display: none; }
 
 /* 7. SINGLE-EPISODE PAGE (episode.html) ---------------------------- */
+.episode-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 760px;
+    margin: 36px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(28,26,20,0.12);
+}
+.episode-pager a { display: block; flex: 1; text-decoration: none; color: #1C1A14; min-width: 0; }
+.episode-pager a.is-empty { visibility: hidden; }
+.episode-pager-next { text-align: right; }
+.episode-pager-label {
+    display: block;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6e6a5c;
+}
+.episode-pager-title { display: block; font-family: 'Cinzel', serif; font-size: 1.05rem; margin-top: 4px; }
+.episode-pager a:hover .episode-pager-title { color: #5C6E82; }
+
 .episode-back { max-width: 760px; margin: 0 auto 24px; }
 .episode-back a { color: #5C6E82; text-decoration: none; font-family: 'EB Garamond', serif; }
 .episode-back a:hover { text-decoration: underline; }
@@ -938,6 +973,10 @@ body.player-active { padding-bottom: 100px; }
     nav .brand { padding: 2px 0; }
     .social-link::after { display: none; }
     .episode-back a, .episode-audio, .contact-link { display: inline-block; padding: 8px 0; }
+    .episode-share { padding: 8px 4px; }
+    .episode-pager { flex-direction: column; }
+    .episode-pager a.is-empty { display: none; }
+    .episode-pager-next { text-align: left; }
     .more-link { padding: 6px 4px; }
 
     .nav-logo { height: 40px; }
