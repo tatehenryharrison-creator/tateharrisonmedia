@@ -890,22 +890,32 @@ body.player-active { padding-bottom: 76px; }
 
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
+    /* One compact row: logo on the left, menu on the right. */
     nav {
-        padding: 8px 3%;
-        flex-direction: column;
-        gap: 6px;
+        padding: 2px 3%;
+        gap: 4px;
     }
 
     nav .nav-links {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+        gap: 0;
     }
+
+    /* Bigger tap targets on phones (and no hover tooltips, which can't
+       be used by touch and were widening the page). */
+    nav .nav-links a { margin-left: 0; padding: 14px 7px; font-size: 0.95rem; }
+    nav .brand { padding: 2px 0; }
+    .social-link::after { display: none; }
+    .episode-back a, .episode-audio, .contact-link { display: inline-block; padding: 8px 0; }
+    .more-link { padding: 6px 4px; }
 
     .nav-logo { height: 40px; }
 
-    .podcast-hero { min-height: 70vh; padding: 90px 5% 60px; text-align: center; }
+    /* The menu is a normal bar above the hero, so the hero needs little top
+       padding; the bottom leaves room for the "Discover" arrow. */
+    .podcast-hero { min-height: 70vh; padding: 24px 5% 110px; text-align: center; }
 
     /* Disable parallax drift on mobile — avoids JS-driven jitter */
     .hero-parallax { transform: none !important; }
@@ -913,14 +923,14 @@ body.player-active { padding-bottom: 76px; }
     .podcast-hero-inner {
         flex-direction: column;
         align-items: center;
-        gap: 28px;
-        padding: 28px 20px;
-        width: 90%;
+        gap: 20px;
+        padding: 24px 18px;
+        width: 92%;
     }
 
     .podcast-hero-intro { margin-left: auto; margin-right: auto; }
 
-    .podcast-hero-cover-col { width: 220px; }
+    .podcast-hero-cover-col { width: 170px; }
 
     .podcast-subscribe, .podcast-social { justify-content: center; }
 
@@ -945,4 +955,8 @@ body.player-active { padding-bottom: 76px; }
     body.player-active { padding-bottom: 92px; }
     .mini-player { padding: 10px 4%; gap: 10px; }
     .mini-player-title { font-size: 0.8rem; }
+}
+
+@media (max-width: 360px) {
+    nav .nav-links a { padding: 14px 4px; font-size: 0.9rem; }
 }
