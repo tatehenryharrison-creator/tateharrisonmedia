@@ -52,7 +52,11 @@ and got the palette wrong; this has since been corrected sitewide):
 
 - Fonts, self-hosted in `/fonts/` and loaded via `css/fonts.css`:
   **Cinzel** (h1/h2 titles), **EB Garamond** (nav, labels, subtext),
-  **IM Fell English** (body copy)
+  **IM Fell English** (body copy). They are slimmed-down `.woff2` files (Latin
+  letters, accents, and common punctuation), which keeps pages fast. Characters
+  outside that set (for example Greek or Cyrillic) fall back to a system font.
+- Keep pictures web-sized before adding them by hand (the Website Studio does
+  this for you). Big files are the main thing that slows a page down.
 - Page background: `#f5f4f0` (parchment/cream)
 - Body text: `#1C1A14` (near-black); muted text `#635f51`; faint/secondary
   text `#a8a49c`

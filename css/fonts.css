@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'Cinzel';
-    src: url('/fonts/Cinzel-VariableFont_wght.ttf') format('truetype');
+    src: url('/fonts/Cinzel-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -16,14 +16,14 @@
 
 @font-face {
     font-family: 'EB Garamond';
-    src: url('/fonts/EBGaramond-VariableFont_wght.ttf') format('truetype');
+    src: url('/fonts/EBGaramond-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'EB Garamond';
-    src: url('/fonts/EBGaramond-Italic-VariableFont_wght.ttf') format('truetype');
+    src: url('/fonts/EBGaramond-Italic-VariableFont_wght.woff2') format('woff2');
     font-weight: 100 900;
     font-style: italic;
     font-display: swap;
@@ -31,14 +31,14 @@
 
 @font-face {
     font-family: 'IM Fell English';
-    src: url('/fonts/IMFellEnglish-Regular.ttf') format('truetype');
+    src: url('/fonts/IMFellEnglish-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 @font-face {
     font-family: 'IM Fell English';
-    src: url('/fonts/IMFellEnglish-Italic.ttf') format('truetype');
+    src: url('/fonts/IMFellEnglish-Italic.woff2') format('woff2');
     font-weight: 400;
     font-style: italic;
     font-display: swap;

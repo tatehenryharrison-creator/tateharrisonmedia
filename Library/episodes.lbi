@@ -1,6 +1,6 @@
 <article class="episode-entry episode-entry-blank">
     <div class="episode-entry-thumb">
-        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" loading="lazy" decoding="async" alt="Episode thumbnail">
     </div>
     <div class="episode-entry-body">
         <p class="episode-howto"><strong>NEW EPISODE STARTER &mdash; this block never shows on the website.</strong><br>
@@ -24,7 +24,7 @@
 
 <article class="episode-entry">
     <div class="episode-entry-thumb">
-        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" loading="lazy" decoding="async" alt="Episode thumbnail">
     </div>
     <div class="episode-entry-body">
         <p class="episode-number-line">Episode <span class="episode-number">2</span> &bull; <span class="episode-date">October 2026</span> &bull; <span class="episode-length">42 min</span></p>
@@ -41,7 +41,7 @@
 
 <article class="episode-entry">
     <div class="episode-entry-thumb">
-        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" alt="Episode thumbnail">
+        <img class="episode-thumb" src="/images/placeholder-thumb.svg" width="320" loading="lazy" decoding="async" alt="Episode thumbnail">
     </div>
     <div class="episode-entry-body">
         <p class="episode-number-line">Episode <span class="episode-number">1</span> &bull; <span class="episode-date">2026</span> &bull; <span class="episode-length">18 min</span></p>

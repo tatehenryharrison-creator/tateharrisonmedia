@@ -133,7 +133,7 @@ def build_article(f):
     out = [
         '<article class="episode-entry">',
         '    <div class="episode-entry-thumb">',
-        '        <img class="episode-thumb" src="%s" width="320" alt="Thumbnail for %s">' % (
+        '        <img class="episode-thumb" src="%s" width="320" loading="lazy" decoding="async" alt="Thumbnail for %s">' % (
             html.escape(thumb, quote=True), html.escape(f["title"].strip(), quote=True)),
         '    </div>',
         '    <div class="episode-entry-body">',
