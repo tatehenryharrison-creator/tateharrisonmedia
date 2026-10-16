@@ -40,6 +40,7 @@
 
     var current = readState();
     var lastSave = 0;
+    var BLANK_PIXEL = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
     function readState() {
         try {
@@ -118,7 +119,7 @@
         }
         titleEl.classList.remove('is-error');
         titleEl.textContent = current.title || '';
-        thumbEl.src = current.thumb || '';
+        thumbEl.src = current.thumb || BLANK_PIXEL;
         thumbEl.alt = current.title ? current.title + ' thumbnail' : '';
         showPlayer();
         setPlayingClass(current.playing);
