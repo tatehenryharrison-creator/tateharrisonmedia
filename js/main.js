@@ -8,3 +8,16 @@
     var waiting = document.querySelectorAll('a[href="#"][data-needs-link]');
     for (var i = 0; i < waiting.length; i++) waiting[i].hidden = true;
 })();
+
+/* Mark the current page in the menu (for screen readers, and the gold underline). */
+(function () {
+    var here = window.location.pathname.replace(/index\.html$/, '');
+    var links = document.querySelectorAll('nav .nav-links a');
+    for (var i = 0; i < links.length; i++) {
+        var target = links[i].pathname.replace(/index\.html$/, '');
+        if (links[i].hash) continue;
+        if (target === here || (target.length > 1 && here.indexOf(target) === 0 && target.slice(-1) === '/')) {
+            links[i].setAttribute('aria-current', 'page');
+        }
+    }
+})();

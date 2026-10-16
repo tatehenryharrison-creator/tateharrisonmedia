@@ -318,6 +318,14 @@
     if (mode !== 'detail') {
         list.classList.add('is-compact');
 
+        /* A list with no heading above it would jump from the page title to
+           the episode titles, so tell screen readers the titles are level 2. */
+        if (!document.querySelector('h2')) {
+            for (var t = 0; t < episodes.length; t++) {
+                if (episodes[t].titleEl) episodes[t].titleEl.setAttribute('aria-level', '2');
+            }
+        }
+
         for (var r = 0; r < episodes.length; r++) {
             if (limit && r >= limit) {
                 remove(episodes[r].el);
