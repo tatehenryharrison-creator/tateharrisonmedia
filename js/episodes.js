@@ -263,6 +263,57 @@
         shorten(ep);
     }
 
+    /* Give this episode its own search/share details (title, summary, link,
+       picture, and structured data), since one page shows every episode. */
+    function describePage(ep) {
+        var origin = 'https://tateharrisonmedia.com';
+        var url = origin + '/episode.html?ep=' + encodeURIComponent(ep.id);
+        var summary = ep.descEl ? clean(ep.descEl.textContent) : '';
+        if (summary.length > 155) summary = summary.slice(0, summary.lastIndexOf(' ', 155)).replace(/[\s.,;:!?-]+$/, '') + '…';
+        /* Addresses on this site become full public addresses. */
+        function publicUrl(href) { return href.indexOf(window.location.origin) === 0 ? origin + href.slice(window.location.origin.length) : href; }
+        var image = ep.thumb && ep.thumb.indexOf('placeholder') === -1 ? publicUrl(ep.thumb) : origin + '/images/og-image.jpg';
+
+        function setMeta(attr, key, value) {
+            var tag = document.querySelector('meta[' + attr + '="' + key + '"]');
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute(attr, key);
+                document.head.appendChild(tag);
+            }
+            tag.setAttribute('content', value);
+        }
+        var canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) canonical.setAttribute('href', url);
+
+        var full = ep.title + ' | ' + SITE_NAME;
+        setMeta('name', 'description', summary);
+        setMeta('property', 'og:type', 'article');
+        setMeta('property', 'og:title', full);
+        setMeta('property', 'og:description', summary);
+        setMeta('property', 'og:url', url);
+        setMeta('property', 'og:image', image);
+        setMeta('name', 'twitter:title', full);
+        setMeta('name', 'twitter:description', summary);
+        setMeta('name', 'twitter:image', image);
+
+        var data = {
+            '@context': 'https://schema.org',
+            '@type': 'PodcastEpisode',
+            name: ep.title,
+            url: url,
+            description: clean(ep.descEl ? ep.descEl.textContent : ''),
+            image: image,
+            partOfSeries: { '@type': 'PodcastSeries', name: 'Human Motivation', url: origin + '/' }
+        };
+        if (!isNaN(ep.number)) data.episodeNumber = ep.number;
+        if (ep.audio) data.associatedMedia = { '@type': 'AudioObject', contentUrl: publicUrl(ep.audio) };
+        var script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(data);
+        document.head.appendChild(script);
+    }
+
     /* ---- list pages ---- */
     if (mode !== 'detail') {
         list.classList.add('is-compact');
@@ -314,6 +365,7 @@
     }
 
     document.title = match.title + ' | ' + SITE_NAME;
+    describePage(match);
 
     addPlayButton(match, true);
     addVideo(match);

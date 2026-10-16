@@ -118,6 +118,8 @@ nav .nav-links a {
 
 nav .nav-links a:hover { opacity: 1; }
 
+a[hidden] { display: none !important; }
+
 /* 3. BUTTONS & LINKS ---------------------------------------- */
 .btn {
     display: inline-block;
