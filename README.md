@@ -212,7 +212,14 @@ plain multi-page sites work; avoiding it would mean turning the site into a
 single-page app — but the player resumes at the same spot automatically.
 Browsers sometimes block that automatic resume (their "autoplay" rules); when
 that happens the mini-player still appears, paused at the right spot, ready for
-one click.
+one click. It only auto-resumes if you were listening seconds ago; come back
+hours later and it waits, paused, instead of starting by surprise.
+
+The bar has back 15 / forward 30 seconds, a playback-speed button (remembered
+between visits), a time display, and a seek bar that works with the mouse, a
+finger, or the keyboard. Phone lock screens and headphone buttons can control
+it too. If an audio file is missing or fails to load, the bar says so instead of
+silently doing nothing.
 
 **Real audio files:** `audio/episode-001.mp3` and `episode-002.mp3` are short
 *silent* placeholders so the player works end-to-end. Replace them (or delete

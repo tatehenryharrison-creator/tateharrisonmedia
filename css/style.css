@@ -808,7 +808,7 @@ footer {
 /* 10b. SITE-WIDE MINI PLAYER ------------------------------------------ */
 /* Fixed bar at the bottom of every page (see js/player.js). Hidden
    until an episode is played, then stays visible across pages. */
-body.player-active { padding-bottom: 76px; }
+body.player-active { padding-bottom: 100px; }
 
 .mini-player {
     position: fixed;
@@ -855,10 +855,21 @@ body.player-active { padding-bottom: 76px; }
 }
 
 .mini-player-progress {
-    height: 3px;
-    border-radius: 2px;
+    height: 19px;
+    padding: 8px 0;
     background: rgba(245,244,240,0.2);
+    background-clip: content-box;
+    border-radius: 2px;
     cursor: pointer;
+    touch-action: none;
+}
+
+.mini-player-time {
+    margin: 2px 0 0;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: rgba(245,244,240,0.72);
 }
 
 .mini-player-progress-fill {
@@ -869,6 +880,8 @@ body.player-active { padding-bottom: 76px; }
 }
 
 .mini-player-playpause,
+.mini-player-skip,
+.mini-player-speed,
 .mini-player-close {
     flex-shrink: 0;
     display: flex;
@@ -887,6 +900,22 @@ body.player-active { padding-bottom: 76px; }
 .mini-player.is-playing .icon-pause { display: block; }
 
 .mini-player-close { font-size: 1.4rem; line-height: 1; }
+
+.mini-player-skip svg { width: 26px; height: 26px; }
+.mini-player-skip:hover, .mini-player-speed:hover, .mini-player-close:hover, .mini-player-playpause:hover { color: #C9A84C; }
+
+.mini-player-speed {
+    min-width: 44px;
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.mini-player-title.is-error { color: #e9c3b8; white-space: normal; }
+
+.mini-player button:focus-visible,
+.mini-player-progress:focus-visible { outline: 2px solid #C9A84C; outline-offset: 2px; }
 
 /* 11. MOBILE ---------------------------------------------------------- */
 @media (max-width: 768px) {
@@ -952,8 +981,11 @@ body.player-active { padding-bottom: 76px; }
     .episode-play-btn--large { width: 60px; height: 60px; }
     .episode-play-btn--large svg { width: 22px; height: 22px; }
 
-    body.player-active { padding-bottom: 92px; }
-    .mini-player { padding: 10px 4%; gap: 10px; }
+    body.player-active { padding-bottom: 104px; }
+    .mini-player { padding: 6px 3%; gap: 4px; }
+    .mini-player-thumb { display: none; }
+    .mini-player-skip svg { width: 24px; height: 24px; }
+    .mini-player-speed { min-width: 38px; font-size: 0.85rem; padding: 6px 2px; }
     .mini-player-title { font-size: 0.8rem; }
 }
 
